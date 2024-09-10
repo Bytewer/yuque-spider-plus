@@ -69,6 +69,7 @@ def save_page(book_id, slug, path, cookies=None):
             if not url.startswith('http'):
                 return match.group(0)
             url = url.split('#')[0]  # 移除URL中的所有参数
+            url = url.split('?')[0] # 移除URL中的？所有参数
             image_name = os.path.basename(url)
             # timestamp = int(time.time() * 1000)
             # extension = os.path.splitext(url)[1]

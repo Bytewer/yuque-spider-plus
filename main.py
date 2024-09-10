@@ -82,7 +82,7 @@ def save_page(book_id, slug, path, cookies=None):
                     img_file.write(image_data)
                 return f'![{image_name}](./assets/{image_name})'
             except requests.exceptions.RequestException as e:
-                print(f"图片下载失败: {e}")
+                print(f"图片下载失败: {e},url:{url}")
                 return match.group(0)
 
         markdown_content = re.sub(r'!\[.*?\]\((.*?)\)', download_image, markdown_content)

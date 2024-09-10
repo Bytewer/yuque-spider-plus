@@ -69,17 +69,18 @@ def save_page(book_id, slug, path, cookies=None):
             if not url.startswith('http'):
                 return match.group(0)
             url = url.split('#')[0]  # 移除URL中的所有参数
-            timestamp = int(time.time() * 1000)
-            extension = os.path.splitext(url)[1]
-            image_name = f"image-{timestamp}{extension}"
-            # 移除或替换文件名中的非法字符
-            image_name = re.sub(r'[<>:"/\\|?*]', '_', image_name)
+            image_name = os.path.basename(url)
+            # timestamp = int(time.time() * 1000)
+            # extension = os.path.splitext(url)[1]
+            # image_name = f"image-{timestamp}{extension}"
+            # # 移除或替换文件名中的非法字符
+            # image_name = re.sub(r'[<>:"/\\|?*]', '_', image_name)
             image_path = os.path.join(assets_dir, image_name)
             try:
                 image_data = requests.get(url, headers=headers, timeout=10).content
                 with open(image_path, 'wb') as img_file:
                     img_file.write(image_data)
-                return f'![image-{timestamp}](./assets/{image_name})'
+                return f'![{image_name}](./assets/{image_name})'
             except requests.exceptions.RequestException as e:
                 print(f"图片下载失败: {e}")
                 return match.group(0)

@@ -17,7 +17,7 @@ JDK中包含了JRE，JRE中包含了JVM。
 
 另外，JVM在执行Java字节码时，需要把字节码解释为机器指令，而不同操作系统的机器指令是有可能不一样的，所以就导致不同操作系统上的JVM是不一样的，所以我们在安装JDK时需要选择操作系统。
 
-另外，JVM是用来执行Java字节码的，所以凡是某个代码编译之后是Java字节码，那就都能在JVM上运行，比如Apache Groovy<font style="color:rgb(32, 33, 34);">, </font>Scala<font style="color:rgb(32, 33, 34);"> and </font>Kotlin<font style="color:rgb(32, 33, 34);"> </font>等等。
+另外，JVM是用来执行Java字节码的，所以凡是某个代码编译之后是Java字节码，那就都能在JVM上运行，比如Apache Groovy, Scala and Kotlin 等等。
 
 
 
@@ -190,11 +190,11 @@ JDK中包含了JRE，JRE中包含了JVM。
 
 + Java中的所有异常都来自顶级父类Throwable。
 + Throwable下有两个子类Exception和Error。
-+ Error表示非常严重的错误，比如<font style="color:rgb(18, 18, 18);">java.lang.StackOverFlowError和Java.lang.OutOfMemoryError，通常这些错误出现时，仅仅想靠程序自己是解决不了的，可能是虚拟机、磁盘、操作系统层面出现的问题了，所以通常也不建议在代码中去捕获这些Error，因为捕获的意义不大，因为程序可能已经根本运行不了了。</font>
++ Error表示非常严重的错误，比如java.lang.StackOverFlowError和Java.lang.OutOfMemoryError，通常这些错误出现时，仅仅想靠程序自己是解决不了的，可能是虚拟机、磁盘、操作系统层面出现的问题了，所以通常也不建议在代码中去捕获这些Error，因为捕获的意义不大，因为程序可能已经根本运行不了了。
 + Exception表示异常，表示程序出现Exception时，是可以靠程序自己来解决的，比如NullPointerException、IllegalAccessException等，我们可以捕获这些异常来做特殊处理。
 + Exception的子类通常又可以分为RuntimeException和非RuntimeException两类
-+ RunTimeException表示运行期异常，表示这个异常是在代码运行过程中抛出的，<font style="color:rgb(0, 0, 0);">这些异常是非检查异常，程序中可以选择捕获处理，也可以不处理。这些异常一般是由程序逻辑错误引起的，程序应该从逻辑角度尽可能避免这类异常的发生，比如NullPointerException、IndexOutOfBoundsException等。</font>
-+ 非RuntimeException表示非运行期异常，也就是我们常说的<font style="color:rgb(0, 0, 0);">检查异常，是必须进行处理的异常，如果不处理，程序就不能检查异常通过。如IOException、SQLException等以及用户自定义的Exception异常。</font>
++ RunTimeException表示运行期异常，表示这个异常是在代码运行过程中抛出的，这些异常是非检查异常，程序中可以选择捕获处理，也可以不处理。这些异常一般是由程序逻辑错误引起的，程序应该从逻辑角度尽可能避免这类异常的发生，比如NullPointerException、IndexOutOfBoundsException等。
++ 非RuntimeException表示非运行期异常，也就是我们常说的检查异常，是必须进行处理的异常，如果不处理，程序就不能检查异常通过。如IOException、SQLException等以及用户自定义的Exception异常。
 
 
 
@@ -212,13 +212,13 @@ JDK中包含了JRE，JRE中包含了JVM。
 
 
 ## 什么是Java中的泛型擦除？
-<font style="color:rgba(0, 0, 0, 0.75);">JDK1.5及1.5之前都是没有泛型的概念的，JDK1.5之后引入了泛型的概念并为了与之前的JDK版本兼容，所以引入了泛型擦除的概念。</font>
+JDK1.5及1.5之前都是没有泛型的概念的，JDK1.5之后引入了泛型的概念并为了与之前的JDK版本兼容，所以引入了泛型擦除的概念。
 
 
 
 ![1690204763239-0a36e926-3b2a-40d0-821b-429ac925e563.jpeg](./assets/1690204763239-0a36e926-3b2a-40d0-821b-429ac925e563.jpeg)
 
-<font style="color:rgba(0, 0, 0, 0.75);"></font>
+
 
  
 
@@ -262,7 +262,7 @@ JDK中包含了JRE，JRE中包含了JVM。
 
 
 
-<font style="color:rgba(0, 0, 0, 0.75);">另外，对于JVM，如果对每个泛型类型都生成不同的目标代码，假如现在有10个不同泛型的List，就要生成10份字节码，这样会造成不仅造成代码膨胀，而且一份字节码对应一个Class对象，占据大量的内存。</font>
+另外，对于JVM，如果对每个泛型类型都生成不同的目标代码，假如现在有10个不同泛型的List，就要生成10份字节码，这样会造成不仅造成代码膨胀，而且一份字节码对应一个Class对象，占据大量的内存。
 
 ## Java中有哪些类加载器
 ![1695284933934-d95c0fda-b61f-4fe2-900d-6aab251605a4.png](./assets/1695284933934-d95c0fda-b61f-4fe2-900d-6aab251605a4.png)
@@ -314,7 +314,7 @@ JVM在加载一个类时，会调用AppClassLoader的loadClass方法来加载这
 1. 可以使用jmap来查看JVM中各个区域的使用情况
 2. 可以通过jstack来查看线程的运行情况，比如哪些线程阻塞、是否出现了死锁
 3. 可以通过jstat命令来查看垃圾回收的情况，特别是fullgc，如果发现fullgc比较频繁，那么就得进行调优了
-4. 通过各个命令的结果，或者<font style="color:#333333;">jvisualvm等工具来进行分析</font>
+4. 通过各个命令的结果，或者jvisualvm等工具来进行分析
 5. 首先，初步猜测频繁发送fullgc的原因，如果频繁发生fullgc但是又一直没有出现内存溢出，那么表示fullgc实际上是回收了很多对象了，所以这些对象最好能在younggc过程中就直接回收掉，避免这些对象进入到老年代，对于这种情况，就要考虑这些存活时间不长的对象是不是比较大，导致年轻代放不下，直接进入到了老年代，尝试加大年轻代的大小，如果改完之后，fullgc减少，则证明修改有效
 6. 同时，还可以找到占用CPU最多的线程，定位到具体的方法，优化这个方法的执行，看是否能避免某些对象的创建，从而节省内存
 
@@ -322,7 +322,7 @@ JVM在加载一个类时，会调用AppClassLoader的loadClass方法来加载这
 
 对于已经发生了OOM的系统：
 
-1. 一般生产系统中都会设置当系统发生了OOM时，生成当时的dump文件（<font style="color:#333333;">-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/usr/local/base</font>）
+1. 一般生产系统中都会设置当系统发生了OOM时，生成当时的dump文件（-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/usr/local/base）
 2. 我们可以利用jsisualvm等工具来分析dump文件
 3. 根据dump文件找到异常的实例对象，和异常的线程（占用CPU高），定位到具体的代码
 4. 然后再进行详细的分析和调试
@@ -341,7 +341,7 @@ JVM在加载一个类时，会调用AppClassLoader的loadClass方法来加载这
 ## 一个对象从加载到JVM，再到被GC清除，都经历了什么过程？
 1. 首先把字节码文件内容加载到方法区
 2. 然后再根据类信息在堆区创建对象
-3. 对象首先会分配在堆区中年轻代的Eden区，经过一次Minor GC后，对象如果存活，就会进入<font style="color:rgb(77, 77, 77);">Suvivor</font>区。在后续的每次Minor GC中，如果对象一直存活，就会在<font style="color:rgb(77, 77, 77);">Suvivor</font>区来回拷贝，每移动一次，年龄加1
+3. 对象首先会分配在堆区中年轻代的Eden区，经过一次Minor GC后，对象如果存活，就会进入Suvivor区。在后续的每次Minor GC中，如果对象一直存活，就会在Suvivor区来回拷贝，每移动一次，年龄加1
 4. 当年龄超过15后，对象依然存活，对象就会进入老年代
 5. 如果经过Full GC，被标记为垃圾对象，那么就会被GC线程清理掉
 
@@ -399,9 +399,9 @@ JVM参数大致可以分为三类：
 
 
 ## ThreadLocal的底层原理
-1. ThreadLocal是Java中所提供的线程本地存储机制，可以利用该机制将数据<font style="color:#F5222D;">缓存在某个线程内部</font>，该线程可以在任意时刻、任意方法中获取缓存的数据
-2. ThreadLocal底层是通过<font style="color:#2C3E50;">ThreadLocalMap来实现的，每个Thread对象（注意不是ThreadLocal对象）中都存在一个</font><font style="color:#2C3E50;">ThreadLocalMap，</font><font style="color:#2C3E50;">Map的key为ThreadLocal对象，Map的value为需要缓存的值</font>
-3. <font style="color:#2C3E50;">如果在线程池中使用ThreadLocal会造成内存泄漏，因为当ThreadLocal对象使用完之后，应该要把设置的key，value，也就是Entry对象进行回收，但线程池中的线程不会回收，而线程对象是通过强引用指向</font><font style="color:#2C3E50;">ThreadLocalMap，ThreadLocalMap也是通过强引用指向Entry对象，线程不被回收，Entry对象也就不会被回收，从而出现内存泄漏，解决办法是，在使用了ThreadLocal对象之后，手动调用ThreadLocal的remove方法，手动清楚Entry对象</font>
+1. ThreadLocal是Java中所提供的线程本地存储机制，可以利用该机制将数据缓存在某个线程内部，该线程可以在任意时刻、任意方法中获取缓存的数据
+2. ThreadLocal底层是通过ThreadLocalMap来实现的，每个Thread对象（注意不是ThreadLocal对象）中都存在一个ThreadLocalMap，Map的key为ThreadLocal对象，Map的value为需要缓存的值
+3. 如果在线程池中使用ThreadLocal会造成内存泄漏，因为当ThreadLocal对象使用完之后，应该要把设置的key，value，也就是Entry对象进行回收，但线程池中的线程不会回收，而线程对象是通过强引用指向ThreadLocalMap，ThreadLocalMap也是通过强引用指向Entry对象，线程不被回收，Entry对象也就不会被回收，从而出现内存泄漏，解决办法是，在使用了ThreadLocal对象之后，手动调用ThreadLocal的remove方法，手动清楚Entry对象
 4. ThreadLocal经典的应用场景就是连接管理（一个线程持有一个连接，该连接对象可以在不同的方法之间进行传递，线程之间不共享同一个连接）
 
 ![1622816023795-3ae4931c-bcab-4e8c-a987-4fecf53f9855.png](./assets/1622816023795-3ae4931c-bcab-4e8c-a987-4fecf53f9855.png)
@@ -412,8 +412,8 @@ JVM参数大致可以分为三类：
 
 
 1. 串行：一个任务执行完，才能执行下一个任务
-2. 并行(<font style="color:rgb(77, 77, 77);">Parallelism</font>)：两个任务同时执行
-3. 并发(<font style="color:rgb(77, 77, 77);">Concurrency</font>)：两个任务整体看上去是同时执行，在底层，两个任务被拆成了很多份，然后一个一个执行，站在更高的角度看来两个任务是同时在执行的
+2. 并行(Parallelism)：两个任务同时执行
+3. 并发(Concurrency)：两个任务整体看上去是同时执行，在底层，两个任务被拆成了很多份，然后一个一个执行，站在更高的角度看来两个任务是同时在执行的
 
 
 
@@ -472,26 +472,26 @@ JVM参数大致可以分为三类：
 
 ![1626185425264-6d9a8ab7-12d9-4032-8fa4-1bcc40231009.png](./assets/1626185425264-6d9a8ab7-12d9-4032-8fa4-1bcc40231009.png)                                                   ![1626185427450-d6a6ab8e-94a4-4e7a-be68-bab2d06b320c.png](./assets/1626185427450-d6a6ab8e-94a4-4e7a-be68-bab2d06b320c.png)
 
-**<font style="color:#F5222D;"></font>**
+****
 
 ## ReentrantLock中tryLock()和lock()方法的区别
 1. tryLock()表示尝试加锁，可能加到，也可能加不到，该方法不会阻塞线程，如果加到锁则返回true，没有加到则返回false
 2. lock()表示阻塞加锁，线程会阻塞直到加到锁，方法也没有返回值
 
-**<font style="color:#F5222D;"></font>**
+****
 
-<font style="color:#F5222D;"></font>
+
 
 ## CountDownLatch和Semaphore的区别和底层原理
-CountDownLatch表示计数器，可以给CountDownLatch设置一个数字，一个线程调用CountDownLatch的<font style="color:#4D4D4D;">await()将会阻塞，其他线程可以调用</font>CountDownLatch的countDown()方法来对CountDownLatch中的数字减一，当数字被减成0后，所有await的线程都将被唤醒。
+CountDownLatch表示计数器，可以给CountDownLatch设置一个数字，一个线程调用CountDownLatch的await()将会阻塞，其他线程可以调用CountDownLatch的countDown()方法来对CountDownLatch中的数字减一，当数字被减成0后，所有await的线程都将被唤醒。
 
-对应的底层原理就是，调用<font style="color:#4D4D4D;">await()方法的线程会利用AQS排队，一旦数字被减为0，则会将AQS中排队的线程依次唤醒。</font>
+对应的底层原理就是，调用await()方法的线程会利用AQS排队，一旦数字被减为0，则会将AQS中排队的线程依次唤醒。
 
 
 
-<font style="color:#4D4D4D;">Semaphore表示信号量，可以设置许可的个数，表示同时允许最多多少个线程使用该信号量，通过</font><font style="color:#4D4D4D;">acquire()来获取许可，如果没有许可可用则线程阻塞，并通过AQS来排队，可以通过</font><font style="color:#4D4D4D;">release()方法来释放许可，当某个线程释放了某个许可后，会从AQS中正在排队的第一个线程开始依次唤醒，直到没有空闲许可。</font>
+Semaphore表示信号量，可以设置许可的个数，表示同时允许最多多少个线程使用该信号量，通过acquire()来获取许可，如果没有许可可用则线程阻塞，并通过AQS来排队，可以通过release()方法来释放许可，当某个线程释放了某个许可后，会从AQS中正在排队的第一个线程开始依次唤醒，直到没有空闲许可。
 
-<font style="color:#F5222D;"></font>
+
 
 ## Sychronized的偏向锁、轻量级锁、重量级锁
 1. 偏向锁：在锁对象的对象头中记录一下当前获取到该锁的线程ID，该线程下次如果又来获取该锁就可以直接获取到了
@@ -624,7 +624,7 @@ CountDownLatch表示计数器，可以给CountDownLatch设置一个数字，一�
 ## Spring事务失效的八大场景与原因分析
 
 
-**<font style="color:#E8323C;">图灵课堂-周瑜</font>**
+**图灵课堂-周瑜**
 
 
 
@@ -661,7 +661,7 @@ Spring中一个Bean的创建大概分为以下几个步骤：
 
 
 
-<font style="color:#F5222D;"></font>
+
 
 ## Spring中Bean是线程安全的吗
 Spring本身并没有针对Bean做线程安全的处理，所以：
@@ -673,12 +673,12 @@ Spring本身并没有针对Bean做线程安全的处理，所以：
 
 另外，Bean是不是线程安全，跟Bean的作用域没有关系，Bean的作用域只是表示Bean的生命周期范围，对于任何生命周期的Bean都是一个对象，这个对象是不是线程安全的，还是得看这个Bean对象本身。
 
-<font style="color:#F5222D;"></font>
+
 
 ## ApplicationContext和BeanFactory有什么区别
 BeanFactory是Spring中非常核心的组件，表示Bean工厂，可以生成Bean，维护Bean，而ApplicationContext继承了BeanFactory，所以ApplicationContext拥有BeanFactory所有的特点，也是一个Bean工厂，但是ApplicationContext除开继承了BeanFactory之外，还继承了诸如EnvironmentCapable、MessageSource、ApplicationEventPublisher等接口，从而ApplicationContext还有获取系统环境变量、国际化、事件发布等功能，这是BeanFactory所不具备的
 
-<font style="color:#F5222D;"></font>
+
 
 ## Spring中的事务是如何实现的
 1. Spring事务底层是基于数据库事务和AOP机制的
@@ -697,7 +697,7 @@ BeanFactory是Spring中非常核心的组件，表示Bean工厂，可以生成Be
 
 ![1622966825505-41961ccc-19e0-4f70-8182-e6e3337eb3af.png](./assets/1622966825505-41961ccc-19e0-4f70-8182-e6e3337eb3af.png)
 
-<font style="color:#F5222D;"></font>
+
 
 ## Spring中什么时候@Transactional会失效
 因为Spring事务是基于代理来实现的，所以某个加了@Transactional的方法只有是被代理对象调用时，那么这个注解才会生效，所以如果是被代理对象来调用这个方法，那么@Transactional是不会失效的。
@@ -706,7 +706,7 @@ BeanFactory是Spring中非常核心的组件，表示Bean工厂，可以生成Be
 
 同时如果某个方法是private的，那么@Transactional也会失效，因为底层cglib是基于父子类来实现的，子类是不能重载父类的private方法的，所以无法很好的利用代理，也会导致@Transactianal失效
 
-<font style="color:#F5222D;"></font>
+
 
 ## Spring容器启动流程是怎样的
 1. 在创建Spring容器，也就是启动Spring时：
@@ -722,7 +722,7 @@ BeanFactory是Spring中非常核心的组件，表示Bean工厂，可以生成Be
 
 
 
-<font style="color:#F5222D;"></font>
+
 
 ## Spring用到了哪些设计模式
 
@@ -737,16 +737,16 @@ BeanFactory是Spring中非常核心的组件，表示Bean工厂，可以生成Be
     2. @EnableAutoConfiguration：向Spring容器中导入了一个Selector，用来加载ClassPath下SpringFactories中所定义的自动配置类，将这些自动加载为配置Bean
     3. @ComponentScan：标识扫描路径，因为默认是没有配置实际扫描路径，所以SpringBoot扫描的路径是启动类所在的当前目录
 2. @Bean注解：用来定义Bean，类似于XML中的<bean>标签，Spring在启动时，会对加了@Bean注解的方法进行解析，将方法的名字做为beanName，并通过执行方法得到bean对象
-3. @Controller、@Service、@<font style="color:#121212;">ResponseBody、@Autowired都可以说</font>
+3. @Controller、@Service、@ResponseBody、@Autowired都可以说
 
-<font style="color:#F5222D;"></font>
 
-## <font style="color:#121212;">Spring Boot是如何启动Tomcat的</font>
+
+## Spring Boot是如何启动Tomcat的
 1. 首先，SpringBoot在启动时会先创建一个Spring容器
 2. 在创建Spring容器过程中，会利用@ConditionalOnClass技术来判断当前classpath中是否存在Tomcat依赖，如果存在则会生成一个启动Tomcat的Bean
 3. Spring容器创建完之后，就会获取启动Tomcat的Bean，并创建Tomcat对象，并绑定端口等，然后启动Tomcat
 
-<font style="color:#F5222D;"></font>
+
 
 
 
@@ -1115,7 +1115,7 @@ Mysql索引使用的是B+树，因为索引是用来加快查询的，而B+树�
 ## Mysql中多大的表是大表？
 
 
-**<font style="color:#E8323C;">图灵课堂-周瑜</font>**
+**图灵课堂-周瑜**
 
 
 
@@ -1178,7 +1178,7 @@ Mysql索引使用的是B+树，因为索引是用来加快查询的，而B+树�
 ## count(*)与count(1)有什么区别
 
 
-**<font style="color:#E8323C;">图灵课堂-周瑜</font>**
+**图灵课堂-周瑜**
 
 
 
@@ -1474,9 +1474,9 @@ Redis的主从复制是提高Redis的可靠性的有效措施，主从复制的�
 
 1. 集群启动时，主从库间会先建立连接，为全量复制做准备
 2. 主库将所有数据同步给从库。从库收到数据后，在本地完成数据加载，这个过程依赖于内存快照RDB
-3. <font style="color:#000000;">在主库将数据同步给从库的过程中，主库不会阻塞，仍然可以正常接收请求。否则，redis的服务就被中断了。但是，这些请求中的写操作并没有记录到刚刚生成的RDB文件中。为了保证主从库的数据一致性，主库会在内存中用专门的replication buffer，记录RDB文件生成收到的所有写操作。</font>
-4. <font style="color:#000000;">最后，也就是第三个阶段，主库会把第二阶段执行过程中新收到的写命令，再发送给从库。具体的操作是，当主库完成RDB文件发送后，就会把此时replocation buffer中修改操作发送给从库，从库再执行这些操作。这样一来，主从库就实现同步了</font>
-5. <font style="color:#000000;">后续主库和从库都可以处理客户端读操作，写操作只能交给主库处理，主库接收到写操作后，还会将写操作发送给从库，实现增量同步</font>
+3. 在主库将数据同步给从库的过程中，主库不会阻塞，仍然可以正常接收请求。否则，redis的服务就被中断了。但是，这些请求中的写操作并没有记录到刚刚生成的RDB文件中。为了保证主从库的数据一致性，主库会在内存中用专门的replication buffer，记录RDB文件生成收到的所有写操作。
+4. 最后，也就是第三个阶段，主库会把第二阶段执行过程中新收到的写命令，再发送给从库。具体的操作是，当主库完成RDB文件发送后，就会把此时replocation buffer中修改操作发送给从库，从库再执行这些操作。这样一来，主从库就实现同步了
+5. 后续主库和从库都可以处理客户端读操作，写操作只能交给主库处理，主库接收到写操作后，还会将写操作发送给从库，实现增量同步
 
 ##### 
 ## Redis集群策略
@@ -1506,17 +1506,17 @@ Redis提供了三种集群策略：
 
 
 
-## <font style="color:#333333;">Redis的持久化机制</font>
-<font style="color:#333333;">RDB</font><font style="color:#333333;">：</font><font style="color:#333333;">Redis DataBase </font><font style="color:#333333;">将某一个时刻的内存快照（</font><font style="color:#333333;">Snapshot</font><font style="color:#333333;">），以二进制的方式写入磁盘。</font>
+## Redis的持久化机制
+RDB：Redis DataBase 将某一个时刻的内存快照（Snapshot），以二进制的方式写入磁盘。
 
-<font style="color:#333333;">手动触发：</font>
+手动触发：
 
-+ <font style="color:#333333;">save命令，使 Redis 处于阻塞状态，直到 RDB 持久化完成，才会响应其他客户端发来的命令，所以在生产环境一定要慎用</font>
-+ <font style="color:#333333;">bgsave</font><font style="color:#333333;">命令，</font><font style="color:#333333;">fork</font><font style="color:#333333;">出一个子进程执行持久化，主进程只在</font><font style="color:#333333;">fork</font><font style="color:#333333;">过程中有短暂的阻塞，子进程创建</font><font style="color:#333333;">       </font><font style="color:#333333;">之后，主进程就可以响应客户端请求了</font>
-+ <font style="color:#333333;">自动触发：</font>
-+ <font style="color:#333333;">save m n </font><font style="color:#333333;">：在 </font><font style="color:#333333;">m </font><font style="color:#333333;">秒内，如果有 </font><font style="color:#333333;">n </font><font style="color:#333333;">个键发生改变，则自动触发持久化，通过</font><font style="color:#333333;">bgsave</font><font style="color:#333333;">执行，如果设</font><font style="color:#333333;">置多个、只要满足其一就会触发，配置文件有默认配置</font><font style="color:#333333;">(</font><font style="color:#333333;">可以注释掉</font><font style="color:#333333;">)</font>
-+ <font style="color:#333333;">flushall</font><font style="color:#333333;">：用于清空</font><font style="color:#333333;">redis</font><font style="color:#333333;">所有的数据库，</font><font style="color:#333333;">flushdb</font><font style="color:#333333;">清空当前</font><font style="color:#333333;">redis</font><font style="color:#333333;">所在库数据</font><font style="color:#333333;">(</font><font style="color:#333333;">默认是</font><font style="color:#333333;">0</font><font style="color:#333333;">号数据库</font><font style="color:#333333;">)</font><font style="color:#333333;">，会</font><font style="color:#333333;">  </font><font style="color:#333333;">清空</font><font style="color:#333333;">RDB</font><font style="color:#333333;">文件，同时也会生成</font><font style="color:#333333;">dump.rdb</font><font style="color:#333333;">、内容为空</font>
-+ <font style="color:#333333;">主从同步：全量同步时会自动触发bgsave命令，生成rdb发送给从节点</font>
++ save命令，使 Redis 处于阻塞状态，直到 RDB 持久化完成，才会响应其他客户端发来的命令，所以在生产环境一定要慎用
++ bgsave命令，fork出一个子进程执行持久化，主进程只在fork过程中有短暂的阻塞，子进程创建       之后，主进程就可以响应客户端请求了
++ 自动触发：
++ save m n ：在 m 秒内，如果有 n 个键发生改变，则自动触发持久化，通过bgsave执行，如果设置多个、只要满足其一就会触发，配置文件有默认配置(可以注释掉)
++ flushall：用于清空redis所有的数据库，flushdb清空当前redis所在库数据(默认是0号数据库)，会  清空RDB文件，同时也会生成dump.rdb、内容为空
++ 主从同步：全量同步时会自动触发bgsave命令，生成rdb发送给从节点
 
 
 
@@ -1529,70 +1529,70 @@ Redis提供了三种集群策略：
 
 缺点：
 
-1. <font style="color:#333333;">数据安全性低。RDB 是间隔一段时间进行持久化，如果持久化之间 redis 发生故障，会发生数据丢失。所以这种方式更适合数据要求不严谨的时候)</font>
-2. <font style="color:#333333;">由于RDB是通过fork子进程来协助完成数据持久化工作的，因此，如果当数据集较大时，可能会导致整个服务器停止服务几百毫秒，甚至是1秒钟。会占用cpu</font>
+1. 数据安全性低。RDB 是间隔一段时间进行持久化，如果持久化之间 redis 发生故障，会发生数据丢失。所以这种方式更适合数据要求不严谨的时候)
+2. 由于RDB是通过fork子进程来协助完成数据持久化工作的，因此，如果当数据集较大时，可能会导致整个服务器停止服务几百毫秒，甚至是1秒钟。会占用cpu
 
 
 
-<font style="color:#333333;">AOF</font><font style="color:#333333;">：</font><font style="color:#333333;">Append Only File </font><font style="color:#333333;">以日志的形式记录服务器所处理的每一个写、删除操作，查询操作不会记录，以文本的方式记录，可以打开文件看到详细的操作记录，调操作系统命令进程刷盘</font>
+AOF：Append Only File 以日志的形式记录服务器所处理的每一个写、删除操作，查询操作不会记录，以文本的方式记录，可以打开文件看到详细的操作记录，调操作系统命令进程刷盘
 
-1. <font style="color:#333333;">所有的写命令会追加到 AOF 缓冲中。</font>
-2. <font style="color:#333333;">AOF 缓冲区根据对应的策略向硬盘进行同步操作。</font>
-3. <font style="color:#333333;">随着 AOF 文件越来越大，需要定期对 AOF 文件进行重写，达到压缩的目的。</font>
-4. <font style="color:#333333;">当 Redis 重启时，可以加载 AOF 文件进行数据恢复。同步策略：</font>
+1. 所有的写命令会追加到 AOF 缓冲中。
+2. AOF 缓冲区根据对应的策略向硬盘进行同步操作。
+3. 随着 AOF 文件越来越大，需要定期对 AOF 文件进行重写，达到压缩的目的。
+4. 当 Redis 重启时，可以加载 AOF 文件进行数据恢复。同步策略：
 
-<font style="color:#333333;">每秒同步：异步完成，效率非常高，一旦系统出现宕机现象，那么这一秒钟之内修改的数据将会丢</font><font style="color:#333333;">  </font><font style="color:#333333;">失</font>
+每秒同步：异步完成，效率非常高，一旦系统出现宕机现象，那么这一秒钟之内修改的数据将会丢  失
 
-<font style="color:#333333;">每修改同步：同步持久化，每次发生的数据变化都会被立即记录到磁盘中，最多丢一条 不同步：由操作系统控制，可能丢失较多数据</font>
+每修改同步：同步持久化，每次发生的数据变化都会被立即记录到磁盘中，最多丢一条 不同步：由操作系统控制，可能丢失较多数据
 
-<font style="color:#333333;"></font>
 
-<font style="color:#333333;">优点：</font>
 
-1. <font style="color:#333333;">数据安全</font>
-2. <font style="color:#333333;">通过 append 模式写文件，即使中途服务器宕机也不会破坏已经存在的内容，可以通过 redis- check-aof 工具解决数据一致性问题。</font>
-3. <font style="color:#333333;">AOF 机制的 rewrite 模式。定期对AOF文件进行重写，以达到压缩的目的</font>
+优点：
+
+1. 数据安全
+2. 通过 append 模式写文件，即使中途服务器宕机也不会破坏已经存在的内容，可以通过 redis- check-aof 工具解决数据一致性问题。
+3. AOF 机制的 rewrite 模式。定期对AOF文件进行重写，以达到压缩的目的
 
 缺点：
 
-1. <font style="color:#333333;">AOF 文件比 RDB 文件大，且恢复速度慢。</font>
-2. <font style="color:#333333;">数据集大的时候，比 rdb 启动效率低。</font>
-3. <font style="color:#333333;">运行效率没有RDB高</font>
-
-<font style="color:#333333;"></font>
-
-<font style="color:#333333;">对比：</font>
-
-+ <font style="color:#333333;">AOF文件比RDB更新频率高，优先使用AOF还原数据。AOF比RDB更安全也更大</font>
-+ <font style="color:#333333;">RDB</font><font style="color:#333333;">性能比</font><font style="color:#333333;">AOF</font><font style="color:#333333;">好</font>
-+ <font style="color:#333333;">如果两个都配了优先加载AOF</font>
+1. AOF 文件比 RDB 文件大，且恢复速度慢。
+2. 数据集大的时候，比 rdb 启动效率低。
+3. 运行效率没有RDB高
 
 
 
+对比：
 
-
-## <font style="color:#333333;">Redis</font><font style="color:#333333;">单线程为什么这么快</font>
-<font style="color:#333333;">Redis</font><font style="color:#333333;">基于</font><font style="color:#333333;">Reactor</font><font style="color:#333333;">模式开发了网络事件处理器、文件事件处理器 </font><font style="color:#333333;">file</font><font style="color:#333333;">event</font><font style="color:#333333;">handler</font><font style="color:#333333;">。它是单线程的， </font><font style="color:#333333;">所以 </font><font style="color:#333333;">Redis</font><font style="color:#333333;">才叫做单线程的模型，它采用</font><font style="color:#333333;">IO</font><font style="color:#333333;">多路复用机制来同时监听多个</font><font style="color:#333333;">Socket</font><font style="color:#333333;">，根据</font><font style="color:#333333;">Socket</font><font style="color:#333333;">上的事件</font><font style="color:#333333;">类型来选择对应的事件处理器来处理这个事件。可以实现高性能的网络通信模型，又可以跟内部其他单</font><font style="color:#333333;">  </font><font style="color:#333333;">线程的模块进行对接，保证了 </font><font style="color:#333333;">Redis</font><font style="color:#333333;">内部的线程模型的简单性。</font>
-
-<font style="color:#333333;">文件事件处理器的结构包含</font><font style="color:#333333;">4</font><font style="color:#333333;">个部分：多个</font><font style="color:#333333;">Socket</font><font style="color:#333333;">、</font><font style="color:#333333;">IO</font><font style="color:#333333;">多路复用程序、文件事件分派器以及事件处理器</font>
-
-<font style="color:#333333;">（命令请求处理器、命令回复处理器、连接应答处理器等）。</font>
-
-<font style="color:#333333;">多个 </font><font style="color:#333333;">Socket </font><font style="color:#333333;">可能并发的产生不同的事件，</font><font style="color:#333333;">IO</font><font style="color:#333333;">多路复用程序会监听多个 </font><font style="color:#333333;">Socket</font><font style="color:#333333;">，会将 </font><font style="color:#333333;">Socket </font><font style="color:#333333;">放入一个</font><font style="color:#333333;">队列中排队，每次从队列中有序、同步取出一个 </font><font style="color:#333333;">Socket </font><font style="color:#333333;">给事件分派器，事件分派器把 </font><font style="color:#333333;">Socket </font><font style="color:#333333;">给对应的</font><font style="color:#333333;">事件处理器。</font>
-
-<font style="color:#333333;">然后一个 </font><font style="color:#333333;">Socket </font><font style="color:#333333;">的事件处理完之后，</font><font style="color:#333333;">IO</font><font style="color:#333333;">多路复用程序才会将队列中的下一个 </font><font style="color:#333333;">Socket </font><font style="color:#333333;">给事件分派器。文</font><font style="color:#333333;">件事件分派器会根据每个 </font><font style="color:#333333;">Socket </font><font style="color:#333333;">当前产生的事件，来选择对应的事件处理器来处理。</font>
++ AOF文件比RDB更新频率高，优先使用AOF还原数据。AOF比RDB更安全也更大
++ RDB性能比AOF好
++ 如果两个都配了优先加载AOF
 
 
 
-1. <font style="color:#333333;">Redis启动初始化时，将连接应答处理器跟AE_READABLE事件关联。</font>
-2. <font style="color:#333333;">若一个客户端发起连接，会产生一个AE_READABLE事件，然后由连接应答处理器负责和客户端建立      连接，创建客户端对应的socket，同时将这个socket的AE_READABLE事件和命令请求处理器关联，使 得客户端可以向主服务器发送命令请求。</font>
-3. <font style="color:#333333;">当客户端向Redis发请求时（不管读还是写请求），客户端socket都会产生一个AE_READABLE事件，触发命令请求处理器。处理器读取客户端的命令内容， 然后传给相关程序执行。</font>
-4. <font style="color:#333333;">当Redis服务器准备好给客户端的响应数据后，会将socket的AE_WRITABLE事件和命令回复处理器关联，当客户端准备好读取响应数据时，会在socket产生一个AE_WRITABLE事件，由对应命令回复处  理器处理，即将准备好的响应数据写入socket，供客户端读取。</font>
-5. <font style="color:#333333;">命令回复处理器全部写完到 socket 后，就会删除该socket的AE_WRITABLE事件和命令回复处理器的映射。</font>
+
+
+## Redis单线程为什么这么快
+Redis基于Reactor模式开发了网络事件处理器、文件事件处理器 fileeventhandler。它是单线程的， 所以 Redis才叫做单线程的模型，它采用IO多路复用机制来同时监听多个Socket，根据Socket上的事件类型来选择对应的事件处理器来处理这个事件。可以实现高性能的网络通信模型，又可以跟内部其他单  线程的模块进行对接，保证了 Redis内部的线程模型的简单性。
+
+文件事件处理器的结构包含4个部分：多个Socket、IO多路复用程序、文件事件分派器以及事件处理器
+
+（命令请求处理器、命令回复处理器、连接应答处理器等）。
+
+多个 Socket 可能并发的产生不同的事件，IO多路复用程序会监听多个 Socket，会将 Socket 放入一个队列中排队，每次从队列中有序、同步取出一个 Socket 给事件分派器，事件分派器把 Socket 给对应的事件处理器。
+
+然后一个 Socket 的事件处理完之后，IO多路复用程序才会将队列中的下一个 Socket 给事件分派器。文件事件分派器会根据每个 Socket 当前产生的事件，来选择对应的事件处理器来处理。
 
 
 
-<font style="color:#333333;">单线程快的原因：</font>
+1. Redis启动初始化时，将连接应答处理器跟AE_READABLE事件关联。
+2. 若一个客户端发起连接，会产生一个AE_READABLE事件，然后由连接应答处理器负责和客户端建立      连接，创建客户端对应的socket，同时将这个socket的AE_READABLE事件和命令请求处理器关联，使 得客户端可以向主服务器发送命令请求。
+3. 当客户端向Redis发请求时（不管读还是写请求），客户端socket都会产生一个AE_READABLE事件，触发命令请求处理器。处理器读取客户端的命令内容， 然后传给相关程序执行。
+4. 当Redis服务器准备好给客户端的响应数据后，会将socket的AE_WRITABLE事件和命令回复处理器关联，当客户端准备好读取响应数据时，会在socket产生一个AE_WRITABLE事件，由对应命令回复处  理器处理，即将准备好的响应数据写入socket，供客户端读取。
+5. 命令回复处理器全部写完到 socket 后，就会删除该socket的AE_WRITABLE事件和命令回复处理器的映射。
+
+
+
+单线程快的原因：
 
 1. 纯内存操作
 2. 核心是基于非阻塞的IO多路复用机制
@@ -1602,12 +1602,12 @@ Redis提供了三种集群策略：
 
 
 
-## <font style="color:#333333;">简述</font><font style="color:#333333;">Redis</font><font style="color:#333333;">事务实现</font>
+## 简述Redis事务实现
 
 
 + 事务开始：MULTI命令的执行，标识着一个事务的开始。MULTI命令会将客户端状态的 flags属性中打开REDIS_MULTI标识来完成的。
 + 命令入队：当一个客户端切换到事务状态之后，服务器会根据这个客户端发送来的命令来执行不同的操作。如果客  户端发送的命令为MULTI、EXEC、WATCH、DISCARD中的一个，立即执行这个命令，否则将命令放入一   个事务队列里面，然后向客户端返回QUEUED回复，如果客户端发送的命令为 EXEC、DISCARD、WATCH、MULTI 四个命令的其中一个，那么服务器立即执行这个命令。如果客户端发送的是四个命令以外的其他命令，那么服务器并不立即执行这个命令。首先检查此命令的格式是否正确，如果不正确，服务器会在客户端状态（redisClient）的 flags 属性关闭 REDIS_MULTI 标识，并且返回错误信息给客户端。如果正确，将这个命令放入一个事务队列里面，然后向客户端返回 QUEUED 回复事务队列是按照FIFO的方式保存入队的命令
-+ 事务执行：<font style="color:#333333;">客户端发送 EXEC 命令，服务器执行 EXEC 命令逻辑。如果客户端状态的 flags 属性不包含 REDIS_MULTI 标识，或者包含 REDIS_DIRTY_CAS 或者REDIS_DIRTY_EXEC 标识，那么就直接取消事务的执行。 否则客户端处于事务状态（flags有 REDIS_MULTI  标识），服务器会遍历客户端的事务队列，然后执行事务队列中的所有命令，最后将返回结果全部返回给客户端；Redis不支持事务回滚机制，但是它会检查每一个事务中的命令是否错误。Redis事务不支持检查那些程序员自己逻辑错误。例如对 String 类型的数据库键执行对 HashMap 类型的操作！</font>
++ 事务执行：客户端发送 EXEC 命令，服务器执行 EXEC 命令逻辑。如果客户端状态的 flags 属性不包含 REDIS_MULTI 标识，或者包含 REDIS_DIRTY_CAS 或者REDIS_DIRTY_EXEC 标识，那么就直接取消事务的执行。 否则客户端处于事务状态（flags有 REDIS_MULTI  标识），服务器会遍历客户端的事务队列，然后执行事务队列中的所有命令，最后将返回结果全部返回给客户端；Redis不支持事务回滚机制，但是它会检查每一个事务中的命令是否错误。Redis事务不支持检查那些程序员自己逻辑错误。例如对 String 类型的数据库键执行对 HashMap 类型的操作！
 
 # 
 ## 什么是CAP理论
@@ -1625,26 +1625,26 @@ CAP理论是分布式领域中非常重要的一个指导理论，C（Consistenc
 
 可用性表示，一个分布式系统对外要保证可用。
 
-<font style="color:#F5222D;"></font>
+
 
 ## 什么是BASE理论
 由于不能同时满足CAP，所以出现了BASE理论：
 
 1. BA：Basically Available，表示基本可用，表示可以允许一定程度的不可用，比如由于系统故障，请求时间变长，或者由于系统故障导致部分非核心功能不可用，都是允许的
 2. S：Soft state：表示分布式系统可以处于一种中间状态，比如数据正在同步
-3. E：Eventually consistent，表示最终一致性，不要求分布式系统数据实时达到一致，允许在经过一段时间后再达到一致，在达到一致过程中，系统也是可用的<font style="color:#F5222D;"></font>
+3. E：Eventually consistent，表示最终一致性，不要求分布式系统数据实时达到一致，允许在经过一段时间后再达到一致，在达到一致过程中，系统也是可用的
 
 ## 什么是RPC
 RPC，表示远程过程调用，对于Java这种面试对象语言，也可以理解为远程方法调用，RPC调用和HTTP调用是有区别的，RPC表示的是一种调用远程方法的方式，可以使用HTTP协议、或直接基于TCP协议来实现RPC，在Java中，我们可以通过直接使用某个服务接口的代理对象来执行方法，而底层则通过构造HTTP请求来调用远端的方法，所以，有一种说法是RPC协议是HTTP协议之上的一种协议，也是可以理解的。
 
-<font style="color:#F5222D;"></font>
 
-<font style="color:#F5222D;"></font>
 
-## <font style="color:#333333;">数据一致性模型有哪些</font>
-+ <font style="color:#333333;">强一致性：当更新操作完成之后，任何多个后续进程的访问都会返回最新的更新过的值，这种是对用户  最友好的，就是用户上一次写什么，下一次就保证能读到什么。根据 CAP理论，这种实现需要牺牲可用性。</font>
-+ <font style="color:#333333;">弱一致性：系统在数据写入成功之后，不承诺立即可以读到最新写入的值，也不会具体的承诺多久之后</font><font style="color:#333333;">  </font><font style="color:#333333;">可以读到。用户读到某一操作对系统数据的更新需要一段时间，我们称这段时间为</font><font style="color:#333333;">“</font><font style="color:#333333;">不一致性窗口</font><font style="color:#333333;">”</font><font style="color:#333333;">。</font>
-+ <font style="color:#333333;">最终一致性：最终一致性是弱一致性的特例，强调的是所有的数据副本，在经过一段时间的同步之后，  最终都能够达到一个一致的状态。因此，最终一致性的本质是需要系统保证最终数据能够达到一致，而  不需要实时保证系统数据的强一致性。到达最终一致性的时间  ，就是不一致窗口时间，在没有故障发生的前提下，不一致窗口的时间主要受通信延迟，系统负载和复制副本的个数影响。最终一致性模型根据其提供的不同保证可以划分为更多的模型，包括因果一致性和会话一致性等。</font>
+
+
+## 数据一致性模型有哪些
++ 强一致性：当更新操作完成之后，任何多个后续进程的访问都会返回最新的更新过的值，这种是对用户  最友好的，就是用户上一次写什么，下一次就保证能读到什么。根据 CAP理论，这种实现需要牺牲可用性。
++ 弱一致性：系统在数据写入成功之后，不承诺立即可以读到最新写入的值，也不会具体的承诺多久之后  可以读到。用户读到某一操作对系统数据的更新需要一段时间，我们称这段时间为“不一致性窗口”。
++ 最终一致性：最终一致性是弱一致性的特例，强调的是所有的数据副本，在经过一段时间的同步之后，  最终都能够达到一个一致的状态。因此，最终一致性的本质是需要系统保证最终数据能够达到一致，而  不需要实时保证系统数据的强一致性。到达最终一致性的时间  ，就是不一致窗口时间，在没有故障发生的前提下，不一致窗口的时间主要受通信延迟，系统负载和复制副本的个数影响。最终一致性模型根据其提供的不同保证可以划分为更多的模型，包括因果一致性和会话一致性等。
 
 ## 分布式ID是什么？有哪些解决方案？
 在开发中，我们通常会需要一个唯一ID来标识数据，如果是单体架构，我们可以通过数据库的主键，或直接在内存中维护一个自增数字来作为ID都是可以的，但对于一个分布式系统，就会有可能会出现ID冲突，此时有以下解决方案：
@@ -1656,7 +1656,7 @@ RPC，表示远程过程调用，对于Java这种面试对象语言，也可以�
 
 
 
-<font style="color:#F5222D;"></font>
+
 
 ## 分布式锁的使用场景是什么？有哪些实现方案？
 在单体架构中，多个线程都是属于同一个进程的，所以在线程并发执行时，遇到资源竞争时，可以利用ReentrantLock、synchronized等技术来作为锁，来控制共享资源的使用。
@@ -1672,7 +1672,7 @@ RPC，表示远程过程调用，对于Java这种面试对象语言，也可以�
 1. zookeeper：利用的是zookeeper的临时节点、顺序节点、watch机制来实现的，zookeeper分布式锁的特点是高一致性，因为zookeeper保证的是CP，所以由它实现的分布式锁更可靠，不会出现混乱
 2. redis：利用redis的setnx、lua脚本、消费订阅等机制来实现的，redis分布式锁的特点是高可用，因为redis保证的是AP，所以由它实现的分布式锁可能不可靠，不稳定（一旦redis中的数据出现了不一致），可能会出现多个客户端同时加到锁的情况
 
-<font style="color:#F5222D;"></font>
+
 
 ## 什么是分布式事务？有哪些实现方案？
 在分布式系统中，一次业务处理可能需要多个应用来实现，比如用户发送一次下单请求，就涉及到订单系统创建订单、库存系统减库存，而对于一次下单，订单创建与减库存应该是要同时成功或同时失败的，但在分布式系统中，如果不做处理，就很有可能出现订单创建成功，但是减库存失败，那么解决这类问题，就需要用到分布式事务。常用解决方案有：
@@ -1686,7 +1686,7 @@ RPC，表示远程过程调用，对于Java这种面试对象语言，也可以�
     5. 如果消费失败，则根据重试策略进行重试，最后还失败则进入死信队列，等待进一步处理
 3. Seata：阿里开源的分布式事务框架，支持AT、TCC等多种模式，底层都是基于两阶段提交理论来实现的
 
-<font style="color:#F5222D;"></font>
+
 
 ## 什么是ZAB协议
 ZAB协议是Zookeeper用来实现一致性的原子广播协议，该协议描述了Zookeeper是如何实现一致性的，分为三个阶段：
@@ -1951,7 +1951,7 @@ Eureka各个节点都是平等的，几个节点挂掉不会影响正常节点�
 
 
 
-## <font style="color:#333333;">存储拆分后如何解决唯一主键问题</font>
+## 存储拆分后如何解决唯一主键问题
 + UUID：简单、性能好，没有顺序，没有业务含义，存在泄漏mac地址的风险
 + 数据库主键：实现简单，单调递增，具有一定的业务可读性，强依赖db、存在性能瓶颈，存在暴露业务 信息的风险
 + redis，mongodb，zk等中间件：增加了系统的复杂度和稳定性  
@@ -1959,27 +1959,27 @@ Eureka各个节点都是平等的，几个节点挂掉不会影响正常节点�
 
 
 
-## <font style="color:#333333;">雪花算法原理</font>
+## 雪花算法原理
 ![1627449092303-9281aa79-94f4-4eae-9ddc-22e5b53eed2e.png](./assets/1627449092303-9281aa79-94f4-4eae-9ddc-22e5b53eed2e.png)
 
-<font style="color:#333333;">第一位符号位固定为0，41位时间戳，10位workId，12位序列号，位数可以有不同实现。</font>
-
-<font style="color:#333333;"></font>
-
-<font style="color:#333333;">优点：每个毫秒值包含的ID值很多，不够可以变动位数来增加，性能佳（依赖workId的实现）。时间戳值在高位，中间是固定的机器码，自增的序列在低位，整个ID是趋势递增的。能够根据业务场景数据库节点布置灵活调整bit位划分，灵活度高。</font>
-
-<font style="color:#333333;"></font>
-
-<font style="color:#333333;">缺点：强依赖于机器时钟，如果时钟回拨，会导致重复的ID生成，所以一般基于此的算法发现时钟回 拨，都会抛异常处理，阻止ID生成，这可能导致服务不可用。</font>
+第一位符号位固定为0，41位时间戳，10位workId，12位序列号，位数可以有不同实现。
 
 
 
-## <font style="color:#333333;">如何解决不使用分区键的查询问题</font>
+优点：每个毫秒值包含的ID值很多，不够可以变动位数来增加，性能佳（依赖workId的实现）。时间戳值在高位，中间是固定的机器码，自增的序列在低位，整个ID是趋势递增的。能够根据业务场景数据库节点布置灵活调整bit位划分，灵活度高。
+
+
+
+缺点：强依赖于机器时钟，如果时钟回拨，会导致重复的ID生成，所以一般基于此的算法发现时钟回 拨，都会抛异常处理，阻止ID生成，这可能导致服务不可用。
+
+
+
+## 如何解决不使用分区键的查询问题
 ****
 
-+ <font style="color:#333333;">映射：将查询条件的字段与分区键进行映射，建一张单独的表维护(使用覆盖索引)或者在缓存中维 护</font>
-+ <font style="color:#333333;">基因法：分区键的后</font><font style="color:#333333;">x</font><font style="color:#333333;">个</font><font style="color:#333333;">bit</font><font style="color:#333333;">位由查询字段进行</font><font style="color:#333333;">hash</font><font style="color:#333333;">后占用，分区键直接取</font><font style="color:#333333;">x</font><font style="color:#333333;">个</font><font style="color:#333333;">bit</font><font style="color:#333333;">位获取分区，查询字段进行</font><font style="color:#333333;">hash</font><font style="color:#333333;">获取分区，适合非分区键查询字段只有一个的情况</font>
-+ <font style="color:#333333;">冗余：查询字段冗余存储</font>
++ 映射：将查询条件的字段与分区键进行映射，建一张单独的表维护(使用覆盖索引)或者在缓存中维 护
++ 基因法：分区键的后x个bit位由查询字段进行hash后占用，分区键直接取x个bit位获取分区，查询字段进行hash获取分区，适合非分区键查询字段只有一个的情况
++ 冗余：查询字段冗余存储
 
 ## Spring Cloud有哪些常用组件，作用是什么？
 1. Eureka：注册中心
@@ -2000,95 +2000,95 @@ Eureka各个节点都是平等的，几个节点挂掉不会影响正常节点�
 
 
 
-## <font style="color:#333333;">如何避免缓存穿透、缓存击穿、缓存雪崩？</font>
-<font style="color:#333333;">缓存雪崩是指缓存同一时间大面积的失效，所以，后面的请求都会落到数据库上，造成数据库短时间内承受大量请求而崩掉。</font>
+## 如何避免缓存穿透、缓存击穿、缓存雪崩？
+缓存雪崩是指缓存同一时间大面积的失效，所以，后面的请求都会落到数据库上，造成数据库短时间内承受大量请求而崩掉。
 
 解决方案：
 
-+ <font style="color:#333333;">缓存数据的过期时间设置随机，防止同一时间大量数据过期现象发生。</font>
-+ <font style="color:#333333;">给每一个缓存数据增加相应的缓存标记，记录缓存是否失效，如果缓存标记失效，则更新数据缓存。</font>
-+ <font style="color:#333333;">缓存预热互斥锁</font>
++ 缓存数据的过期时间设置随机，防止同一时间大量数据过期现象发生。
++ 给每一个缓存数据增加相应的缓存标记，记录缓存是否失效，如果缓存标记失效，则更新数据缓存。
++ 缓存预热互斥锁
 
 
 
-<font style="color:#333333;">缓存穿透是指缓存和数据库中都没有的数据，导致所有的请求都落到数据库上，造成数据库短时间内承</font><font style="color:#333333;">  </font><font style="color:#333333;">受大量请求而崩掉。</font>
+缓存穿透是指缓存和数据库中都没有的数据，导致所有的请求都落到数据库上，造成数据库短时间内承  受大量请求而崩掉。
 
 解决方案：
 
-+ <font style="color:#333333;">接口层增加校验，如用户鉴权校验，id做基础校验，id<=0的直接拦截；</font>
-+ <font style="color:#333333;">从缓存取不到的数据，在数据库中也没有取到，这时也可以将</font><font style="color:#333333;">key-value</font><font style="color:#333333;">对写为</font><font style="color:#333333;">key-null</font><font style="color:#333333;">，缓存有</font><font style="color:#333333;">    </font><font style="color:#333333;">效时间可以设置短点，如</font><font style="color:#333333;">30</font><font style="color:#333333;">秒（设置太长会导致正常情况也没法使用）</font><font style="color:#333333;">。这样可以防止攻击用户 </font><font style="color:#333333;">反复用同一个</font><font style="color:#333333;">id</font><font style="color:#333333;">暴力攻击</font>
-+ <font style="color:#333333;">采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的 bitmap 中，一个一定不存在的数据会被这个 bitmap 拦截掉，从而避免了对底层存储系统的查询压力</font>
++ 接口层增加校验，如用户鉴权校验，id做基础校验，id<=0的直接拦截；
++ 从缓存取不到的数据，在数据库中也没有取到，这时也可以将key-value对写为key-null，缓存有    效时间可以设置短点，如30秒（设置太长会导致正常情况也没法使用）。这样可以防止攻击用户 反复用同一个id暴力攻击
++ 采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的 bitmap 中，一个一定不存在的数据会被这个 bitmap 拦截掉，从而避免了对底层存储系统的查询压力
 
   
-<font style="color:#333333;">缓存击穿是指缓存中没有但数据库中有的数据（一般是缓存时间到期），</font><font style="color:#333333;">这时由于并发用户特别多，同</font><font style="color:#333333;">  </font><font style="color:#333333;">时读缓存没读到数据，又同时去数据库去取数据，引起数据库压力瞬间增大，造成过大压力。和缓存雪</font><font style="color:#333333;">  </font><font style="color:#333333;">崩不同的是，缓存击穿指并发查同一条数据，缓存雪崩是不同数据都过期了，很多数据都查不到从而查</font><font style="color:#333333;">  </font><font style="color:#333333;">数据库。</font>
+缓存击穿是指缓存中没有但数据库中有的数据（一般是缓存时间到期），这时由于并发用户特别多，同  时读缓存没读到数据，又同时去数据库去取数据，引起数据库压力瞬间增大，造成过大压力。和缓存雪  崩不同的是，缓存击穿指并发查同一条数据，缓存雪崩是不同数据都过期了，很多数据都查不到从而查  数据库。
 
 解决方案：
 
-+ <font style="color:#333333;">设置热点数据永远不过期。加互斥锁</font>
++ 设置热点数据永远不过期。加互斥锁
 
 
 
 
 
-## <font style="color:#333333;">分布式系统中常用的缓存方案有哪些</font>
-+ <font style="color:#333333;">客户端缓存：页面和浏览器缓存，APP缓存，H5缓存，localStorage 和 sessionStorage CDN缓存：内容存储：数据的缓存，内容分发：负载均衡</font>
-+ <font style="color:#333333;">nginx</font><font style="color:#333333;">缓存：静态资源</font>
-+ <font style="color:#333333;">服务端缓存：本地缓存，外部缓存</font>
-+ <font style="color:#333333;">数据库缓存：持久层缓存（mybatis，hibernate多级缓存），mysql查询缓存 操作系统缓存：PageCache、BufferCache</font>
+## 分布式系统中常用的缓存方案有哪些
++ 客户端缓存：页面和浏览器缓存，APP缓存，H5缓存，localStorage 和 sessionStorage CDN缓存：内容存储：数据的缓存，内容分发：负载均衡
++ nginx缓存：静态资源
++ 服务端缓存：本地缓存，外部缓存
++ 数据库缓存：持久层缓存（mybatis，hibernate多级缓存），mysql查询缓存 操作系统缓存：PageCache、BufferCache
 
 
 
 
 
-## <font style="color:#333333;">缓存过期都有哪些策略？</font>
-+ <font style="color:#333333;">定时过期：每个设置过期时间的key都需要创建一个定时器，到过期时间就会立即清除。该策略可以立 即清除过期的数据，对内存很友好；但是会占用大量的CPU资源去处理过期的数据，从而影响缓存的响应时间和吞吐量</font>
-+ <font style="color:#333333;">惰性过期：只有当访问一个</font><font style="color:#333333;">key</font><font style="color:#333333;">时，才会判断该</font><font style="color:#333333;">key</font><font style="color:#333333;">是否已过期，过期则清除。该策略可以最大化地节省</font><font style="color:#333333;">CPU</font><font style="color:#333333;">资源，但是很消耗内存、许多的过期数据都还存在内存中。极端情况可能出现大量的过期</font><font style="color:#333333;">key</font><font style="color:#333333;">没有 再次被访问，从而不会被清除，占用大量内存。</font>
-+ <font style="color:#333333;">定期过期：每隔一定的时间，会扫描一定数量的数据库的</font><font style="color:#333333;">expires</font><font style="color:#333333;">字典中一定数量的</font><font style="color:#333333;">key</font><font style="color:#333333;">（是随机的</font><font style="color:#333333;">）， </font><font style="color:#333333;">并清除其中已过期的</font><font style="color:#333333;">key</font><font style="color:#333333;">。该策略是定时过期和惰性过期的折中方案。通过调整定时扫描的时间间隔和 每次扫描的限定耗时，可以在不同情况下使得</font><font style="color:#333333;">CPU</font><font style="color:#333333;">和内存资源达到最优的平衡效果。</font>
-+ <font style="color:#333333;">分桶策略：定期过期的优化，将过期时间点相近的key放在一起，按时间扫描分桶。</font>
+## 缓存过期都有哪些策略？
++ 定时过期：每个设置过期时间的key都需要创建一个定时器，到过期时间就会立即清除。该策略可以立 即清除过期的数据，对内存很友好；但是会占用大量的CPU资源去处理过期的数据，从而影响缓存的响应时间和吞吐量
++ 惰性过期：只有当访问一个key时，才会判断该key是否已过期，过期则清除。该策略可以最大化地节省CPU资源，但是很消耗内存、许多的过期数据都还存在内存中。极端情况可能出现大量的过期key没有 再次被访问，从而不会被清除，占用大量内存。
++ 定期过期：每隔一定的时间，会扫描一定数量的数据库的expires字典中一定数量的key（是随机的）， 并清除其中已过期的key。该策略是定时过期和惰性过期的折中方案。通过调整定时扫描的时间间隔和 每次扫描的限定耗时，可以在不同情况下使得CPU和内存资源达到最优的平衡效果。
++ 分桶策略：定期过期的优化，将过期时间点相近的key放在一起，按时间扫描分桶。
 
 
 
 
 
-## <font style="color:#333333;">常见的缓存淘汰算法</font>
-+ <font style="color:#333333;">FIFO（First In First Out，先进先出），根据缓存被存储的时间，离当前最远的数据优先被淘汰；</font>
-+ <font style="color:#333333;">LRU</font><font style="color:#333333;">（</font><font style="color:#333333;">Least</font><font style="color:#333333;">Recently</font><font style="color:#333333;">Used</font><font style="color:#333333;">，最近最少使用），</font><font style="color:#333333;">根据最近被使用的时间，离当前最远的数据优先被淘</font><font style="color:#333333;">汰；</font>
-+ <font style="color:#333333;">LFU（LeastFrequentlyUsed，最不经常使用），在一段时间内，缓存数据被使用次数最少的会被淘汰。</font>
+## 常见的缓存淘汰算法
++ FIFO（First In First Out，先进先出），根据缓存被存储的时间，离当前最远的数据优先被淘汰；
++ LRU（LeastRecentlyUsed，最近最少使用），根据最近被使用的时间，离当前最远的数据优先被淘汰；
++ LFU（LeastFrequentlyUsed，最不经常使用），在一段时间内，缓存数据被使用次数最少的会被淘汰。
 
   
 
 
-## <font style="color:#333333;">布隆过滤器原理，优缺点</font>
-+ <font style="color:#333333;">位图：int[10]，每个int类型的整数是4*8=32个bit，则int[10]一共有320 bit，每个bit非0即1，初始化时都是0</font>
-+ <font style="color:#333333;">添加数据时：将数据进行hash得到hash值，对应到bit位，将该bit改为1，hash函数可以定义多个，则      一个数据添加会将多个（hash函数个数）bit改为1，多个hash函数的目的是减少hash碰撞的概率</font>
-+ <font style="color:#333333;">查询数据：hash函数计算得到hash值，对应到bit中，如果有一个为0，则说明数据不在bit中，如果都为1，则该数据可能在bit中</font>
+## 布隆过滤器原理，优缺点
++ 位图：int[10]，每个int类型的整数是4*8=32个bit，则int[10]一共有320 bit，每个bit非0即1，初始化时都是0
++ 添加数据时：将数据进行hash得到hash值，对应到bit位，将该bit改为1，hash函数可以定义多个，则      一个数据添加会将多个（hash函数个数）bit改为1，多个hash函数的目的是减少hash碰撞的概率
++ 查询数据：hash函数计算得到hash值，对应到bit中，如果有一个为0，则说明数据不在bit中，如果都为1，则该数据可能在bit中
 
 
 
-<font style="color:#333333;">优点：</font>
+优点：
 
-+ <font style="color:#333333;">占用内存小</font>
-+ <font style="color:#333333;">增加和查询元素的时间复杂度为：</font><font style="color:#333333;">O(K), (K</font><font style="color:#333333;">为哈希函数的个数，一般比较小</font><font style="color:#333333;">)</font><font style="color:#333333;">，与数据量大小无关哈希函数相互之间没有关系，方便硬件并行运算</font>
-+ <font style="color:#333333;">布隆过滤器不需要存储元素本身，在某些对保密要求比较严格的场合有很大优势 </font><font style="color:#333333;">数据量很大时，布隆过滤器可以表示全集</font>
-+ <font style="color:#333333;">使用同一组散列函数的布隆过滤器可以进行交、并、差运算</font>
-
-<font style="color:#333333;"></font>
-
-<font style="color:#333333;">缺点：</font>
-
-+ <font style="color:#333333;">误判率，即存在假阳性(False  Position)，不能准确判断元素是否在集合中不能获取元素本身</font>
-+ <font style="color:#333333;">一般情况下不能从布隆过滤器中删除元素</font>
++ 占用内存小
++ 增加和查询元素的时间复杂度为：O(K), (K为哈希函数的个数，一般比较小)，与数据量大小无关哈希函数相互之间没有关系，方便硬件并行运算
++ 布隆过滤器不需要存储元素本身，在某些对保密要求比较严格的场合有很大优势 数据量很大时，布隆过滤器可以表示全集
++ 使用同一组散列函数的布隆过滤器可以进行交、并、差运算
 
 
 
+缺点：
+
++ 误判率，即存在假阳性(False  Position)，不能准确判断元素是否在集合中不能获取元素本身
++ 一般情况下不能从布隆过滤器中删除元素
 
 
-## <font style="color:#333333;">分布式缓存寻址算法</font>
+
+
+
+## 分布式缓存寻址算法
 ****
 
-+ <font style="color:#333333;">hash算法：根据key进行hash函数运算、结果对分片数取模，确定分片   适合固定分片数的场景，扩展分片或者减少分片时，所有数据都需要重新计算分片、存储</font>
-+ <font style="color:#333333;">一致性hash：将整个hash值得区间组织成一个闭合的圆环，计算每台服务器的hash值、映射到圆环中。使用相同的hash算法计算数据的hash值，映射到圆环，顺时针寻找，找到的第一个服务器就是数据存储的服务器。新增及减少节点时只会影响节点到他逆时针最近的一个服务器之间的值 存在hash环倾斜的问题，即服务器分布不均匀，可以通过虚拟节点解决</font>
-+ <font style="color:#333333;">hash   slot：将数据与服务器隔离开，数据与slot映射，slot与服务器映射，数据进行hash决定存放的slot，新增及删除节点时，将slot进行迁移即可</font>
++ hash算法：根据key进行hash函数运算、结果对分片数取模，确定分片   适合固定分片数的场景，扩展分片或者减少分片时，所有数据都需要重新计算分片、存储
++ 一致性hash：将整个hash值得区间组织成一个闭合的圆环，计算每台服务器的hash值、映射到圆环中。使用相同的hash算法计算数据的hash值，映射到圆环，顺时针寻找，找到的第一个服务器就是数据存储的服务器。新增及减少节点时只会影响节点到他逆时针最近的一个服务器之间的值 存在hash环倾斜的问题，即服务器分布不均匀，可以通过虚拟节点解决
++ hash   slot：将数据与服务器隔离开，数据与slot映射，slot与服务器映射，数据进行hash决定存放的slot，新增及删除节点时，将slot进行迁移即可
 
 ##### 
 ## Spring Cloud和Dubbo有哪些区别？
@@ -2248,9 +2248,9 @@ Conusmer消费消息的时候同样从NameServer获取Broker地址，然后主�
 ##### 
 ## 死信队列是什么？延时队列是什么？
 1. 死信队列也是一个消息队列，它是用来存放那些没有成功消费的消息的，通常可以用来作为消息重试
-2. <font style="color:#121212;">延时队列就是用来存放需要在指定时间被处理的元素的队列，通常可以用来处理一些具有过期性操作的业务，比如十分钟内未支付则取消订单</font>
+2. 延时队列就是用来存放需要在指定时间被处理的元素的队列，通常可以用来处理一些具有过期性操作的业务，比如十分钟内未支付则取消订单
 
-<font style="color:#121212;"></font>
+
 
 ## 如何保证消息的高效读写？
 零拷贝： kafka和RocketMQ都是通过零拷贝技术来优化文件读写。
@@ -2303,7 +2303,7 @@ TCP协议是7层网络协议中的传输层协议，负责数据的可靠传输�
 8. Tomcat得到响应结果后封装成HTTP响应的格式，并再次通过网络发送给浏览器所在的服务器
 9. 浏览器所在的服务器拿到结果后再传递给浏览器，浏览器则负责解析并渲染
 
-<font style="color:#F5222D;"></font>
+
 
 ## 跨域请求是什么？有什么问题？怎么解决？
 跨域是指浏览器在发起网络请求时，会检查该请求所对应的协议、域名、端口和当前网页是否一致，如果不一致则浏览器会进行限制，比如在www.baidu.com的某个网页中，如果使用ajax去访问www.jd.com是不行的，但是如果是img、iframe、script等标签的src属性去访问则是可以的，之所以浏览器要做这层限制，是为了用户信息安全。但是如果开发者想要绕过这层限制也是可以的：
@@ -2334,8 +2334,8 @@ TCP协议是7层网络协议中的传输层协议，负责数据的可靠传输�
 1. noeviction 选择这种策略则代表不进行数据淘汰，同时它也是redis中默认的淘汰策略，当缓存写满时redis就不再提供写服务了，写请求则直接返回失败。
 2. random 随机策略这块则是分为两种，一种是volatile，这种是设置了过期时间得数据集，而另外一种是allkeys，这种是包含了所有的数据，当我们缓存满了的时候，选用这种策略就会在我们的数据集中进行随机删除。
 3. volatile-ttl 这种策略是针对设置了过期时间的数据，并且按照过期时间的先后顺序进行删除，越早过期的越先被删除
-4. lru 这里的lru策略和我们上面random策略一样也是提供了两种数据集进行处理，LRU算法全程为<font style="color:rgb(77, 77, 77);">（最近最少使用）简单一句话来概括就是“如果数据最近被访问过，那么将来被访问的几率也就越高”。这种算法其实已经比较符合我们的实际业务需求了，但是还是存在一些缺陷。</font>
-5. <font style="color:rgb(77, 77, 77);">lfu 最后一种策略就是我们的LFU算法，它是在我么LRU算法基础上增加了请求数统计，这样能够更加精准的代表我们的热点数据。</font>
+4. lru 这里的lru策略和我们上面random策略一样也是提供了两种数据集进行处理，LRU算法全程为（最近最少使用）简单一句话来概括就是“如果数据最近被访问过，那么将来被访问的几率也就越高”。这种算法其实已经比较符合我们的实际业务需求了，但是还是存在一些缺陷。
+5. lfu 最后一种策略就是我们的LFU算法，它是在我么LRU算法基础上增加了请求数统计，这样能够更加精准的代表我们的热点数据。
 
 我们再回看我们的这个问题，我们能很清楚的知道，我们需要的策略是LFU算法。选择volatile还是allkeys就要根据具体的业务需求了。
 
@@ -2346,7 +2346,7 @@ TCP协议是7层网络协议中的传输层协议，负责数据的可靠传输�
 ## JDK19中的大杀器：虚拟线程，到底是什么？
 
 
-**<font style="color:#E8323C;">图灵课堂-周瑜</font>**
+**图灵课堂-周瑜**
 
 
 
@@ -2381,7 +2381,7 @@ ForkJoinPool中的线程在执行任务过程中，一旦线程阻塞了，比�
 ## 高并发下我们如何去保证接口的幂等性?（北冥）
 首先普及下幂等的概念
 
-> “<font style="color:rgb(51, 51, 51);">在编程中一个幂等操作的特点是其任意多次执行所产生的影响均与一次执行的影响相同。幂等函数，或幂等方法，是指可以使用相同参数重复执行，并能获得相同结果的函数</font>”
+> “在编程中一个幂等操作的特点是其任意多次执行所产生的影响均与一次执行的影响相同。幂等函数，或幂等方法，是指可以使用相同参数重复执行，并能获得相同结果的函数”
 >
 
 那么在我们的实际业务场景中幂等是一个非常高频的场景，比如：
@@ -2393,7 +2393,7 @@ ForkJoinPool中的线程在执行任务过程中，一旦线程阻塞了，比�
 
 那么我们有那些方案可以解决我们的幂等性问题呢？
 
-+ 数据库唯一主键实现幂等性<font style="color:#E8323C;"></font>
++ 数据库唯一主键实现幂等性
     - 其实现方式是使用分布式ID充当主键，不使用MySQL中的自增主键
 + 乐观锁实现幂等性
     - 在表中增加版本号标识，只有版本号标识一直才更新成功
@@ -2416,7 +2416,7 @@ ForkJoinPool中的线程在执行任务过程中，一旦线程阻塞了，比�
 首先我们来看看一致性：
 
 + 强一致性：任何一次读都能读到某个数据的最近一次写的数据。
-+ <font style="color:#000000;">弱一致性：数据更新后，如果能容忍后续的访问只能访问到部分或者全部访问不到，则是弱一致性。</font>
++ 弱一致性：数据更新后，如果能容忍后续的访问只能访问到部分或者全部访问不到，则是弱一致性。
 
 解决双写一致性方案：
 
@@ -2427,7 +2427,7 @@ ForkJoinPool中的线程在执行任务过程中，一旦线程阻塞了，比�
 + 通过MQ进行重试删除
     - 更新完DB之后进行删除，如果删除失败则向MQ发送一条消息，然后消费者不断进行删除尝试。
 + binlog异步删除
-    - <font style="color:rgb(77, 77, 77);">实现思路：低耦合的解决方案是使用canal。canal伪装成mysql的从机，监听主机mysql的二进制文件，当数据发生变化时发送给MQ。最终消费进行删除</font>
+    - 实现思路：低耦合的解决方案是使用canal。canal伪装成mysql的从机，监听主机mysql的二进制文件，当数据发生变化时发送给MQ。最终消费进行删除
 
 ## 谈谈缓存穿透、击穿、雪崩的区别，又如何去解决？(北冥)
 #### 面试题分析
@@ -2457,7 +2457,7 @@ ForkJoinPool中的线程在执行任务过程中，一旦线程阻塞了，比�
 
 ## 10分钟带你了解灰度发布（北冥）
 :::warning
-<font style="color:rgb(51, 51, 51);">灰度发布（又名金丝雀发布）是指在黑与白之间，能够平滑过渡的一种发布方式。在其上可以进行A/B testing，即让一部分用户继续用产品特性A，一部分用户开始用产品特性B，如果用户对B没有什么反对意见，那么逐步扩大范围，把所有用户都迁移到B上面来。灰度发布可以保证整体系统的稳定，在初始灰度的时候就可以发现、调整问题，以保证其影响度。</font>
+灰度发布（又名金丝雀发布）是指在黑与白之间，能够平滑过渡的一种发布方式。在其上可以进行A/B testing，即让一部分用户继续用产品特性A，一部分用户开始用产品特性B，如果用户对B没有什么反对意见，那么逐步扩大范围，把所有用户都迁移到B上面来。灰度发布可以保证整体系统的稳定，在初始灰度的时候就可以发现、调整问题，以保证其影响度。
 
 :::
 
@@ -2478,43 +2478,43 @@ ForkJoinPool中的线程在执行任务过程中，一旦线程阻塞了，比�
 
 :::
 
-| <font style="color:rgb(53, 53, 53);">策略</font> | <font style="color:rgb(53, 53, 53);">零停机</font> | <font style="color:rgb(53, 53, 53);">生产流量测试</font> | <font style="color:rgb(53, 53, 53);">针对特定用户</font> | <font style="color:rgb(53, 53, 53);">机器资源成本</font> | <font style="color:rgb(53, 53, 53);">回滚时长</font> | <font style="color:rgb(53, 53, 53);">负面影响</font> | <font style="color:rgb(53, 53, 53);">实现复杂度</font> |
+| 策略 | 零停机 | 生产流量测试 | 针对特定用户 | 机器资源成本 | 回滚时长 | 负面影响 | 实现复杂度 |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| <font style="color:rgb(100, 86, 71);">全量发布</font> | <font style="color:rgb(100, 86, 71);">×</font> | <font style="color:rgb(100, 86, 71);">×</font> | <font style="color:rgb(100, 86, 71);">×</font> | <font style="color:rgb(100, 86, 71);">低</font> | <font style="color:rgb(100, 86, 71);">慢</font> | <font style="color:rgb(100, 86, 71);">高</font> | <font style="color:rgb(100, 86, 71);">低</font> |
-| <font style="color:rgb(100, 86, 71);">蓝绿发布</font> | <font style="color:rgb(100, 86, 71);">√</font> | <font style="color:rgb(100, 86, 71);">×</font> | <font style="color:rgb(100, 86, 71);">×</font> | <font style="color:rgb(100, 86, 71);">高（双倍）</font> | <font style="color:rgb(100, 86, 71);">快</font> | <font style="color:rgb(100, 86, 71);">中</font> | <font style="color:rgb(100, 86, 71);">中</font> |
-| <font style="color:rgb(100, 86, 71);">金丝雀发布</font> | <font style="color:rgb(100, 86, 71);">√</font> | <font style="color:rgb(100, 86, 71);">√</font> | <font style="color:rgb(100, 86, 71);">√</font> | <font style="color:rgb(100, 86, 71);">中（按需）</font> | <font style="color:rgb(100, 86, 71);">快</font> | <font style="color:rgb(100, 86, 71);">低</font> | <font style="color:rgb(100, 86, 71);">中</font> |
-| <font style="color:rgb(100, 86, 71);">全链路灰度</font> | <font style="color:rgb(100, 86, 71);">√</font> | <font style="color:rgb(100, 86, 71);">√</font> | <font style="color:rgb(100, 86, 71);">√</font> | <font style="color:rgb(100, 86, 71);">中（按需）</font> | <font style="color:rgb(100, 86, 71);">快</font> | <font style="color:rgb(100, 86, 71);">低</font> | <font style="color:rgb(100, 86, 71);">高</font> |
+| 全量发布 | × | × | × | 低 | 慢 | 高 | 低 |
+| 蓝绿发布 | √ | × | × | 高（双倍） | 快 | 中 | 中 |
+| 金丝雀发布 | √ | √ | √ | 中（按需） | 快 | 低 | 中 |
+| 全链路灰度 | √ | √ | √ | 中（按需） | 快 | 低 | 高 |
 
 
-**<font style="color:rgb(34, 34, 34);">金丝雀发布</font>**
+**金丝雀发布**
 
 :::info
-<font style="color:rgb(53, 53, 53);">据说以前有个典故，矿工开矿前，会先放一只金丝雀下去，看金丝雀是否能活下来，用来探测是否有毒气，金丝雀发布也是由此得名。</font>
+据说以前有个典故，矿工开矿前，会先放一只金丝雀下去，看金丝雀是否能活下来，用来探测是否有毒气，金丝雀发布也是由此得名。
 
 :::
 
-<font style="color:rgb(25, 25, 25);">灰度发布是指在黑与白之间，能够平滑过渡的一种发布方式。</font><font style="color:rgb(36, 41, 46);">AB test</font><font style="color:rgb(25, 25, 25);">就是一种灰度发布方式，让一部分用户继续用</font><font style="color:rgb(36, 41, 46);">A</font><font style="color:rgb(25, 25, 25);">，一部分用户开始用</font><font style="color:rgb(36, 41, 46);">B</font><font style="color:rgb(25, 25, 25);">，如果用户对</font><font style="color:rgb(36, 41, 46);">B</font><font style="color:rgb(25, 25, 25);">没有什么反对意见，那么逐步扩大范围，把所有用户都迁移到</font><font style="color:rgb(36, 41, 46);">B</font><font style="color:rgb(25, 25, 25);">上面来。灰度发布可以保证整体系统的稳定，在初始灰度的时候就可以发现、调整问题，以保证其影响度，而我们平常所说的金丝雀部署也就是灰度发布的一种方式。</font>
+灰度发布是指在黑与白之间，能够平滑过渡的一种发布方式。AB test就是一种灰度发布方式，让一部分用户继续用A，一部分用户开始用B，如果用户对B没有什么反对意见，那么逐步扩大范围，把所有用户都迁移到B上面来。灰度发布可以保证整体系统的稳定，在初始灰度的时候就可以发现、调整问题，以保证其影响度，而我们平常所说的金丝雀部署也就是灰度发布的一种方式。
 
 **全链路灰度发布**  
- <font style="color:rgb(33, 37, 41);">全链路灰度治理策略主要专注于整个调用链，它不关心链路上经过具体哪些微服务，流量控制视角从服务转移至请求链路上，仅需要少量的治理规则即可构建出从网关到整个后端服务的多个流量隔离环境，有效保证了多个亲密关系的服务顺利安全发布以及服务多版本并行开发，进一步促进业务的快速发展。</font>
+ 全链路灰度治理策略主要专注于整个调用链，它不关心链路上经过具体哪些微服务，流量控制视角从服务转移至请求链路上，仅需要少量的治理规则即可构建出从网关到整个后端服务的多个流量隔离环境，有效保证了多个亲密关系的服务顺利安全发布以及服务多版本并行开发，进一步促进业务的快速发展。
 
-<font style="color:rgb(33, 37, 41);"></font>
+
 
 ## Redis 事务支持 ACID 么？（北冥）
-**<font style="color:rgb(51, 51, 51);">原子性(Atomicity)：</font>**<font style="color:rgb(51, 51, 51);">一个事务的多个操作必须完成，或者都不完成。</font>
+**原子性(Atomicity)：**一个事务的多个操作必须完成，或者都不完成。
 
-**<font style="color:rgb(51, 51, 51);">一致性(Consistency)：</font>**<font style="color:rgb(51, 51, 51);">事务执行结束后，数据库的完整性约束没有被破坏，事务执行的前后顺序都是合法数据状态。</font>
+**一致性(Consistency)：**事务执行结束后，数据库的完整性约束没有被破坏，事务执行的前后顺序都是合法数据状态。
 
-**<font style="color:rgb(51, 51, 51);">隔离性(Isolation)：</font>**<font style="color:rgb(51, 51, 51);">事务内部的操作与其他事务是隔离的，并发执行的各个事务之间不能互相干扰。</font>
+**隔离性(Isolation)：**事务内部的操作与其他事务是隔离的，并发执行的各个事务之间不能互相干扰。
 
-**<font style="color:rgb(51, 51, 51);">持久性(Durability)：</font>**<font style="color:rgb(51, 51, 51);">事务一旦提交，所有的修改将永久的保存到数据库中，即使系统崩溃重启后数据也不会丢失。</font>
+**持久性(Durability)：**事务一旦提交，所有的修改将永久的保存到数据库中，即使系统崩溃重启后数据也不会丢失。
 
   
  
 
-<font style="color:rgb(33, 37, 41);">redis事务功能是通过MULTI、EXEC、DISCARD和WATCH 四个原语实现的</font>
+redis事务功能是通过MULTI、EXEC、DISCARD和WATCH 四个原语实现的
 
-<font style="color:rgb(33, 37, 41);">Redis会将一个事务中的所有命令序列化，然后按顺序执行。</font>
+Redis会将一个事务中的所有命令序列化，然后按顺序执行。
 
 单独的隔离操作
 
@@ -2528,17 +2528,17 @@ ForkJoinPool中的线程在执行任务过程中，一旦线程阻塞了，比�
 
 + 事务中如果有一条命令执行失败，其后的命令仍然会被执行，没有回滚
 
-<font style="color:rgb(33, 37, 41);">注：redis的discard只是结束本次事务,正确命令造成的影响仍然存在.</font>
+注：redis的discard只是结束本次事务,正确命令造成的影响仍然存在.
 
-<font style="color:rgb(33, 37, 41);">1）MULTI命令用于开启一个事务，它总是返回OK。MULTI执行之后，客户端可以继续向服务器发送任意多条命令，这些命令不会立即被执行，而是被放到一个队列中，当EXEC命令被调用时，所有队列中的命令才会被执行。</font>
+1）MULTI命令用于开启一个事务，它总是返回OK。MULTI执行之后，客户端可以继续向服务器发送任意多条命令，这些命令不会立即被执行，而是被放到一个队列中，当EXEC命令被调用时，所有队列中的命令才会被执行。
 
-<font style="color:rgb(33, 37, 41);">2）EXEC：执行所有事务块内的命令。返回事务块内所有命令的返回值，按命令执行的先后顺序排列。当操作被打断时，返回空值 nil 。</font>
+2）EXEC：执行所有事务块内的命令。返回事务块内所有命令的返回值，按命令执行的先后顺序排列。当操作被打断时，返回空值 nil 。
 
-<font style="color:rgb(33, 37, 41);">3）通过调用DISCARD，客户端可以清空事务队列，并放弃执行事务， 并且客户端会从事务状态中退出。</font>
+3）通过调用DISCARD，客户端可以清空事务队列，并放弃执行事务， 并且客户端会从事务状态中退出。
 
-<font style="color:rgb(33, 37, 41);">4）WATCH 命令可以为 Redis 事务提供 check-and-set （CAS）行为。可以监控一个或多个键，一旦其中有一个键被修改（或删除），之后的事务就不会执行，监控一直持续到EXEC命令。</font>
+4）WATCH 命令可以为 Redis 事务提供 check-and-set （CAS）行为。可以监控一个或多个键，一旦其中有一个键被修改（或删除），之后的事务就不会执行，监控一直持续到EXEC命令。
 
-<font style="color:rgb(33, 37, 41);"></font>
+
 
 ## Redis持久化有那些方案，线上又是如何配置的呢？（北冥）
 :::color3
@@ -2547,13 +2547,13 @@ Redis为我们提供了两种持久化方案，一种是RDB另外一种是AOF
 :::
 
 #### RDB快照
-> <font style="color:rgb(44, 62, 80);">RDB (Redis DataBase) 把当前进程数据生成快照保存到磁盘上的过程，由于是某一时刻的快照，那么快照中的值要早于或者等于内存中的值。</font>
+> RDB (Redis DataBase) 把当前进程数据生成快照保存到磁盘上的过程，由于是某一时刻的快照，那么快照中的值要早于或者等于内存中的值。
 >
 
-**<font style="color:rgb(44, 62, 80);">优点</font>**
+**优点**
 
-1. **<font style="color:rgb(44, 62, 80);">基于某个时间节点的快照，压缩后文件体积小</font>**
-2. **<font style="color:rgb(44, 62, 80);">加载RDB文件恢复快</font>**
+1. **基于某个时间节点的快照，压缩后文件体积小**
+2. **加载RDB文件恢复快**
 
 **缺点**
 

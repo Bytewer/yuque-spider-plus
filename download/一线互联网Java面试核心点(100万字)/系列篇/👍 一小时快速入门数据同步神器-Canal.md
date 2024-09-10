@@ -1,113 +1,113 @@
-# <font style="color:rgb(0, 0, 0);">前言</font>
-<font style="color:rgb(36, 41, 46);">之前在讲解 Redis、MySQL 双写一致性问题的时候，提到我们可以采用 canal 组件，来</font><font style="color:rgb(38, 38, 38);">实现数据一致性，那本文就带大家快速上手 canal 组件的使用。</font>
+# 前言
+之前在讲解 Redis、MySQL 双写一致性问题的时候，提到我们可以采用 canal 组件，来实现数据一致性，那本文就带大家快速上手 canal 组件的使用。
 
-<font style="color:rgb(38, 38, 38);">本文主要是从五个维度带大家快速上手 canal 组件。</font>
+本文主要是从五个维度带大家快速上手 canal 组件。
 
 ![1721224740934-2abd89ec-e824-413d-a129-455d51e8603a.jpeg](./assets/1721224740934-2abd89ec-e824-413d-a129-455d51e8603a.jpeg)
 
-# <font style="color:rgb(0, 0, 0);">一、Canal是什么</font>
+# 一、Canal是什么
 基友网地址：[https://github.com/alibaba/canal](https://github.com/alibaba/canal)
 
-<font style="color:rgb(36, 41, 46);">官网的介绍</font>
+官网的介绍
 
 :::tips
 Canal，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费。
 
 :::
 
-<font style="color:rgb(36, 41, 46);">这句介绍有几个关键字：</font>**<font style="color:rgb(36, 41, 46);">增量日志，增量数据订阅和消费</font>**<font style="color:rgb(36, 41, 46);">。</font>
+这句介绍有几个关键字：**增量日志，增量数据订阅和消费**。
 
-<font style="color:rgb(36, 41, 46);">这里我们可以简单地把canal理解为一个用来</font>**<font style="color:rgb(36, 41, 46);">同步增量数据的一个工具</font>**<font style="color:rgb(36, 41, 46);">。</font>
+这里我们可以简单地把canal理解为一个用来**同步增量数据的一个工具**。
 
-<font style="color:rgb(36, 41, 46);">接下来我们看一张官网提供的示意图：</font>
+接下来我们看一张官网提供的示意图：
 
 ![1720592884882-0cfe2cee-dd50-48dd-acc8-15daa8e9c890.png](./assets/1720592884882-0cfe2cee-dd50-48dd-acc8-15daa8e9c890.png)
 
 
 
-# <font style="color:rgb(36, 41, 46);">二、Canal 工作原理</font>
+# 二、Canal 工作原理
 在了解 Canal 工作原理之前，大家需要先对 MySQL 的主从复制原理有所了解，因为 Canal 就是借助 MySQL 的主从机制来工作滴。
 
-## <font style="color:rgb(36, 41, 46);">MySQL主从复制原理</font>
+## MySQL主从复制原理
 ![1721219501871-684b8454-3c93-4037-8b9c-d88e169831de.jpeg](./assets/1721219501871-684b8454-3c93-4037-8b9c-d88e169831de.jpeg)
 
-+ <font style="color:rgb(36, 41, 46);">MySQL master 将数据变更写入二进制日志binary log，简称Binlog。</font>
-+ <font style="color:rgb(36, 41, 46);">MySQL slave 将 master 的 binary log 拷贝到它的中继日志(relay log)</font>
-+ <font style="color:rgb(36, 41, 46);">MySQL slave 重放 relay log 操作，将变更数据同步到最新。</font>
++ MySQL master 将数据变更写入二进制日志binary log，简称Binlog。
++ MySQL slave 将 master 的 binary log 拷贝到它的中继日志(relay log)
++ MySQL slave 重放 relay log 操作，将变更数据同步到最新。
 
 ## Canal 工作原理
 ![1720592884882-0cfe2cee-dd50-48dd-acc8-15daa8e9c890.png](./assets/1720592884882-0cfe2cee-dd50-48dd-acc8-15daa8e9c890.png)
 
 + Canal 将自己伪装为 MySQL slave(从库) ，向 MySQL master (主库) 发送dump 协议
 + MySQL master (主库) 收到 dump 请求，开始推送 binary log 给 canal
-+ Canal 接收并解析 Binlog 日志，得到变更数据，**<font style="color:rgb(36, 41, 46);">再发送到存储目的地</font>**<font style="color:rgb(36, 41, 46);">，比如MySQL，Kafka，Elastic Search等等</font>
++ Canal 接收并解析 Binlog 日志，得到变更数据，**再发送到存储目的地**，比如MySQL，Kafka，Elastic Search等等
 
-## <font style="color:rgb(36, 41, 46);">MySQL Binlog日志</font>
-<font style="color:rgb(36, 41, 46);">MySQL 的Binlog可以说 MySQL 最重要的日志，它记录了所有的 DDL 和 DML语句，以事件形式记录。</font>
+## MySQL Binlog日志
+MySQL 的Binlog可以说 MySQL 最重要的日志，它记录了所有的 DDL 和 DML语句，以事件形式记录。
 
-<font style="color:rgb(36, 41, 46);">MySQL默认情况下是不开启Binlog，因为记录Binlog日志需要消耗时间，官方给出的数据是有1%的性能损耗。</font>
+MySQL默认情况下是不开启Binlog，因为记录Binlog日志需要消耗时间，官方给出的数据是有1%的性能损耗。
 
-<font style="color:rgb(36, 41, 46);">具体开不开启，开发中需要根据实际情况做取舍。</font>
+具体开不开启，开发中需要根据实际情况做取舍。
 
-<font style="color:rgb(36, 41, 46);">一般来说，在下面两场景下会开启Binlog日志: </font>
+一般来说，在下面两场景下会开启Binlog日志: 
 
-+ <font style="color:rgb(36, 41, 46);">MySQL 主从集群部署时，需要将在 Master 端开启 Binlog，方便将数据同步到Slaves中。</font>
-+ <font style="color:rgb(36, 41, 46);">数据恢复了，通过使用 MySQL Binlog 工具来使恢复数据。</font>
++ MySQL 主从集群部署时，需要将在 Master 端开启 Binlog，方便将数据同步到Slaves中。
++ 数据恢复了，通过使用 MySQL Binlog 工具来使恢复数据。
 
-### <font style="color:rgb(36, 41, 46);">Binlog的分类</font>
-<font style="color:rgb(36, 41, 46);">MySQL Binlog 的格式有三种，分别是 STATEMENT,MIXED,ROW。在配置文件中可以选择配</font>
+### Binlog的分类
+MySQL Binlog 的格式有三种，分别是 STATEMENT,MIXED,ROW。在配置文件中可以选择配
 
-<font style="color:rgb(36, 41, 46);">置 binlog_format= </font>**statement**<font style="color:rgb(36, 41, 46);">|</font>**mixed**<font style="color:rgb(36, 41, 46);">|</font>**row**<font style="color:rgb(36, 41, 46);">。</font>
+置 binlog_format= **statement**|**mixed**|**row**。
 
-| <font style="color:rgb(36, 41, 46);">分类</font> | <font style="color:rgb(36, 41, 46);">介绍</font> | <font style="color:rgb(36, 41, 46);">优点</font> | <font style="color:rgb(36, 41, 46);">缺点</font> |
+| 分类 | 介绍 | 优点 | 缺点 |
 | :---: | :--- | :---: | :---: |
-| <font style="color:rgb(36, 41, 46);">STATEMENT</font> | <font style="color:rgb(36, 41, 46);">语句级别，记录每一次执行写操作的语句，相对于ROW模式节省了空间，但是可能产生数据不一致如update tt set create_date=now()，由于执行时间不同产生饿得数据就不同</font> | <font style="color:rgb(36, 41, 46);">节省空间</font> | <font style="color:rgb(36, 41, 46);">可能造成数据不一致</font> |
-| <font style="color:rgb(36, 41, 46);">ROW</font> | <font style="color:rgb(36, 41, 46);">行级，记录每次操作后每行记录的变化。假如一个update的sql执行结果是1万行statement只存一条，如果是row的话会把这个1万行的结果存着。</font> | <font style="color:rgb(36, 41, 46);">保持数据的绝对一致性。因为不管sql是什么，引用了什么函数，他只记录执行后的效果</font> | <font style="color:rgb(36, 41, 46);">占用较大空间</font> |
-| <font style="color:rgb(36, 41, 46);">MIXED</font> | <font style="color:rgb(36, 41, 46);">是对statement的升级，如当函数中包含 UUID() 时，包含 AUTO_INCREMENT 字段的表被更新时，执行 INSERT DELAYED 语句时，用 UDF 时，会按照 ROW的方式进行处理</font> | <font style="color:rgb(36, 41, 46);">节省空间，同时兼顾了一定的一致性</font> | <font style="color:rgb(36, 41, 46);">还有些极个别情况依旧会造成不一致，另外statement和mixed对于需要对binlog的监控的情况都不方便</font> |
+| STATEMENT | 语句级别，记录每一次执行写操作的语句，相对于ROW模式节省了空间，但是可能产生数据不一致如update tt set create_date=now()，由于执行时间不同产生饿得数据就不同 | 节省空间 | 可能造成数据不一致 |
+| ROW | 行级，记录每次操作后每行记录的变化。假如一个update的sql执行结果是1万行statement只存一条，如果是row的话会把这个1万行的结果存着。 | 保持数据的绝对一致性。因为不管sql是什么，引用了什么函数，他只记录执行后的效果 | 占用较大空间 |
+| MIXED | 是对statement的升级，如当函数中包含 UUID() 时，包含 AUTO_INCREMENT 字段的表被更新时，执行 INSERT DELAYED 语句时，用 UDF 时，会按照 ROW的方式进行处理 | 节省空间，同时兼顾了一定的一致性 | 还有些极个别情况依旧会造成不一致，另外statement和mixed对于需要对binlog的监控的情况都不方便 |
 
 
 **综合上面对比，Canal 想做监控分析，选择 row 格式比较合适。**
 
-# <font style="color:rgb(0, 0, 0);">三、Canal 运用场景</font>
+# 三、Canal 运用场景
 ## 数据同步
-<font style="color:rgb(51, 51, 51);">Canal 可以帮助用户进行多种数据同步操作，如实时同步 MySQL 数据到 Elasticsearch、Redis 等数据存储介质中。</font>![](images/image-20230509125645254.png)
+Canal 可以帮助用户进行多种数据同步操作，如实时同步 MySQL 数据到 Elasticsearch、Redis 等数据存储介质中。![](images/image-20230509125645254.png)
 
 ![1721224286403-e7d7ff73-ab3e-40eb-ace3-e85b036579d4.png](./assets/1721224286403-e7d7ff73-ab3e-40eb-ace3-e85b036579d4.png)
 
-## <font style="color:rgb(51, 51, 51);">数据库实时监控</font>
-<font style="color:rgb(51, 51, 51);">Canal 可以实时监控 MySQL 的更新操作，对于敏感数据的修改可以及时通知相关人员。</font>
+## 数据库实时监控
+Canal 可以实时监控 MySQL 的更新操作，对于敏感数据的修改可以及时通知相关人员。
 
 ![1721224339026-e1c0f6b1-192c-4009-8ef2-a6c039cf9416.png](./assets/1721224339026-e1c0f6b1-192c-4009-8ef2-a6c039cf9416.png)
 
-## <font style="color:rgb(51, 51, 51);">数据分析和挖掘</font>
-<font style="color:rgb(51, 51, 51);">Canal 可以将 MySQL 增量数据投递到 Kafka 等消息队列中，为数据分析和挖掘提供数据来源。</font>
+## 数据分析和挖掘
+Canal 可以将 MySQL 增量数据投递到 Kafka 等消息队列中，为数据分析和挖掘提供数据来源。
 
-![1721224398696-e458faa1-d9ba-48e1-8c89-87165a7257b1.png](./assets/1721224398696-e458faa1-d9ba-48e1-8c89-87165a7257b1.png)<font style="color:rgb(51, 51, 51);"></font>
+![1721224398696-e458faa1-d9ba-48e1-8c89-87165a7257b1.png](./assets/1721224398696-e458faa1-d9ba-48e1-8c89-87165a7257b1.png)
 
-## <font style="color:rgb(51, 51, 51);">数据库备份</font>
-<font style="color:rgb(51, 51, 51);">Canal 可以将 MySQL 主库上的数据增量日志复制到备库上，实现数据库备份。</font>
+## 数据库备份
+Canal 可以将 MySQL 主库上的数据增量日志复制到备库上，实现数据库备份。
 
 ![1721224419071-4445cef7-2eee-40cc-a89e-9fac2fa7dd12.png](./assets/1721224419071-4445cef7-2eee-40cc-a89e-9fac2fa7dd12.png)
 
-## <font style="color:rgb(51, 51, 51);">数据集成</font>
-<font style="color:rgb(51, 51, 51);">Canal 可以将多个 MySQL 数据库中的数据进行集成，为数据处理提供更加高效可靠的解决方案。</font>
+## 数据集成
+Canal 可以将多个 MySQL 数据库中的数据进行集成，为数据处理提供更加高效可靠的解决方案。
 
 ![1721224436833-10718b79-4fd4-4071-9942-5351df7b41dc.png](./assets/1721224436833-10718b79-4fd4-4071-9942-5351df7b41dc.png)
 
-## <font style="color:rgb(51, 51, 51);">数据库迁移</font>
-<font style="color:rgb(51, 51, 51);">Canal 可以协助完成 MySQL 数据库的版本升级及数据迁移任务。</font>
+## 数据库迁移
+Canal 可以协助完成 MySQL 数据库的版本升级及数据迁移任务。
 
 ![1721224470227-e0f3cf87-ef26-4a13-80d7-afbe70647a29.png](./assets/1721224470227-e0f3cf87-ef26-4a13-80d7-afbe70647a29.png)
 
-# <font style="color:rgb(0, 0, 0);">四、Canal安装部署</font>
-## <font style="color:rgb(24, 24, 24) !important;">MySQL 配置</font>
+# 四、Canal安装部署
+## MySQL 配置
 首先我们需要一个 MySQL 的服务，如果没有 MySQL 服务，可以看下这个教程[入门+安装+面试题](https://www.yuque.com/tulingzhouyu/db22bv/bkgyx9eokguvv3tm?singleDoc# 《一小时快速入门MySQL》 密码：yk3o)
 
-<font style="color:rgb(36, 41, 46);">当前的 canal 支持 MySQL 版本包括 5.1.x , 5.5.x , 5.6.x , 5.7.x , 8.0.x</font>
+当前的 canal 支持 MySQL 版本包括 5.1.x , 5.5.x , 5.6.x , 5.7.x , 8.0.x
 
-<font style="color:rgb(36, 41, 46);">我当前 Linux服务器安装的MySQL服务器是 8.x 版本。</font>
+我当前 Linux服务器安装的MySQL服务器是 8.x 版本。
 
-### <font style="color:rgb(36, 41, 46);">MySQL 服务器配置文件处理</font>
+### MySQL 服务器配置文件处理
 #### 检查配置是否正常
 有了 MySQL 服务之后，大家可以执行下面的 SQL 查看 MySQL 的配置是否正常。
 
@@ -130,7 +130,7 @@ SHOW VARIABLES LIKE 'server_id';
 
 同时需要注意，Linux 环境下，需要检查服务是否加载了 my.cnf，如果没有需要修改启动加载配置文件。
 
-<font style="color:rgb(36, 41, 46);">我们可以通过查看 MySQL 的状态获取到配置文件</font>
+我们可以通过查看 MySQL 的状态获取到配置文件
 
 ```powershell
 systemctl status mysqld.service
@@ -181,19 +181,19 @@ server_id=1 # 配置 MySQL replaction 需要定义，不要和 canal 的 slaveId
 systemctl restart mysqld.service
 ```
 
-<font style="color:rgb(36, 41, 46);">使用命令查看是否打开binlog模式：</font>
+使用命令查看是否打开binlog模式：
 
 ![1721304960748-878cb4f8-b237-4c64-b1a1-4190deb857fc.png](./assets/1721304960748-878cb4f8-b237-4c64-b1a1-4190deb857fc.png)
 
-<font style="color:rgb(36, 41, 46);">查看binlog日志文件列表：</font>
+查看binlog日志文件列表：
 
 ![1721305027477-f5281075-8efa-4e8e-88ff-7f590c0b2dc3.png](./assets/1721305027477-f5281075-8efa-4e8e-88ff-7f590c0b2dc3.png)
 
-<font style="color:rgb(36, 41, 46);">查看当前正在写入的binlog文件：</font>![1721305058570-7b5d0046-2218-4d10-afc9-2a791ca1ec16.png](./assets/1721305058570-7b5d0046-2218-4d10-afc9-2a791ca1ec16.png)
+查看当前正在写入的binlog文件：![1721305058570-7b5d0046-2218-4d10-afc9-2a791ca1ec16.png](./assets/1721305058570-7b5d0046-2218-4d10-afc9-2a791ca1ec16.png)
 
-<font style="color:rgb(36, 41, 46);">MySQL服务器这边基本上就搞定了，很简单。</font>
+MySQL服务器这边基本上就搞定了，很简单。
 
-<font style="color:rgb(36, 41, 46);">如果说大家想用单独的账号给 Canal，单独创建一个用户并授权就可以了：</font>
+如果说大家想用单独的账号给 Canal，单独创建一个用户并授权就可以了：
 
 ```plsql
 -- 使用命令登录：mysql -u root -p
@@ -244,10 +244,10 @@ INSERT IGNORE INTO `test` (`id`, `full_name`, `age`) VALUES (18, 'Olivia Wilson'
 DELETE FROM test WHERE id = 1;
 ```
 
-## <font style="color:rgb(24, 24, 24) !important;">安装 Canal</font>
-<font style="color:rgb(36, 41, 46);">去官网下载页面进行下载：</font>[https://github.com/alibaba/canal/releases](https://github.com/alibaba/canal/releases)
+## 安装 Canal
+去官网下载页面进行下载：[https://github.com/alibaba/canal/releases](https://github.com/alibaba/canal/releases)
 
-<font style="color:rgb(36, 41, 46);">我这里下载的是1.1.8-alpha 版本（测试 1.1.8-alpha-2 有点问题）：</font>
+我这里下载的是1.1.8-alpha 版本（测试 1.1.8-alpha-2 有点问题）：
 
 ![1721566607499-c64b8eb4-b755-4a25-ba32-8b20c5bd3f27.png](./assets/1721566607499-c64b8eb4-b755-4a25-ba32-8b20c5bd3f27.png)
 
@@ -265,11 +265,11 @@ tar -zxvf canal.deployer-1.1.8-SNAPSHOT.tar.gz
 rm -rf canal.deployer-1.1.8-SNAPSHOT.tar.gz
 ```
 
-<font style="color:rgb(36, 41, 46);">解压</font>**<font style="color:rgb(36, 41, 46);">canal.deployer-1.1.8.tar.gz</font>**<font style="color:rgb(36, 41, 46);">，我们可以看到里面有四个文件夹：</font>
+解压**canal.deployer-1.1.8.tar.gz**，我们可以看到里面有四个文件夹：
 
 ![1721309131412-ac7a7e8c-ff6e-4db5-86e2-90a39044197a.png](./assets/1721309131412-ac7a7e8c-ff6e-4db5-86e2-90a39044197a.png)![1721309169738-90c78554-c22c-41dd-9ef9-870fffbdbb21.png](./assets/1721309169738-90c78554-c22c-41dd-9ef9-870fffbdbb21.png)
 
-<font style="color:rgb(36, 41, 46);">将 admin 包做同样的处理</font>
+将 admin 包做同样的处理
 
 ```plsql
 # 上传
@@ -385,7 +385,7 @@ canal.admin.register.name = 999
 ![1721565012882-bcf1b0f8-0e20-4ae7-859e-990c5b221832.png](./assets/1721565012882-bcf1b0f8-0e20-4ae7-859e-990c5b221832.png)
 
 ### Canal-Instance 服务
-**<font style="color:#DF2A3F;">如果创建 Instance 后启动失败，需要手动导入 druid Jar 包</font>**
+**如果创建 Instance 后启动失败，需要手动导入 druid Jar 包**
 
 直接在 admin 页面创建 Instance 服务。
 
@@ -431,7 +431,7 @@ canal.instance.filter.black.regex=
 
 ![1721566809952-2851e44f-5ba1-4220-b72f-47c2e179f6da.png](./assets/1721566809952-2851e44f-5ba1-4220-b72f-47c2e179f6da.png)
 
-# <font style="color:rgb(0, 0, 0);">五、Canal 实战</font>
+# 五、Canal 实战
 环境：SpringBoot3 + JDK17 + Maven + Canal 1.1.8
 
 快速创建一个 SpringBoot 项目

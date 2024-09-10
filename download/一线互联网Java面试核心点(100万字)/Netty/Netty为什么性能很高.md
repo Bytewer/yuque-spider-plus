@@ -1,13 +1,13 @@
-<font style="color:rgba(0, 0, 0, 0.82);">Netty 之所以性能很高，主要归功于以下几个方面：</font>
+Netty 之所以性能很高，主要归功于以下几个方面：
 
-1. **<font style="color:rgba(0, 0, 0, 0.82);">基于 NIO 的非阻塞 I/O 模型</font>**<font style="color:rgba(0, 0, 0, 0.82);">：Netty 使用 Java NIO 实现非阻塞 I/O，一个线程可以管理多个连接，高效处理 I/O 操作。</font>
-2. **<font style="color:rgba(0, 0, 0, 0.82);">事件驱动模型（Reactor 模式）</font>**<font style="color:rgba(0, 0, 0, 0.82);">：Netty 采用事件驱动的异步非阻塞模型，减少了线程上下文切换开销，提高了响应速度。</font>
-3. **<font style="color:rgba(0, 0, 0, 0.82);">内存池化技术</font>**<font style="color:rgba(0, 0, 0, 0.82);">：通过内存池复用 ByteBuf，减少了频繁的内存分配和回收(GC)带来的性能开销。</font>
-4. **<font style="color:rgba(0, 0, 0, 0.82);">零拷贝技术</font>**<font style="color:rgba(0, 0, 0, 0.82);">：使用 DirectBuffer 和 FileChannel 实现零拷贝，减少内存复制，提高数据传输效率。</font>
-5. **<font style="color:rgba(0, 0, 0, 0.82);">高效的线程管理</font>**<font style="color:rgba(0, 0, 0, 0.82);">：Netty 的线程模型通过 EventLoopGroup 高效管理线程，充分利用多核 CPU。</font>
-6. **<font style="color:rgba(0, 0, 0, 0.82);">高效的 Pipeline 机制</font>**<font style="color:rgba(0, 0, 0, 0.82);">：Netty 的 Pipeline 机制使处理链非常灵活，可插拔各种 Handler 进行数据处理。</font>
+1. **基于 NIO 的非阻塞 I/O 模型**：Netty 使用 Java NIO 实现非阻塞 I/O，一个线程可以管理多个连接，高效处理 I/O 操作。
+2. **事件驱动模型（Reactor 模式）**：Netty 采用事件驱动的异步非阻塞模型，减少了线程上下文切换开销，提高了响应速度。
+3. **内存池化技术**：通过内存池复用 ByteBuf，减少了频繁的内存分配和回收(GC)带来的性能开销。
+4. **零拷贝技术**：使用 DirectBuffer 和 FileChannel 实现零拷贝，减少内存复制，提高数据传输效率。
+5. **高效的线程管理**：Netty 的线程模型通过 EventLoopGroup 高效管理线程，充分利用多核 CPU。
+6. **高效的 Pipeline 机制**：Netty 的 Pipeline 机制使处理链非常灵活，可插拔各种 Handler 进行数据处理。
 
-<font style="color:rgba(0, 0, 0, 0.82);">以下是一个使用 Netty 构建的高性能服务器的示例代码，该代码演示了如何利用 Netty 的上述高性能特性：</font>
+以下是一个使用 Netty 构建的高性能服务器的示例代码，该代码演示了如何利用 Netty 的上述高性能特性：
 
 ```java
 import io.netty.bootstrap.ServerBootstrap;  
@@ -79,23 +79,23 @@ public class NettyServer {
 }
 ```
 
-### <font style="color:rgba(0, 0, 0, 0.82);">代码解释</font>
-1. **<font style="color:rgba(0, 0, 0, 0.82);">线程模型</font>**<font style="color:rgba(0, 0, 0, 0.82);">：</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">bossGroup</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">和</font><font style="color:rgba(0, 0, 0, 0.82);"> </font>`<font style="color:rgba(0, 0, 0, 0.82);">workerGroup</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">是两个 NioEventLoopGroup，分别处理连接建立和 I/O 读写。</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">NioEventLoopGroup</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">的线程数设置为</font><font style="color:rgba(0, 0, 0, 0.82);"> </font>`<font style="color:rgba(0, 0, 0, 0.82);">Runtime.getRuntime().availableProcessors() * 2</font>`<font style="color:rgba(0, 0, 0, 0.82);">，充分利用多核 CPU 性能。</font>
-2. **<font style="color:rgba(0, 0, 0, 0.82);">Channel 和 Pipeline</font>**<font style="color:rgba(0, 0, 0, 0.82);">：</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">ServerBootstrap</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">配置服务器启动。</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">NioServerSocketChannel</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">代表 NIO 服务端套接字通道。</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">ChannelInitializer</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">用于在新连接建立时初始化</font><font style="color:rgba(0, 0, 0, 0.82);"> </font>`<font style="color:rgba(0, 0, 0, 0.82);">SocketChannel</font>`<font style="color:rgba(0, 0, 0, 0.82);">。</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">NettyServerHandler</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">是自定义的处理器，用于处理 I/O 事件。</font>
-3. **<font style="color:rgba(0, 0, 0, 0.82);">内存池化</font>**<font style="color:rgba(0, 0, 0, 0.82);">：</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">b.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">使用池化的 ByteBuf 分配器，减少内存分配开销。</font>
-4. **<font style="color:rgba(0, 0, 0, 0.82);">事件驱动</font>**<font style="color:rgba(0, 0, 0, 0.82);">：</font>
-    - <font style="color:rgba(0, 0, 0, 0.82);">通过</font><font style="color:rgba(0, 0, 0, 0.82);"> </font>`<font style="color:rgba(0, 0, 0, 0.82);">ctx.write(in)</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">和</font><font style="color:rgba(0, 0, 0, 0.82);"> </font>`<font style="color:rgba(0, 0, 0, 0.82);">ctx.flush()</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">实现异步的 I/O 操作，提高响应速度。</font>
-5. **<font style="color:rgba(0, 0, 0, 0.82);">异常处理</font>**<font style="color:rgba(0, 0, 0, 0.82);">：</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">exceptionCaught</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">方法中处理异常，并在发生异常时关闭连接，确保系统健壮性。</font>
-6. **<font style="color:rgba(0, 0, 0, 0.82);">零拷贝</font>**<font style="color:rgba(0, 0, 0, 0.82);">：</font>
-    - <font style="color:rgba(0, 0, 0, 0.82);">Netty 内部的零拷贝并未在这个简单的示例中直接展示，但在内部实现中使用了 DirectBuffer 等技术来减少内存复制。</font>
+### 代码解释
+1. **线程模型**：
+    - `bossGroup` 和 `workerGroup` 是两个 NioEventLoopGroup，分别处理连接建立和 I/O 读写。
+    - `NioEventLoopGroup` 的线程数设置为 `Runtime.getRuntime().availableProcessors() * 2`，充分利用多核 CPU 性能。
+2. **Channel 和 Pipeline**：
+    - `ServerBootstrap` 配置服务器启动。
+    - `NioServerSocketChannel` 代表 NIO 服务端套接字通道。
+    - `ChannelInitializer` 用于在新连接建立时初始化 `SocketChannel`。
+    - `NettyServerHandler` 是自定义的处理器，用于处理 I/O 事件。
+3. **内存池化**：
+    - `b.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)` 使用池化的 ByteBuf 分配器，减少内存分配开销。
+4. **事件驱动**：
+    - 通过 `ctx.write(in)` 和 `ctx.flush()` 实现异步的 I/O 操作，提高响应速度。
+5. **异常处理**：
+    - `exceptionCaught` 方法中处理异常，并在发生异常时关闭连接，确保系统健壮性。
+6. **零拷贝**：
+    - Netty 内部的零拷贝并未在这个简单的示例中直接展示，但在内部实现中使用了 DirectBuffer 等技术来减少内存复制。
 
-<font style="color:rgba(0, 0, 0, 0.82);">通过这些设计和实现，Netty 能够实现高性能、低延迟的网络通信，适用于各种高并发场景。</font>
+通过这些设计和实现，Netty 能够实现高性能、低延迟的网络通信，适用于各种高并发场景。
 

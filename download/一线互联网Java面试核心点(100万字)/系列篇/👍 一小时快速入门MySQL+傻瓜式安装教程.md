@@ -74,8 +74,8 @@ quit;
 [root@localhost ~]# rpm -e --nodeps mysql/mariabd（已经安装程序名称）
 ```
 
-### 4.3 <font style="color:rgb(79, 79, 79);">安装下载工具wget</font>
-#### <font style="color:rgb(77, 77, 77);">4.3.1 查看安装情况</font>
+### 4.3 安装下载工具wget
+#### 4.3.1 查看安装情况
 ```shell
 [root@localhost ~]# wget -V
 GNU Wget 1.14 在 linux-gnu 上编译。
@@ -89,18 +89,18 @@ wget-1.14-18.el7_6.1.x86_64
 [root@localhost ~]# yum install -y wget
 ```
 
-### 4.4 <font style="color:rgb(79, 79, 79);">下载阿里云 yum 源文件</font>
+### 4.4 下载阿里云 yum 源文件
 ```shell
 [root@localhost ~]# wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 ```
 
-### 4.5 <font style="color:rgb(79, 79, 79);">清理yum缓存</font>
+### 4.5 清理yum缓存
 ```shell
 [root@localhost ~]# yum clean all
 [root@localhost ~]# yum makecache
 ```
 
-### 4.6 <font style="color:rgb(79, 79, 79);">下载 mysql 源安装包</font>
+### 4.6 下载 mysql 源安装包
 ```shell
 [root@localhost ~]# wget http://dev.mysql.com/get/mysql80-community-release-el7-8.noarch.rpm
 ```
@@ -140,7 +140,7 @@ mysql-community-client-plugins-8.0.37-1.el7.x86_64
 [root@localhost ~]# yum remove firewalld
 ```
 
-### 4.12 <font style="color:rgb(79, 79, 79);">查看mysql密码</font>
+### 4.12 查看mysql密码
 ```shell
 [root@localhost ~]# cat /var/log/mysqld.log | grep password
 2024-04-30T13:41:28.767968Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: Nle-H4q:-%zp
@@ -233,7 +233,7 @@ drop database test;
 ![1714908577138-2fe5184a-04fd-4f83-bb5c-5077cb208f98.png](./assets/1714908577138-2fe5184a-04fd-4f83-bb5c-5077cb208f98.png)
 
 ## 7.创建表
-### 7.1 <font style="color:rgb(36, 41, 47);">创建测试表</font>
+### 7.1 创建测试表
 ```plsql
 -- 创建一个名为 "test" 的简单表，其中包含三个字段
 CREATE TABLE test (
@@ -243,42 +243,42 @@ CREATE TABLE test (
 );
 ```
 
-### 7.2 <font style="color:rgb(36, 41, 47);">添加新的字段</font>
+### 7.2 添加新的字段
 ```plsql
 -- 添加一个新的 "email" 字段
 ALTER TABLE test
 ADD email VARCHAR(100); -- 添加一个新的VARCHAR字段
 ```
 
-### <font style="color:rgb(36, 41, 47);">7.3 修改字段名称</font>
+### 7.3 修改字段名称
 ```plsql
 -- 将 "name" 字段重命名为 "full_name"
 ALTER TABLE test
 RENAME COLUMN name TO full_name;
 ```
 
-### <font style="color:rgb(36, 41, 47);">7.4 修改字段类型</font>
+### 7.4 修改字段类型
 ```plsql
 -- 将 "age" 字段从 INT 修改为 SMALLINT 使用 MODIFY
 ALTER TABLE test
 MODIFY COLUMN age SMALLINT;
 ```
 
-### <font style="color:rgb(36, 41, 47);">7.5 为字段设置默认值</font>
+### 7.5 为字段设置默认值
 ```plsql
 -- 为 "age" 字段设置默认值 18
 ALTER TABLE test
 ALTER COLUMN age SET DEFAULT 18;
 ```
 
-### <font style="color:rgb(36, 41, 47);">7.6 删除字段</font>
+### 7.6 删除字段
 ```plsql
 -- 删除 "email" 字段
 ALTER TABLE test
 DROP COLUMN email;
 ```
 
-### <font style="color:rgb(36, 41, 47);">7.7 删除表</font>
+### 7.7 删除表
 ```plsql
 -- 删除整个表
 DROP TABLE test;
@@ -434,7 +434,7 @@ WHERE full_name REGEXP '[aeiou]{2}';
 ```
 
 ## 11.子查询
-<font style="color:rgb(36, 41, 47);">子查询是一种在一个 SQL 语句中嵌入另一个查询的方式。子查询可以用于从表中选择数据，然后在外层查询中使用这些数据进行进一步操作。下面是几个常见的子查询示例，涵盖不同的场景。</font>
+子查询是一种在一个 SQL 语句中嵌入另一个查询的方式。子查询可以用于从表中选择数据，然后在外层查询中使用这些数据进行进一步操作。下面是几个常见的子查询示例，涵盖不同的场景。
 
 ```plsql
 -- 子查询与 WHERE 子句：查找年龄大于表中平均年龄的所有用户。  用在where子句中

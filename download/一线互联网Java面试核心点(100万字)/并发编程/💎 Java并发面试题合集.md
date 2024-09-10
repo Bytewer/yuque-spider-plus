@@ -1,13 +1,13 @@
-# <font style="color:#01B2BC;">判断线程池任务执行完成的方式</font>
-Thread线程是否执行完成，我们可以调用join方法然后等待线程执行完成；那在使用线程池的时候，我们如何知道线程已经执行完成了？本文就带给大家**<font style="color:#ED740C;">五种</font>**判断的方式：
+# 判断线程池任务执行完成的方式
+Thread线程是否执行完成，我们可以调用join方法然后等待线程执行完成；那在使用线程池的时候，我们如何知道线程已经执行完成了？本文就带给大家**五种**判断的方式：
 
-+ <font style="color:#DF2A3F;">isTerminated()</font> 方<font style="color:#DF2A3F;"></font>式，在执行 shutdown() ，关闭线程池后，判断是否所有任务已经完成。
-+ ThreadPoolExecutor 的 <font style="color:#DF2A3F;">getCompletedTaskCount()</font> 方法，判断完成任务数和全部任务数是否相等。
-+ <font style="color:#DF2A3F;">CountDownLatch计数器</font>，使用闭锁计数来判断是否全部完成。
-+ 手动维护一个<font style="color:#DF2A3F;">公共计数</font> ，原理和闭锁类似，就是更加灵活。
-+ 使用<font style="color:#DF2A3F;">submit</font>向线程池<font style="color:#DF2A3F;">提交</font>任务，<font style="color:#DF2A3F;">Future判断</font>任务执行状态。
++ isTerminated() 方式，在执行 shutdown() ，关闭线程池后，判断是否所有任务已经完成。
++ ThreadPoolExecutor 的 getCompletedTaskCount() 方法，判断完成任务数和全部任务数是否相等。
++ CountDownLatch计数器，使用闭锁计数来判断是否全部完成。
++ 手动维护一个公共计数 ，原理和闭锁类似，就是更加灵活。
++ 使用submit向线程池提交任务，Future判断任务执行状态。
 
-## 方法一：<font style="color:#A58F04;">isTerminated() </font>
+## 方法一：isTerminated() 
 ### 测试代码
 ```powershell
 package pool;
@@ -66,14 +66,14 @@ public class BaiLiIsShutdownThreadPoolDemo {
 
 这里有两个主要方法：
 
-+ <font style="color:#DF2A3F;">shutdown() </font>：对线程池进行有序关闭。调用该方法后，线程池将不再接受新的任务，但会继续执行已提交的任务。如果线程池已经处于关闭状态，则对该方法的调用没有额外的作用。
-+ <font style="color:#DF2A3F;">isTerminated() </font>：判断线程池中的所有任务是否在关闭后完成。只有在调用了shutdown()或shutdownNow()方法后，所有任务执行完毕，才会返回true。需要注意的是，在调用shutdown()之前调用isTerminated()方法始终返回false。
++ shutdown() ：对线程池进行有序关闭。调用该方法后，线程池将不再接受新的任务，但会继续执行已提交的任务。如果线程池已经处于关闭状态，则对该方法的调用没有额外的作用。
++ isTerminated() ：判断线程池中的所有任务是否在关闭后完成。只有在调用了shutdown()或shutdownNow()方法后，所有任务执行完毕，才会返回true。需要注意的是，在调用shutdown()之前调用isTerminated()方法始终返回false。
 
-### <font style="color:rgb(37, 41, 51);">优缺点分析</font>
+### 优缺点分析
 优点 ：操作简单。  
 缺点 ：需要关闭线程池。并且日常使用是将线程池注入到Spring容器，然后各个组件中统一用同一个线程池，不能直接关闭线程池。
 
-## 方法二：<font style="color:#A58F04;">getCompletedTaskCount()</font>
+## 方法二：getCompletedTaskCount()
 ### 测试代码
 ```powershell
 package pool;
@@ -133,14 +133,14 @@ public class BaiLiIsShutdownThreadPoolDemo {
   
 上述代码处理逻辑还是一样在主线程循环判断，主要就两个方法：
 
-+ <font style="color:#DF2A3F;">getTaskCount() </font>：返回计划执行的任务总数。由于任务和线程的状态可能在计算过程中动态变化，返回的值只是一个近似值。这个方法返回的是线程池提交的任务总数，包括已经完成和正在执行中的任务。
-+ <font style="color:#DF2A3F;">getCompletedTaskCount() </font>：返回已经完成执行的任务的大致总数。由于任务和线程的状态可能在计算过程中动态改变，返回的值只是一个近似值，并且在连续的调用中不会减少。这个方法返回的是已经完成执行的任务数量，不包括正在执行中的任务。
++ getTaskCount() ：返回计划执行的任务总数。由于任务和线程的状态可能在计算过程中动态变化，返回的值只是一个近似值。这个方法返回的是线程池提交的任务总数，包括已经完成和正在执行中的任务。
++ getCompletedTaskCount() ：返回已经完成执行的任务的大致总数。由于任务和线程的状态可能在计算过程中动态改变，返回的值只是一个近似值，并且在连续的调用中不会减少。这个方法返回的是已经完成执行的任务数量，不包括正在执行中的任务。
 
-### <font style="color:rgb(37, 41, 51);">优缺点分析</font>
+### 优缺点分析
 + 优点 ：不必关闭线程池，避免了创建和销毁带来的损耗。
 + 缺点 ：使用这种判断存在很大的限制条件；必须确定在循环判断过程中没有新的任务产生。
 
-## 方法三：<font style="color:#A58F04;">CountDownLatch</font>
+## 方法三：CountDownLatch
 ### 测试代码
 ```powershell
 package pool;
@@ -198,11 +198,11 @@ public class BaiLiIsShutdownThreadPoolDemo {
 
 ```
 
-### <font style="color:rgb(37, 41, 51);">优缺点分析</font>
+### 优缺点分析
 优点 ：代码优雅，不需要对线程池进行操作。  
 缺点 ：需要提前知道线程数量；性能较差；还需要在线程代码块内加上异常判断，否则在 countDown之前发生异常而没有处理，就会导致主线程永远阻塞在 await。
 
-## 方法四：<font style="color:#A58F04;">公共计数</font>
+## 方法四：公共计数
 ### 测试代码
 ```powershell
 package pool;
@@ -269,7 +269,7 @@ public class BaiLiIsShutdownThreadPoolDemo {
 + 优点 ：手动维护方式更加灵活，对于一些特殊场景可以手动处理。
 + 缺点 ：和CountDownLatch相比，一样需要知道线程数目，但是代码实现比较麻烦。
 
-## 方法五：<font style="color:#A58F04;">Future</font>
+## 方法五：Future
 ### 测试代码
 ```powershell
 package pool;
@@ -325,7 +325,7 @@ public class BaiLiIsShutdownThreadPoolDemo {
 
 缺点：每个提交给线程池的任务都会关联一个Future对象，这可能会引入额外的内存开销。如果需要处理大量的任务，可能会占用较多的内存。
 
-## <font style="color:#A58F04;">测试代码汇总</font>
+## 测试代码汇总
 ```powershell
 package pool;
 
@@ -457,84 +457,84 @@ public class BaiLiIsShutdownThreadPoolDemo {
 }
 ```
 
-# <font style="color:#01B2BC;">如何理解阻塞、非阻塞与同步、异步的区别？</font>
-## <font style="color:rgb(25, 27, 31);">同步与异步</font>
-<font style="color:rgb(25, 27, 31);">同步与异步关注的是</font>**<font style="color:rgb(25, 27, 31);">消息通信机制</font>**<font style="color:rgb(25, 27, 31);">。</font>
+# 如何理解阻塞、非阻塞与同步、异步的区别？
+## 同步与异步
+同步与异步关注的是**消息通信机制**。
 
-+ **<font style="color:rgb(25, 27, 31);">所谓同步</font>**<font style="color:rgb(25, 27, 31);">，就是在发出一个</font>**<font style="color:rgb(25, 27, 31);">调用</font>**<font style="color:rgb(25, 27, 31);">时，在没有得到结果之前，该调用就不返回。但是一旦调用返回，就得到返回值了。换句话说，就是由调用者主动等待这个调用的结果。</font>
-+ <font style="color:rgb(25, 27, 31);">而</font>**<font style="color:rgb(25, 27, 31);">异步</font>**<font style="color:rgb(25, 27, 31);">则是相反，调用在发出之后，这个调用就直接返回了，所以就没有返回结果。换句话说，当一个异步过程调用发出后，调用者不会立刻得到结果。而是在调用发出之后，被调用者通过</font>**<font style="color:rgb(25, 27, 31);">“状态”</font>**<font style="color:rgb(25, 27, 31);">、</font>**<font style="color:rgb(25, 27, 31);">“通知”</font>**<font style="color:rgb(25, 27, 31);">、</font>**<font style="color:rgb(25, 27, 31);">“回调”</font>**<font style="color:rgb(25, 27, 31);">三种途径通知调用者。</font>
++ **所谓同步**，就是在发出一个**调用**时，在没有得到结果之前，该调用就不返回。但是一旦调用返回，就得到返回值了。换句话说，就是由调用者主动等待这个调用的结果。
++ 而**异步**则是相反，调用在发出之后，这个调用就直接返回了，所以就没有返回结果。换句话说，当一个异步过程调用发出后，调用者不会立刻得到结果。而是在调用发出之后，被调用者通过**“状态”**、**“通知”**、**“回调”**三种途径通知调用者。
 
-<font style="color:rgb(25, 27, 31);">可以使用哪一种途径依赖于被调用者的实现，除非被调用者提供多种选择，否则不受调用者控制。</font>
+可以使用哪一种途径依赖于被调用者的实现，除非被调用者提供多种选择，否则不受调用者控制。
 
-+ <font style="color:rgb(25, 27, 31);">如果被调用者用状态来通知，那么调用者就需要每隔一定时间检查一次，效率就很低。</font>
-+ <font style="color:rgb(25, 27, 31);">如果使用通知和回调的方式，效率则很高。因为被调用者几乎不需要做额外的操作。</font>
++ 如果被调用者用状态来通知，那么调用者就需要每隔一定时间检查一次，效率就很低。
++ 如果使用通知和回调的方式，效率则很高。因为被调用者几乎不需要做额外的操作。
 
-**<font style="color:rgb(25, 27, 31);">举个例子：</font>**
+**举个例子：**
 
-<font style="color:rgb(25, 27, 31);">你打电话问书店老板有没有《高效演讲》这本书。</font>
+你打电话问书店老板有没有《高效演讲》这本书。
 
-<font style="color:rgb(25, 27, 31);">如果是</font>**<font style="color:rgb(25, 27, 31);">同步通信机制</font>**<font style="color:rgb(25, 27, 31);">，书店老板会说，你稍等，”我查一下"，然后开始查啊查，等查好了（可能是5秒，也可能是一天）告诉你结果（返回结果）。</font>
+如果是**同步通信机制**，书店老板会说，你稍等，”我查一下"，然后开始查啊查，等查好了（可能是5秒，也可能是一天）告诉你结果（返回结果）。
 
-<font style="color:rgb(25, 27, 31);">而</font>**<font style="color:rgb(25, 27, 31);">异步通信机制</font>**<font style="color:rgb(25, 27, 31);">，书店老板直接告诉你我查一下啊，查好了打电话给你，然后直接挂电话了（不返回结果）。然后查好了，他会主动打电话给你。在这里老板通过“回电”这种方式来回调。</font>
+而**异步通信机制**，书店老板直接告诉你我查一下啊，查好了打电话给你，然后直接挂电话了（不返回结果）。然后查好了，他会主动打电话给你。在这里老板通过“回电”这种方式来回调。
 
-## <font style="color:rgb(25, 27, 31);">阻塞与非阻塞</font>
-<font style="color:rgb(25, 27, 31);">阻塞和非阻塞关注的是</font>**<font style="color:rgb(25, 27, 31);">程序在等待调用结果</font>**<font style="color:rgb(25, 27, 31);">（消息，返回值）时的状态。</font>
+## 阻塞与非阻塞
+阻塞和非阻塞关注的是**程序在等待调用结果**（消息，返回值）时的状态。
 
-+ **<font style="color:rgb(25, 27, 31);">阻塞</font>**<font style="color:rgb(25, 27, 31);">调用是指调用结果返回之前，当前线程会被挂起。调用线程只有在得到结果之后才会返回。</font>
-+ **<font style="color:rgb(25, 27, 31);">非阻塞</font>**<font style="color:rgb(25, 27, 31);">调用指在不能立刻得到结果之前，该调用不会阻塞当前线程。</font>
++ **阻塞**调用是指调用结果返回之前，当前线程会被挂起。调用线程只有在得到结果之后才会返回。
++ **非阻塞**调用指在不能立刻得到结果之前，该调用不会阻塞当前线程。
 
-<font style="color:rgb(25, 27, 31);">接着上面的例子：</font>
+接着上面的例子：
 
-<font style="color:rgb(25, 27, 31);">打电话问书店老板有没有《高效演讲》这本书，</font>
+打电话问书店老板有没有《高效演讲》这本书，
 
-+ <font style="color:rgb(25, 27, 31);">如果是阻塞式调用，你会一直把自己“挂起”，直到得到这本书有没有的结果。</font>
-+ <font style="color:rgb(25, 27, 31);">如果是非阻塞式调用，你不管老板有没有告诉你，你自己先一边去玩了（先去干点别的，不用傻等）， 当然你也要偶尔过几分钟检查一下老板有没有返回结果。</font>
++ 如果是阻塞式调用，你会一直把自己“挂起”，直到得到这本书有没有的结果。
++ 如果是非阻塞式调用，你不管老板有没有告诉你，你自己先一边去玩了（先去干点别的，不用傻等）， 当然你也要偶尔过几分钟检查一下老板有没有返回结果。
 
-## <font style="color:rgb(25, 27, 31);">故事描述</font>
-<font style="color:rgb(25, 27, 31);">百里爱喝茶。</font>
+## 故事描述
+百里爱喝茶。
 
-<font style="color:rgb(25, 27, 31);">出场人物：百里，水壶两把（普通水壶，简称水壶；会响的水壶，简称响水壶）。</font>
+出场人物：百里，水壶两把（普通水壶，简称水壶；会响的水壶，简称响水壶）。
 
-1. <font style="color:rgb(25, 27, 31);">百里把水壶放到火上，立等水开，什么都不做，（同步阻塞）百里觉得自己有点傻。</font>
-2. <font style="color:rgb(25, 27, 31);">百里把水壶放到火上，去客厅看电视，时不时去厨房看看水开没有。（同步非阻塞）。</font>
-3. <font style="color:rgb(25, 27, 31);">百里还是觉得自己有点傻，于是变高端了，买了把会响笛的那种水壶。水开之后，能大声发出嘀~~~~的噪音。</font>
-4. <font style="color:rgb(55, 58, 64);">百里烧水，但站在水壶前啥也不干（线程阻塞），等水壶响了（异步回调）取水。</font><font style="color:rgb(25, 27, 31);">（异步阻塞）。</font>
-5. <font style="color:rgb(25, 27, 31);">百里觉得这样傻等意义不大，百里把响水壶放到火上，去客厅看电视，水壶响之前不再去看它了，响了再去拿壶。（异步非阻塞）。</font>
-+ **<font style="color:rgb(25, 27, 31);">同步异步，只是对于水壶而言</font>**<font style="color:rgb(25, 27, 31);">。</font>
-    - <font style="color:rgb(25, 27, 31);">普通水壶，同步。</font>
-    - <font style="color:rgb(25, 27, 31);">响水壶，异步。</font>
+1. 百里把水壶放到火上，立等水开，什么都不做，（同步阻塞）百里觉得自己有点傻。
+2. 百里把水壶放到火上，去客厅看电视，时不时去厨房看看水开没有。（同步非阻塞）。
+3. 百里还是觉得自己有点傻，于是变高端了，买了把会响笛的那种水壶。水开之后，能大声发出嘀~~~~的噪音。
+4. 百里烧水，但站在水壶前啥也不干（线程阻塞），等水壶响了（异步回调）取水。（异步阻塞）。
+5. 百里觉得这样傻等意义不大，百里把响水壶放到火上，去客厅看电视，水壶响之前不再去看它了，响了再去拿壶。（异步非阻塞）。
++ **同步异步，只是对于水壶而言**。
+    - 普通水壶，同步。
+    - 响水壶，异步。
 
-<font style="color:rgb(25, 27, 31);">虽然都能干活，但响水壶可以在自己完工之后，提示百里水开了。这是普通水壶所不能及的。同步只能让调用者去轮询自己（情况2中），造成百里效率的低下。</font>
+虽然都能干活，但响水壶可以在自己完工之后，提示百里水开了。这是普通水壶所不能及的。同步只能让调用者去轮询自己（情况2中），造成百里效率的低下。
 
-+ **<font style="color:rgb(25, 27, 31);">阻塞非阻塞，仅仅对于百里而言。</font>**
-    - <font style="color:rgb(25, 27, 31);">立等的百里，阻塞。</font>
-    - <font style="color:rgb(25, 27, 31);">看电视的百里，非阻塞。</font>
++ **阻塞非阻塞，仅仅对于百里而言。**
+    - 立等的百里，阻塞。
+    - 看电视的百里，非阻塞。
 
-<font style="color:rgb(25, 27, 31);">情况1和情况3中百里就是阻塞的，媳妇喊他都不知道。虽然3中响水壶是异步的，可对于立等的百里没有太大的意义。所以一般异步是配合非阻塞使用的，这样才能发挥异步的效用。</font>
+情况1和情况3中百里就是阻塞的，媳妇喊他都不知道。虽然3中响水壶是异步的，可对于立等的百里没有太大的意义。所以一般异步是配合非阻塞使用的，这样才能发挥异步的效用。
 
-## <font style="color:rgb(25, 27, 31);">回调函数</font>
-<font style="color:rgb(25, 27, 31);">前面提到，回调是异步调用的一种实现方式。那么什么是回调函数呢？</font>
+## 回调函数
+前面提到，回调是异步调用的一种实现方式。那么什么是回调函数呢？
 
-+ **<font style="color:rgb(25, 27, 31);">概念</font>**
++ **概念**
 
-<font style="color:rgb(25, 27, 31);">回调函数就是一个通过</font><font style="color:rgb(25, 27, 31);">函数指针</font><font style="color:rgb(25, 27, 31);">调用的函数。如果你把函数的</font>[<font style="color:rgb(25, 27, 31);">指针</font>](http://baike.baidu.com/view/159417.htm)<font style="color:rgb(25, 27, 31);">（地址）作为</font>[<font style="color:rgb(25, 27, 31);">参数传递</font>](http://baike.baidu.com/view/2691131.htm)<font style="color:rgb(25, 27, 31);">给另一个函数，当这个指针被用来调用其所指向的函数时，我们就说这是回调函数。</font>
+回调函数就是一个通过函数指针调用的函数。如果你把函数的[指针](http://baike.baidu.com/view/159417.htm)（地址）作为[参数传递](http://baike.baidu.com/view/2691131.htm)给另一个函数，当这个指针被用来调用其所指向的函数时，我们就说这是回调函数。
 
-<font style="color:rgb(25, 27, 31);">回调函数不是由该函数的实现方直接调用，而是在特定的事件或条件发生时由另外的一方调用的，用于对该事件或条件进行响应。</font>
+回调函数不是由该函数的实现方直接调用，而是在特定的事件或条件发生时由另外的一方调用的，用于对该事件或条件进行响应。
 
-+ **<font style="color:rgb(25, 27, 31);">举个例子</font>**
++ **举个例子**
 
-<font style="color:rgb(25, 27, 31);">概念不是太好理解，我们举个例子。</font>
+概念不是太好理解，我们举个例子。
 
-<font style="color:rgb(25, 27, 31);">沿用上面买书的例子，你的电话号码就叫</font>**<font style="color:rgb(25, 27, 31);">回调函数</font>**<font style="color:rgb(25, 27, 31);">，你把电话留给书店老板就叫</font>**<font style="color:rgb(25, 27, 31);">登记回调函数</font>**<font style="color:rgb(25, 27, 31);">，书店老板查好了叫做触发了回调关联的事件，老板给你打电话叫做</font>**<font style="color:rgb(25, 27, 31);">调用回调函数。</font>**<font style="color:rgb(25, 27, 31);">你接电话叫做响应回调事件。</font>
+沿用上面买书的例子，你的电话号码就叫**回调函数**，你把电话留给书店老板就叫**登记回调函数**，书店老板查好了叫做触发了回调关联的事件，老板给你打电话叫做**调用回调函数。**你接电话叫做响应回调事件。
 
-# <font style="color:#01B2BC;">SpringBoot + 虚拟线程，性能炸裂！</font>
-<font style="color:rgb(43, 43, 43);">虚拟线程是Java19开始增加的一个特性，和Golang的携程类似， </font>
+# SpringBoot + 虚拟线程，性能炸裂！
+虚拟线程是Java19开始增加的一个特性，和Golang的携程类似， 
 
-<font style="color:rgb(64, 184, 250);"> </font>说白了<font style="color:rgb(43, 43, 43);">就是JVM提供一层线程的接口抽象，通过普通的操作系统线程可以调度成千上万个虚拟线程。</font>
+ 说白了就是JVM提供一层线程的接口抽象，通过普通的操作系统线程可以调度成千上万个虚拟线程。
 
-<font style="color:rgb(43, 43, 43);">虚拟线程比普通线程的消耗要小得多得多，在内存足够的情况下，我们甚至可以创建上百万的虚拟线程，这在之前基本(Java19以前)是不可能的。</font>
+虚拟线程比普通线程的消耗要小得多得多，在内存足够的情况下，我们甚至可以创建上百万的虚拟线程，这在之前基本(Java19以前)是不可能的。
 
-<font style="color:rgb(43, 43, 43);">要在SpringBoot中使用虚拟线程很简单，只需要为@Async的线程池配置为虚拟线程池就可以</font>
+要在SpringBoot中使用虚拟线程很简单，只需要为@Async的线程池配置为虚拟线程池就可以
 
 ```java
 
@@ -547,7 +547,7 @@ public AsyncTaskExecutor applicationTaskExecutor() {
 
 
 
-<font style="color:rgb(43, 43, 43);">然后我做个了测试：写一个异步service，里面睡眠50ms，模拟MySQL或Redis等IO操作：</font>
+然后我做个了测试：写一个异步service，里面睡眠50ms，模拟MySQL或Redis等IO操作：
 
 ```java
 @Service
@@ -564,11 +564,11 @@ public class AsyncService {
 }
 ```
 
-<font style="color:rgb(43, 43, 43);"> 循环调用这个方法10万次，计算所有方法执行完成的消耗的时间：</font>
+ 循环调用这个方法10万次，计算所有方法执行完成的消耗的时间：
 
-<font style="color:rgb(43, 43, 43);">最后测试类，很简单，就是循环调用这个方法10万次，计算所有方法执行完成的消耗的时间：</font>
+最后测试类，很简单，就是循环调用这个方法10万次，计算所有方法执行完成的消耗的时间：
 
-<font style="color:rgb(43, 43, 43);"></font>
+
 
 ```java
 @Test
@@ -587,26 +587,26 @@ System.out.println("耗时：" + (end - start) + "ms");
 
 
 
-<font style="color:rgb(43, 43, 43);">普通线程耗时：678秒左右，超过10分钟了</font>
+普通线程耗时：678秒左右，超过10分钟了
 
 ![1718330923032-24d5bf81-6353-4910-99bb-af164707e9d3.png](./assets/1718330923032-24d5bf81-6353-4910-99bb-af164707e9d3.png)
 
-<font style="color:rgb(43, 43, 43);">虚拟线程耗时 你知道花了多久  ？  就3.9秒!!</font>
+虚拟线程耗时 你知道花了多久  ？  就3.9秒!!
 
 ![1718330947786-186eb43e-973f-4080-9757-f6385b097b3d.png](./assets/1718330947786-186eb43e-973f-4080-9757-f6385b097b3d.png)
 
-<font style="color:rgb(43, 43, 43);">接近200倍的性能差距啊！！</font>
+接近200倍的性能差距啊！！
 
-<font style="color:rgb(43, 43, 43);">所以虚拟线程在性能方面有明显的优势，但是要注意的是，我测试都是让等待了50ms，这是模拟什么场景？</font>
+所以虚拟线程在性能方面有明显的优势，但是要注意的是，我测试都是让等待了50ms，这是模拟什么场景？
 
-<font style="color:rgb(43, 43, 43);">没错，就是是IO密集型场景，即线程大部分时间是在等待IO，这样虚拟线程才可以发挥出它的优势，如果是CPU密集型场景，那么可能效果并不大。不过我们目前大部分的应用都是IO密集型应用较多，比如典型的WEB应用，大量的时间在等待网络IO（DB、缓存、HTTP等等），使用虚拟线程的效果还是非常明显的。</font>
+没错，就是是IO密集型场景，即线程大部分时间是在等待IO，这样虚拟线程才可以发挥出它的优势，如果是CPU密集型场景，那么可能效果并不大。不过我们目前大部分的应用都是IO密集型应用较多，比如典型的WEB应用，大量的时间在等待网络IO（DB、缓存、HTTP等等），使用虚拟线程的效果还是非常明显的。
 
 
 
-# <font style="color:#01B2BC;">JAVA 中有几种方法可以创建线程</font>
-<font style="color:rgb(55, 65, 81);">在Java中，有多种方法可以创建一个线程，以下是常用的几种方式：</font>
+# JAVA 中有几种方法可以创建线程
+在Java中，有多种方法可以创建一个线程，以下是常用的几种方式：
 
-1. **继承Thread类：**<font style="color:rgb(55, 65, 81);"> 创建一个继承自Thread类的子类，然后重写子类的</font>**run**<font style="color:rgb(55, 65, 81);">方法，将线程的任务逻辑放在</font>**run**<font style="color:rgb(55, 65, 81);">方法中。然后通过创建子类的对象并调用</font>**start**<font style="color:rgb(55, 65, 81);">方法来启动线程。示例代码如下：</font>
+1. **继承Thread类：** 创建一个继承自Thread类的子类，然后重写子类的**run**方法，将线程的任务逻辑放在**run**方法中。然后通过创建子类的对象并调用**start**方法来启动线程。示例代码如下：
 
 ```plain
 javaCopy code
@@ -621,7 +621,7 @@ MyThread myThread = new MyThread();
 myThread.start();
 ```
 
-2. **实现Runnable接口：**<font style="color:rgb(55, 65, 81);"> 创建一个类实现</font>**Runnable**<font style="color:rgb(55, 65, 81);">接口，并重写</font>**run**<font style="color:rgb(55, 65, 81);">方法，然后通过将实现了</font>**Runnable**<font style="color:rgb(55, 65, 81);">接口的对象传递给</font>**Thread**<font style="color:rgb(55, 65, 81);">类的构造函数来创建线程对象。示例代码如下：</font>
+2. **实现Runnable接口：** 创建一个类实现**Runnable**接口，并重写**run**方法，然后通过将实现了**Runnable**接口的对象传递给**Thread**类的构造函数来创建线程对象。示例代码如下：
 
 ```plain
 javaCopy code
@@ -636,7 +636,7 @@ Thread thread = new Thread(new MyRunnable());
 thread.start();
 ```
 
-3. **使用匿名内部类：**<font style="color:rgb(55, 65, 81);"> 可以使用匿名内部类来创建线程对象，这种方式通常用于简单的线程任务。示例代码如下：</font>
+3. **使用匿名内部类：** 可以使用匿名内部类来创建线程对象，这种方式通常用于简单的线程任务。示例代码如下：
 
 ```plain
 javaCopy code
@@ -648,7 +648,7 @@ Thread thread = new Thread(new Runnable() {
 thread.start();
 ```
 
-4. **使用Lambda表达式：**<font style="color:rgb(55, 65, 81);"> 在Java 8及以后的版本中，可以使用Lambda表达式来创建线程对象，更加简洁。示例代码如下：</font>
+4. **使用Lambda表达式：** 在Java 8及以后的版本中，可以使用Lambda表达式来创建线程对象，更加简洁。示例代码如下：
 
 ```plain
 javaCopy code
@@ -658,7 +658,7 @@ Thread thread = new Thread(() -> {
 thread.start();
 ```
 
-5. **使用线程池（Executor框架）：**<font style="color:rgb(55, 65, 81);"> 可以使用</font>**Executor**<font style="color:rgb(55, 65, 81);">框架中的线程池来管理和执行线程。通过</font>**ExecutorService**<font style="color:rgb(55, 65, 81);">接口的实现类，例如</font>**ThreadPoolExecutor**<font style="color:rgb(55, 65, 81);">，可以提交任务并由线程池管理线程的生命周期。</font>
+5. **使用线程池（Executor框架）：** 可以使用**Executor**框架中的线程池来管理和执行线程。通过**ExecutorService**接口的实现类，例如**ThreadPoolExecutor**，可以提交任务并由线程池管理线程的生命周期。
 
 ```plain
 javaCopy code
@@ -668,12 +668,12 @@ executorService.submit(() -> {
 });
 ```
 
-<font style="color:rgb(55, 65, 81);">这些方法都可以用来创建和启动线程，选择哪种方式取决于具体的需求和编程风格。通常情况下，推荐使用实现</font>**Runnable**<font style="color:rgb(55, 65, 81);">接口或使用Lambda表达式的方式来创建线程，因为它们更加灵活，可以避免Java单继承的限制，并且符合面向对象的设计原则。</font>
+这些方法都可以用来创建和启动线程，选择哪种方式取决于具体的需求和编程风格。通常情况下，推荐使用实现**Runnable**接口或使用Lambda表达式的方式来创建线程，因为它们更加灵活，可以避免Java单继承的限制，并且符合面向对象的设计原则。
 
-# <font style="color:#01B2BC;">如何停止一个正在运行的线程</font>
-<font style="color:rgb(55, 65, 81);">要停止一个正在运行的线程，通常有几种方法，但需要根据具体情况选择适当的方式，因为线程的停止涉及到线程安全和资源释放等问题。以下是一些常用的停止线程的方法：</font>
+# 如何停止一个正在运行的线程
+要停止一个正在运行的线程，通常有几种方法，但需要根据具体情况选择适当的方式，因为线程的停止涉及到线程安全和资源释放等问题。以下是一些常用的停止线程的方法：
 
-1. **使用标志位：**<font style="color:rgb(55, 65, 81);"> 在线程的执行体中使用一个标志位，当该标志位为true时，线程会自行退出执行。这是一种比较安全和可控的方式。例如：</font>
+1. **使用标志位：** 在线程的执行体中使用一个标志位，当该标志位为true时，线程会自行退出执行。这是一种比较安全和可控的方式。例如：
 
 ```java
 public class MyThread extends Thread {
@@ -691,9 +691,9 @@ public class MyThread extends Thread {
 }
 ```
 
-<font style="color:rgb(55, 65, 81);">在上面的示例中，</font>**stopThread**<font style="color:rgb(55, 65, 81);">方法用于设置</font>**stopRequested**<font style="color:rgb(55, 65, 81);">标志位，从而停止线程的执行。</font>
+在上面的示例中，**stopThread**方法用于设置**stopRequested**标志位，从而停止线程的执行。
 
-2. **使用****interrupt****方法：**<font style="color:rgb(55, 65, 81);"> 使用线程的</font>**interrupt**<font style="color:rgb(55, 65, 81);">方法可以中断线程的执行。在线程的执行体中，可以使用</font>**Thread.currentThread().isInterrupted()**<font style="color:rgb(55, 65, 81);">检查线程是否被中断，然后做出相应的处理。例如：</font>
+2. **使用****interrupt****方法：** 使用线程的**interrupt**方法可以中断线程的执行。在线程的执行体中，可以使用**Thread.currentThread().isInterrupted()**检查线程是否被中断，然后做出相应的处理。例如：
 
 ```java
 public class MyThread extends Thread {
@@ -708,15 +708,15 @@ public class MyThread extends Thread {
 myThread.interrupt();
 ```
 
-<font style="color:rgb(55, 65, 81);">在这种方法中，线程需要主动检查是否被中断，并根据需要停止执行。</font>
+在这种方法中，线程需要主动检查是否被中断，并根据需要停止执行。
 
-3. **使用****Thread.stop****方法（不推荐使用）：****Thread.stop**<font style="color:rgb(55, 65, 81);">方法可以强制停止一个线程，但不建议使用它，因为它可能导致线程的状态不一致和资源泄漏等问题，容易引发不可预测的错误。</font>
-4. **使用****ExecutorService****：**<font style="color:rgb(55, 65, 81);"> 如果线程是通过</font>**ExecutorService**<font style="color:rgb(55, 65, 81);">创建的，可以使用</font>**shutdown**<font style="color:rgb(55, 65, 81);">或</font>**shutdownNow**<font style="color:rgb(55, 65, 81);">方法来停止线程池中的线程。</font>
-5. **使用****Future****：**<font style="color:rgb(55, 65, 81);"> 如果线程是通过</font>**Future**<font style="color:rgb(55, 65, 81);">对象启动的，可以使用</font>**cancel**<font style="color:rgb(55, 65, 81);">方法来取消线程的执行。</font>
+3. **使用****Thread.stop****方法（不推荐使用）：****Thread.stop**方法可以强制停止一个线程，但不建议使用它，因为它可能导致线程的状态不一致和资源泄漏等问题，容易引发不可预测的错误。
+4. **使用****ExecutorService****：** 如果线程是通过**ExecutorService**创建的，可以使用**shutdown**或**shutdownNow**方法来停止线程池中的线程。
+5. **使用****Future****：** 如果线程是通过**Future**对象启动的，可以使用**cancel**方法来取消线程的执行。
 
-<font style="color:rgb(55, 65, 81);">总的来说，为了安全地停止线程，建议使用标志位或</font>**interrupt**<font style="color:rgb(55, 65, 81);">方法，并在线程的执行体中检查相应的标志或中断状态。避免使用</font>**Thread.stop**<font style="color:rgb(55, 65, 81);">方法，以及要谨慎处理线程的资源释放问题。</font>
+总的来说，为了安全地停止线程，建议使用标志位或**interrupt**方法，并在线程的执行体中检查相应的标志或中断状态。避免使用**Thread.stop**方法，以及要谨慎处理线程的资源释放问题。
 
-# <font style="color:#01B2BC;">有三个线程T1,T2,T3,如何保证顺序执行</font>
+# 有三个线程T1,T2,T3,如何保证顺序执行
 确保三个线程 T1、T2、T3 按照指定顺序执行有多种方式。以下是其中一些常见的方式：
 
 + **使用 join() 方法**： 可以在每个线程内部使用 join() 方法来等待前一个线程执行完成。具体操作是在线程 T2 的 run() 方法中调用 T1.join()，在线程 T3 的 run() 方法中调用 T2.join()。这样可以确保 T1 在 T2 之前执行，T2 在 T3 之前执行。
@@ -785,7 +785,7 @@ t2.start();
 t3.start();
 ```
 
-+ **使用 LockSupport**：<font style="color:rgb(55, 65, 81);"> 可以使用LockSupport的park和unpark来控制线程的执行顺序。</font>
++ **使用 LockSupport**： 可以使用LockSupport的park和unpark来控制线程的执行顺序。
 
 ```java
 public class Test {
@@ -820,13 +820,13 @@ public class Test {
 
 这些方法都可以用来确保线程按照指定顺序执行。选择其中一种方式取决于你的具体需求和场景。
 
-# <font style="color:#01B2BC;">ThreadLocaL如何防止内存泄漏</font>
-<font style="color:rgb(55, 65, 81);">ThreadLocal 变量的内存泄漏问题主要是由于 ThreadLocalMap 中的 Entry 没有被及时清理导致的。ThreadLocalMap 是 ThreadLocal 的底层数据结构，它用于存储每个线程独立的变量副本。</font>
+# ThreadLocaL如何防止内存泄漏
+ThreadLocal 变量的内存泄漏问题主要是由于 ThreadLocalMap 中的 Entry 没有被及时清理导致的。ThreadLocalMap 是 ThreadLocal 的底层数据结构，它用于存储每个线程独立的变量副本。
 
-<font style="color:rgb(55, 65, 81);">要防止 ThreadLocal 内存泄漏，可以考虑以下方法：</font>
+要防止 ThreadLocal 内存泄漏，可以考虑以下方法：
 
-## <font style="color:rgb(55, 65, 81);">使用完 ThreadLocal 后及时调用 </font>remove() <font style="color:rgb(55, 65, 81);">方法</font>
-1. <font style="color:rgb(55, 65, 81);">在不再需要使用 ThreadLocal 存储的数据时，手动调用 </font>ThreadLocal.remove() <font style="color:rgb(55, 65, 81);">方法将该数据从当前线程的 ThreadLocalMap 中清除。这样可以确保 ThreadLocalMap 不会持有对对象的引用，从而帮助垃圾回收器正常回收不再需要的对象。</font>
+## 使用完 ThreadLocal 后及时调用 remove() 方法
+1. 在不再需要使用 ThreadLocal 存储的数据时，手动调用 ThreadLocal.remove() 方法将该数据从当前线程的 ThreadLocalMap 中清除。这样可以确保 ThreadLocalMap 不会持有对对象的引用，从而帮助垃圾回收器正常回收不再需要的对象。
 
 ```plain
 javaCopy code
@@ -837,8 +837,8 @@ threadLocal.set(someData);
 threadLocal.remove();
 ```
 
-## <font style="color:rgb(55, 65, 81);">使用 try-with-resources 或 try-finally 块</font>
-2. <font style="color:rgb(55, 65, 81);">如果你的 ThreadLocal 变量在需要清理的资源管理上下文中使用，可以使用 try-with-resources（自动清理）或 try-finally（手动清理）块来确保及时清理。</font>
+## 使用 try-with-resources 或 try-finally 块
+2. 如果你的 ThreadLocal 变量在需要清理的资源管理上下文中使用，可以使用 try-with-resources（自动清理）或 try-finally（手动清理）块来确保及时清理。
 
 ```plain
 javaCopy code
@@ -854,8 +854,8 @@ try {
 }
 ```
 
-## <font style="color:rgb(55, 65, 81);">使用 InheritableThreadLocal</font>
-3. <font style="color:rgb(55, 65, 81);">如果需要在子线程中访问父线程的 ThreadLocal 变量，并且确保在子线程中正确清理，可以考虑使用 InheritableThreadLocal。这个类允许子线程继承父线程的 ThreadLocal 变量，并在子线程完成后自动清理。</font>
+## 使用 InheritableThreadLocal
+3. 如果需要在子线程中访问父线程的 ThreadLocal 变量，并且确保在子线程中正确清理，可以考虑使用 InheritableThreadLocal。这个类允许子线程继承父线程的 ThreadLocal 变量，并在子线程完成后自动清理。
 
 ```plain
 javaCopy code
@@ -869,9 +869,9 @@ Thread childThread = new Thread(childTask);
 childThread.start();
 ```
 
-<font style="color:rgb(55, 65, 81);">通过采取这些预防措施，可以有效避免 ThreadLocal 变量的内存泄漏问题，确保不再需要的对象能够被及时回收。</font>
+通过采取这些预防措施，可以有效避免 ThreadLocal 变量的内存泄漏问题，确保不再需要的对象能够被及时回收。
 
-# <font style="color:#01B2BC;">CompletableFuture解析</font>
+# CompletableFuture解析
 ```java
 public class CompletableFuture<T> implements Future<T>, CompletionStage<T> {
 	// ...
@@ -963,7 +963,7 @@ public class Main {
 
 以上代码就是在定义A任务执行完成后才执行B任务，A任务会交给指定的线程池执行，B任务到底会让哪个线程执行得看情况，如果A任务还没执行完，那么B任务也会由线程池中的线程来执行，main线程执行后续代码，如果A任务已经执行完了，那么B任务则会由main线程直接执行。
 
-# <font style="color:#01B2BC;">线程池中提交一个任务的流程是怎样的？</font>
+# 线程池中提交一个任务的流程是怎样的？
 😍 薪资范围：10k-20k
 
 😏 对应岗位：初中级开发工程师
@@ -1006,11 +1006,11 @@ public class Main {
 
 注意2：ThreadPoolExecutor相当于是非公平的，比如队列满了之后提交的Runnable可能会比正在排队的Runnable先执行。
 
-**<font style="color:#DF2A3F;"></font>**
+****
 
 ---
 
-# <font style="color:#01B2BC;">线程池有几种状态？分别是如何变化的？</font>
+# 线程池有几种状态？分别是如何变化的？
 😍 薪资范围：10k-20k
 
 😏 对应岗位：初中级开发工程师
@@ -1039,7 +1039,7 @@ public class Main {
 
 ****
 
-| **<font style="color:#1DC0C9;">转变前</font>** | **<font style="color:#1DC0C9;">转变后</font>** | **<font style="color:#1DC0C9;">转变条件</font>** |
+| **转变前** | **转变后** | **转变条件** |
 | --- | --- | --- |
 | RUNNING | SHUTDOWN | 手动调用shutdown()触发，或者线程池对象GC时会调用finalize()从而调用shutdown() |
 | RUNNING | STOP | 手动调用shutdownNow()触发 |
@@ -1051,7 +1051,7 @@ public class Main {
 
 ---
 
-# <font style="color:#01B2BC;">如何优雅的停止一个线程？</font>
+# 如何优雅的停止一个线程？
 😍 薪资范围：15k-25k
 
 😏 对应岗位：中高级开发工程师
@@ -1140,7 +1140,7 @@ void interruptIfStarted() {
 
 ---
 
-# <font style="color:#01B2BC;">Tomcat是如何自定义线程池的？</font>
+# Tomcat是如何自定义线程池的？
 
 
 😍 薪资范围：20k-30k
@@ -1217,7 +1217,7 @@ Tomcat中的线程池的思想是：优先启动线程，线程达到上限了�
 
 ---
 
-# <font style="color:#01B2BC;">线程池的核心线程数、最大线程数该如何设置？</font>
+# 线程池的核心线程数、最大线程数该如何设置？
 
 
 😍 薪资范围：20k-30k
@@ -1283,13 +1283,13 @@ Runtime.getRuntime().availableProcessors()
 
 
 
-所以，对于CPU密集型任务，我们可以设置线程数为：**<font style="color:#DF2A3F;">CPU核心数+1</font>**
+所以，对于CPU密集型任务，我们可以设置线程数为：**CPU核心数+1**
 
-**<font style="color:#DF2A3F;"></font>**
+****
 
-我们在来看IO型任务，线程在执行IO型任务时，可能大部分时间都阻塞在IO上，假如现在有10个CPU，如果我们只设置了10个线程来执行IO型任务，那么很有可能这10个线程都阻塞在了IO上，这样这10个CPU就都没活干了，所以，对于IO型任务，我们通常会设置线程数为：**<font style="color:#DF2A3F;">2*CPU核心数</font>**
+我们在来看IO型任务，线程在执行IO型任务时，可能大部分时间都阻塞在IO上，假如现在有10个CPU，如果我们只设置了10个线程来执行IO型任务，那么很有可能这10个线程都阻塞在了IO上，这样这10个CPU就都没活干了，所以，对于IO型任务，我们通常会设置线程数为：**2*CPU核心数**
 
-**<font style="color:#DF2A3F;"></font>**
+****
 
 不过，就算是设置为了**2*CPU核心数**，也不一定是最佳的，比如，有10个CPU，线程数为20，那么也有可能这20个线程同时阻塞在了IO上，所以可以再增加线程，从而去压榨CPU的利用率。
 
@@ -1408,7 +1408,7 @@ server.tomcat.threads.max=500
 
 
 
-# <font style="color:#01B2BC;">如何理解Java并发中的可见性？</font>
+# 如何理解Java并发中的可见性？
 😍 薪资范围：10k-20k
 
 😏 对应岗位：中高级开发工程师
@@ -1433,7 +1433,7 @@ Java并发可见性指的是多线程并发访问共享变量时，对变量的�
 
 在Java中，可以volatile关键字来保证变量的可见性，对于加了volatile的变量，线程在读取该变量时会直接从内存中读取，再修改该变量时会同时修改CPU高速缓存和内存中的值。
 
-# <font style="color:#01B2BC;">如何理解Java并发中的原子性？</font>
+# 如何理解Java并发中的原子性？
 😍 薪资范围：10k-20k
 
 😏 对应岗位：中高级开发工程师
@@ -1472,7 +1472,7 @@ Java中我们需要通过各种锁机制来保证原子性。
 
 
 
-# <font style="color:#01B2BC;">如何理解Java并发中的有序性？</font>
+# 如何理解Java并发中的有序性？
 😍 薪资范围：10k-20k
 
 😏 对应岗位：中高级开发工程师
@@ -1542,7 +1542,7 @@ public class Person {
 
 
 
-# <font style="color:#01B2BC;">如何理解Java并发中的条件等待队列？</font>
+# 如何理解Java并发中的条件等待队列？
 当一个线程加到锁之后，可能并不能立马执行业务逻辑，得在满足某个条件后才能执行，比如对于阻塞队列而言，当我们要条件元素时，会先加锁，加到锁之后，会判断队列是否满了，如果队列满了则需要阻塞当前线程并等待队列有空位，这样当前线程会进入条件等待队列，同时有可能其他线程也会进入此条件等待队列，而一旦队列有元素出队了，那么会可以唤醒条件等待队列中的某一个线程了，使得该线程去执行它的入队操作。
 
 
@@ -1553,24 +1553,24 @@ public class Person {
 
 
 
-# <font style="color:#01B2BC;">如何理解守护线程以及它的作用？</font>
+# 如何理解守护线程以及它的作用？
 
 
 线程分为用户线程和守护线程，用户线程就是普通线程，守护线程就是JVM的后台线程，比如垃圾回收线程就是一个守护线程，守护线程会在其他普通线程都停止运行之后自动关闭。我们可以通过设置thread.setDaemon(true)来把一个线程设置为守护线程。
 
 
 
-# <font style="color:#01B2BC;">如何理解ThreadLocal以及它的底层执行原理</font>
-1. ThreadLocal是Java中所提供的线程本地存储机制，可以利用该机制将数据<font style="color:#F5222D;">缓存在某个线程内部</font>，该线程可以在任意时刻、任意方法中获取缓存的数据
-2. ThreadLocal底层是通过<font style="color:#2C3E50;">ThreadLocalMap来实现的，每个Thread对象（注意不是ThreadLocal对象）中都存在一个</font><font style="color:#2C3E50;">ThreadLocalMap，</font><font style="color:#2C3E50;">Map的key为ThreadLocal对象，Map的value为需要缓存的值</font>
-3. <font style="color:#2C3E50;">如果在线程池中使用ThreadLocal会造成内存泄漏，因为当ThreadLocal对象使用完之后，应该要把设置的key，value，也就是Entry对象进行回收，但线程池中的线程不会回收，而线程对象是通过强引用指向</font><font style="color:#2C3E50;">ThreadLocalMap，ThreadLocalMap也是通过强引用指向Entry对象，线程不被回收，Entry对象也就不会被回收，从而出现内存泄漏，解决办法是，在使用了ThreadLocal对象之后，手动调用ThreadLocal的remove方法，手动清楚Entry对象</font>
+# 如何理解ThreadLocal以及它的底层执行原理
+1. ThreadLocal是Java中所提供的线程本地存储机制，可以利用该机制将数据缓存在某个线程内部，该线程可以在任意时刻、任意方法中获取缓存的数据
+2. ThreadLocal底层是通过ThreadLocalMap来实现的，每个Thread对象（注意不是ThreadLocal对象）中都存在一个ThreadLocalMap，Map的key为ThreadLocal对象，Map的value为需要缓存的值
+3. 如果在线程池中使用ThreadLocal会造成内存泄漏，因为当ThreadLocal对象使用完之后，应该要把设置的key，value，也就是Entry对象进行回收，但线程池中的线程不会回收，而线程对象是通过强引用指向ThreadLocalMap，ThreadLocalMap也是通过强引用指向Entry对象，线程不被回收，Entry对象也就不会被回收，从而出现内存泄漏，解决办法是，在使用了ThreadLocal对象之后，手动调用ThreadLocal的remove方法，手动清楚Entry对象
 4. ThreadLocal经典的应用场景就是连接管理（一个线程持有一个连接，该连接对象可以在不同的方法之间进行传递，线程之间不共享同一个连接）
 
 ![1622816023795-3ae4931c-bcab-4e8c-a987-4fecf53f9855.png](./assets/1622816023795-3ae4931c-bcab-4e8c-a987-4fecf53f9855.png)
 
 
 
-# <font style="color:#01B2BC;">Java中如何避免死锁?</font>
+# Java中如何避免死锁?
 造成死锁的几个原因：
 
 1. 一个资源每次只能被一个线程使用
@@ -1592,7 +1592,7 @@ public class Person {
 
 
 
-# <font style="color:#01B2BC;">ReentrantLock中的公平锁和非公平锁的底层实现</font>
+# ReentrantLock中的公平锁和非公平锁的底层实现
 首先不管是公平锁和非公平锁，它们的底层实现都会使用AQS来进行排队，它们的区别在于：线程在使用lock()方法加锁时，如果是公平锁，会先检查AQS队列中是否存在线程在排队，如果有线程在排队，则当前线程也进行排队，如果是非公平锁，则不会去检查是否有线程在排队，而是直接竞争锁。
 
 
@@ -1605,28 +1605,28 @@ public class Person {
 
 ![1626185425264-6d9a8ab7-12d9-4032-8fa4-1bcc40231009.png](./assets/1626185425264-6d9a8ab7-12d9-4032-8fa4-1bcc40231009.png)                                                   ![1626185427450-d6a6ab8e-94a4-4e7a-be68-bab2d06b320c.png](./assets/1626185427450-d6a6ab8e-94a4-4e7a-be68-bab2d06b320c.png)
 
-**<font style="color:#F5222D;"></font>**
+****
 
-# <font style="color:#01B2BC;">ReentrantLock中tryLock()和lock()方法的区别</font>
+# ReentrantLock中tryLock()和lock()方法的区别
 1. tryLock()表示尝试加锁，可能加到，也可能加不到，该方法不会阻塞线程，如果加到锁则返回true，没有加到则返回false
 2. lock()表示阻塞加锁，线程会阻塞直到加到锁，方法也没有返回值
 
-**<font style="color:#F5222D;"></font>**
-
-<font style="color:#F5222D;"></font>
-
-# <font style="color:#01B2BC;">CountDownLatch和Semaphore的区别和底层原理</font>
-CountDownLatch表示计数器，可以给CountDownLatch设置一个数字，一个线程调用CountDownLatch的<font style="color:#4D4D4D;">await()将会阻塞，其他线程可以调用</font>CountDownLatch的countDown()方法来对CountDownLatch中的数字减一，当数字被减成0后，所有await的线程都将被唤醒。
-
-对应的底层原理就是，调用<font style="color:#4D4D4D;">await()方法的线程会利用AQS排队，一旦数字被减为0，则会将AQS中排队的线程依次唤醒。</font>
+****
 
 
 
-<font style="color:#4D4D4D;">Semaphore表示信号量，可以设置许可的个数，表示同时允许最多多少个线程使用该信号量，通过</font><font style="color:#4D4D4D;">acquire()来获取许可，如果没有许可可用则线程阻塞，并通过AQS来排队，可以通过</font><font style="color:#4D4D4D;">release()方法来释放许可，当某个线程释放了某个许可后，会从AQS中正在排队的第一个线程开始依次唤醒，直到没有空闲许可。</font>
+# CountDownLatch和Semaphore的区别和底层原理
+CountDownLatch表示计数器，可以给CountDownLatch设置一个数字，一个线程调用CountDownLatch的await()将会阻塞，其他线程可以调用CountDownLatch的countDown()方法来对CountDownLatch中的数字减一，当数字被减成0后，所有await的线程都将被唤醒。
 
-<font style="color:#F5222D;"></font>
+对应的底层原理就是，调用await()方法的线程会利用AQS排队，一旦数字被减为0，则会将AQS中排队的线程依次唤醒。
 
-# <font style="color:#01B2BC;">Sychronized的偏向锁、轻量级锁、重量级锁</font>
+
+
+Semaphore表示信号量，可以设置许可的个数，表示同时允许最多多少个线程使用该信号量，通过acquire()来获取许可，如果没有许可可用则线程阻塞，并通过AQS来排队，可以通过release()方法来释放许可，当某个线程释放了某个许可后，会从AQS中正在排队的第一个线程开始依次唤醒，直到没有空闲许可。
+
+
+
+# Sychronized的偏向锁、轻量级锁、重量级锁
 1. 偏向锁：在锁对象的对象头中记录一下当前获取到该锁的线程ID，该线程下次如果又来获取该锁就可以直接获取到了
 2. 轻量级锁：由偏向锁升级而来，当一个线程获取到锁后，此时这把锁是偏向锁，此时如果有第二个线程来竞争锁，偏向锁就会升级为轻量级锁，之所以叫轻量级锁，是为了和重量级锁区分开来，轻量级锁底层是通过自旋来实现的，并不会阻塞线程
 3. 如果自旋次数过多仍然没有获取到锁，则会升级为重量级锁，重量级锁会导致线程阻塞
@@ -1634,7 +1634,7 @@ CountDownLatch表示计数器，可以给CountDownLatch设置一个数字，一�
 
 
 
-# <font style="color:#01B2BC;">Sychronized和ReentrantLock的区别</font>
+# Sychronized和ReentrantLock的区别
 1. sychronized是一个关键字，ReentrantLock是一个类
 2. sychronized会自动的加锁与释放锁，ReentrantLock需要程序员手动加锁与释放锁
 3. sychronized的底层是JVM层面的锁，ReentrantLock是API层面的锁

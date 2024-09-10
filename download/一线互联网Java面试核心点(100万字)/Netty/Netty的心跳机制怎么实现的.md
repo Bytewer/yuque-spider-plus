@@ -1,19 +1,19 @@
-<font style="color:rgba(0, 0, 0, 0.82);">Netty 中的心跳机制通常用于保持客户端和服务器之间的长连接，以便在连接空闲一段时间后发送“心跳”消息来检测连接状态，避免连接意外断开。Netty 提供了一些工具和类来便捷地实现心跳机制。</font>
+Netty 中的心跳机制通常用于保持客户端和服务器之间的长连接，以便在连接空闲一段时间后发送“心跳”消息来检测连接状态，避免连接意外断开。Netty 提供了一些工具和类来便捷地实现心跳机制。
 
-<font style="color:rgba(0, 0, 0, 0.82);">以下是如何在 Netty 中实现心跳机制的详细步骤和示例代码：</font>
+以下是如何在 Netty 中实现心跳机制的详细步骤和示例代码：
 
-### <font style="color:rgba(0, 0, 0, 0.82);">步骤</font>
-1. **<font style="color:rgba(0, 0, 0, 0.82);">添加 IdleStateHandler</font>**<font style="color:rgba(0, 0, 0, 0.82);">：  
-</font><font style="color:rgba(0, 0, 0, 0.82);">Netty 提供的</font><font style="color:rgba(0, 0, 0, 0.82);"> </font>`<font style="color:rgba(0, 0, 0, 0.82);">IdleStateHandler</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">可以检测连接的空闲状态，根据设定的时间触发相应的事件。</font>
-2. **<font style="color:rgba(0, 0, 0, 0.82);">实现处理心跳事件的处理器</font>**<font style="color:rgba(0, 0, 0, 0.82);">：  
-</font><font style="color:rgba(0, 0, 0, 0.82);">通过继承</font><font style="color:rgba(0, 0, 0, 0.82);"> </font>`<font style="color:rgba(0, 0, 0, 0.82);">ChannelInboundHandlerAdapter</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">或</font><font style="color:rgba(0, 0, 0, 0.82);"> </font>`<font style="color:rgba(0, 0, 0, 0.82);">ChannelDuplexHandler</font>`<font style="color:rgba(0, 0, 0, 0.82);">，处理</font><font style="color:rgba(0, 0, 0, 0.82);"> </font>`<font style="color:rgba(0, 0, 0, 0.82);">IdleStateEvent</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">事件，发送心跳消息或关闭连接。</font>
-3. **<font style="color:rgba(0, 0, 0, 0.82);">在 Pipeline 中添加处理器</font>**<font style="color:rgba(0, 0, 0, 0.82);">：  
-</font><font style="color:rgba(0, 0, 0, 0.82);">将</font><font style="color:rgba(0, 0, 0, 0.82);"> </font>`<font style="color:rgba(0, 0, 0, 0.82);">IdleStateHandler</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">和自定义的心跳处理器添加到 ChannelPipeline 中。</font>
+### 步骤
+1. **添加 IdleStateHandler**：  
+Netty 提供的 `IdleStateHandler` 可以检测连接的空闲状态，根据设定的时间触发相应的事件。
+2. **实现处理心跳事件的处理器**：  
+通过继承 `ChannelInboundHandlerAdapter` 或 `ChannelDuplexHandler`，处理 `IdleStateEvent` 事件，发送心跳消息或关闭连接。
+3. **在 Pipeline 中添加处理器**：  
+将 `IdleStateHandler` 和自定义的心跳处理器添加到 ChannelPipeline 中。
 
-### <font style="color:rgba(0, 0, 0, 0.82);">示例代码</font>
-<font style="color:rgba(0, 0, 0, 0.82);">以下示例展示了如何实现一个简单的 Netty 心跳机制：</font>
+### 示例代码
+以下示例展示了如何实现一个简单的 Netty 心跳机制：
 
-#### <font style="color:rgba(0, 0, 0, 0.82);">服务端</font>
+#### 服务端
 ```java
 import io.netty.bootstrap.ServerBootstrap;  
 import io.netty.channel.ChannelInitializer;  
@@ -91,7 +91,7 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
 }
 ```
 
-#### <font style="color:rgba(0, 0, 0, 0.82);">客户端</font>
+#### 客户端
 ```java
 import io.netty.bootstrap.Bootstrap;  
 import io.netty.channel.ChannelInitializer;  
@@ -169,17 +169,17 @@ public class ClientHeartbeatHandler extends ChannelInboundHandlerAdapter {
 }
 ```
 
-### <font style="color:rgba(0, 0, 0, 0.82);">代码解释</font>
-1. **<font style="color:rgba(0, 0, 0, 0.82);">服务端代码解释</font>**<font style="color:rgba(0, 0, 0, 0.82);">：</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">ServerBootstrap</font>`<font style="color:rgba(0, 0, 0, 0.82);">：配置和启动 NIO 服务端。</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">NioServerSocketChannel</font>`<font style="color:rgba(0, 0, 0, 0.82);">：指定服务端的通道类型为 NIO。</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">IdleStateHandler</font>`<font style="color:rgba(0, 0, 0, 0.82);">：添加到 Pipeline 中，检测连接的空闲状态。这段代码中配置了</font><font style="color:rgba(0, 0, 0, 0.82);"> </font>`<font style="color:rgba(0, 0, 0, 0.82);">READ_IDLE</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">5 秒，即连接 5 秒未读取数据时触发空闲事件。</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">ServerHeartbeatHandler</font>`<font style="color:rgba(0, 0, 0, 0.82);">：自定义的处理器，处理空闲事件（心跳检测）。在发生读空闲事件时，发送心跳消息“HEARTBEAT”给客户端。遇到异常时关闭连接。</font>
-2. **<font style="color:rgba(0, 0, 0, 0.82);">客户端代码解释</font>**<font style="color:rgba(0, 0, 0, 0.82);">：</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">Bootstrap</font>`<font style="color:rgba(0, 0, 0, 0.82);">：配置和启动 NIO 客户端。</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">NioSocketChannel</font>`<font style="color:rgba(0, 0, 0, 0.82);">：指定客户端的通道类型为 NIO。</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">IdleStateHandler</font>`<font style="color:rgba(0, 0, 0, 0.82);">：添加到 Pipeline 中，检测连接的空闲状态。配置了</font><font style="color:rgba(0, 0, 0, 0.82);"> </font>`<font style="color:rgba(0, 0, 0, 0.82);">ALL_IDLE</font>`<font style="color:rgba(0, 0, 0, 0.82);"> </font><font style="color:rgba(0, 0, 0, 0.82);">5 秒，即连接 5 秒既未读取也未写入数据时触发空闲事件。</font>
-    - `<font style="color:rgba(0, 0, 0, 0.82);">ClientHeartbeatHandler</font>`<font style="color:rgba(0, 0, 0, 0.82);">：自定义的处理器，处理空闲事件（心跳检测）。在发生读写空闲事件时，发送心跳消息“HEARTBEAT”给服务器。处理服务器的心跳响应消息并打印。遇到异常时关闭连接。</font>
+### 代码解释
+1. **服务端代码解释**：
+    - `ServerBootstrap`：配置和启动 NIO 服务端。
+    - `NioServerSocketChannel`：指定服务端的通道类型为 NIO。
+    - `IdleStateHandler`：添加到 Pipeline 中，检测连接的空闲状态。这段代码中配置了 `READ_IDLE` 5 秒，即连接 5 秒未读取数据时触发空闲事件。
+    - `ServerHeartbeatHandler`：自定义的处理器，处理空闲事件（心跳检测）。在发生读空闲事件时，发送心跳消息“HEARTBEAT”给客户端。遇到异常时关闭连接。
+2. **客户端代码解释**：
+    - `Bootstrap`：配置和启动 NIO 客户端。
+    - `NioSocketChannel`：指定客户端的通道类型为 NIO。
+    - `IdleStateHandler`：添加到 Pipeline 中，检测连接的空闲状态。配置了 `ALL_IDLE` 5 秒，即连接 5 秒既未读取也未写入数据时触发空闲事件。
+    - `ClientHeartbeatHandler`：自定义的处理器，处理空闲事件（心跳检测）。在发生读写空闲事件时，发送心跳消息“HEARTBEAT”给服务器。处理服务器的心跳响应消息并打印。遇到异常时关闭连接。
 
-<font style="color:rgba(0, 0, 0, 0.82);">通过以上代码示例和详细注释，您可以更好地理解 Netty 中心跳机制的实现方式。Netty 提供的 </font>`<font style="color:rgba(0, 0, 0, 0.82);">IdleStateHandler</font>`<font style="color:rgba(0, 0, 0, 0.82);"> 非常便利，能够有效简化心跳检测的实现，确保连接在长时间闲置时保持活跃状态。</font>
+通过以上代码示例和详细注释，您可以更好地理解 Netty 中心跳机制的实现方式。Netty 提供的 `IdleStateHandler` 非常便利，能够有效简化心跳检测的实现，确保连接在长时间闲置时保持活跃状态。
 

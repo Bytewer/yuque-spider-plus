@@ -808,7 +808,7 @@ GraalVM文章推荐：[https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzI3MDI5MjI
 
 ## GraalVM体验
 ### 下载压缩包
-打开[https://github.com/graalvm/graalvm-ce-builds/releases](https://github.com/graalvm/graalvm-ce-builds/releases)，按JDK版本下载GraalVM对应的压缩包，请下载**<font style="color:#DF2A3F;">Java 17对应</font>**的版本，不然后面运行SpringBoot3可能会有问题。
+打开[https://github.com/graalvm/graalvm-ce-builds/releases](https://github.com/graalvm/graalvm-ce-builds/releases)，按JDK版本下载GraalVM对应的压缩包，请下载**Java 17对应**的版本，不然后面运行SpringBoot3可能会有问题。
 
 ![1674881915492-21052c86-416b-4fa2-af46-57c86f0a5e3c.png](./assets/1674881915492-21052c86-416b-4fa2-af46-57c86f0a5e3c.png)
 
@@ -837,12 +837,12 @@ windows的同学直接给大家：[graalvm-ce-java17-windows-amd64-22.3.0.zip](h
 
 
 
-### 安装<font style="color:rgb(41, 41, 41);">Visual Studio Build Tools</font>
-因为需要C语言环境，所以需要安装<font style="color:rgb(41, 41, 41);">Visual Studio Build Tools。</font>
+### 安装Visual Studio Build Tools
+因为需要C语言环境，所以需要安装Visual Studio Build Tools。
 
-<font style="color:rgb(41, 41, 41);"></font>
 
-<font style="color:rgb(41, 41, 41);">打开</font>[visualstudio.microsoft.com](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16)，下载Visual Studio Installer。
+
+打开[visualstudio.microsoft.com](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16)，下载Visual Studio Installer。
 
 
 
@@ -851,13 +851,13 @@ windows的同学直接给大家：[graalvm-ce-java17-windows-amd64-22.3.0.zip](h
 ![1667376372688-afaf73a0-cff8-47ba-88d6-cb933f1de807.png](./assets/1667376372688-afaf73a0-cff8-47ba-88d6-cb933f1de807.png)
 
 ## 
-要使用GraalVM，不能使用普通的windows自带的命令行窗口，得使用VS提供的** x64 Native Tools Command Prompt for VS 2019**<font style="color:rgb(25, 30, 30);">，如果没</font>有可以执行`C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat`脚本来安装。
+要使用GraalVM，不能使用普通的windows自带的命令行窗口，得使用VS提供的** x64 Native Tools Command Prompt for VS 2019**，如果没有可以执行`C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat`脚本来安装。
 
 
 
-安装完之后其实就可以在<font style="color:rgb(25, 30, 30);"> </font>**<font style="color:rgb(25, 30, 30);">x</font>****64 Native Tools Command Prompt for VS 2019**中去使用`native-image`命令去进行编译了。
+安装完之后其实就可以在 **x****64 Native Tools Command Prompt for VS 2019**中去使用`native-image`命令去进行编译了。
 
-<font style="color:rgb(41, 41, 41);background-color:rgb(242, 242, 242);"></font>
+
 
 但是，如果后续在编译过程中编译失败了，出现以下错误：
 
@@ -936,9 +936,9 @@ windows的同学直接给大家：[graalvm-ce-java17-windows-amd64-22.3.0.zip](h
 
 
 
-并且**<font style="color:#DF2A3F;">运行这个exe文件是不需要操作系统上安装了JDK环境的。</font>**
+并且**运行这个exe文件是不需要操作系统上安装了JDK环境的。**
 
-**<font style="color:#DF2A3F;"></font>**
+****
 
 我们可以使用-o参数来指定exe文件的名字：
 
@@ -1047,7 +1047,7 @@ public class MyApplication {
 
 
 
-同样在 **x64 Native Tools Command Prompt for VS 2019**中，进入到工程目录下，执行`mvn <font style="color:rgb(36, 41, 46);background-color:rgb(246, 248, 250);">-Pnative native:compile</font>`进行编译就可以了，就能在target下生成对应的exe文件，后续只要运行exe文件就能启动应用了。
+同样在 **x64 Native Tools Command Prompt for VS 2019**中，进入到工程目录下，执行`mvn -Pnative native:compile`进行编译就可以了，就能在target下生成对应的exe文件，后续只要运行exe文件就能启动应用了。
 
 
 
@@ -1072,7 +1072,7 @@ public class MyApplication {
 
 
 
-> Buildpacks，类似<font style="color:rgb(18, 18, 18);">Dockerfile的镜像构建技术</font>
+> Buildpacks，类似Dockerfile的镜像构建技术
 >
 
 > 注意要安装docker，并启动docker
@@ -1386,7 +1386,7 @@ public class ZhouyuService {
 
 
 
-当我们执行`mvn <font style="color:rgb(36, 41, 46);background-color:rgb(246, 248, 250);">-Pnative native:compile</font>`时，实际上执行的是插件native-maven-plugin的逻辑。
+当我们执行`mvn -Pnative native:compile`时，实际上执行的是插件native-maven-plugin的逻辑。
 
 我们可以执行`mvn help:describe -Dplugin=org.graalvm.buildtools:native-maven-plugin -Ddetail`
 
@@ -1412,7 +1412,7 @@ public class ZhouyuService {
 
 
 
-所以，我们在运行`mvn <font style="color:rgb(36, 41, 46);background-color:rgb(246, 248, 250);">-Pnative native:compile</font>`时，会先编译我们自己的java代码，然后执行executeAot()方法（会生成一些Java文件并编译成class文件，以及GraalVM的配置文件），然后才执行利用GraalVM打包出二进制可执行文件。
+所以，我们在运行`mvn -Pnative native:compile`时，会先编译我们自己的java代码，然后执行executeAot()方法（会生成一些Java文件并编译成class文件，以及GraalVM的配置文件），然后才执行利用GraalVM打包出二进制可执行文件。
 
 
 
@@ -1434,7 +1434,7 @@ maven插件在编译的时候，就会调用到executeAot()这个方法，这个
 
 
 ### Spring AOT核心原理
-**<font style="color:#DF2A3F;">以下只是一些关键源码，详细内容请看直播视频。</font>**
+**以下只是一些关键源码，详细内容请看直播视频。**
 
 
 

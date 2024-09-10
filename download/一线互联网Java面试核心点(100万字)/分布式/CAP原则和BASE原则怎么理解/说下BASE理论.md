@@ -1,12 +1,12 @@
-<font style="background-color:#FBDE28;">薪资：8k-15k</font>
+薪资：8k-15k
 
-<font style="background-color:#C1E77E;">岗位：初中级开发工程师</font>
+岗位：初中级开发工程师
 
-<font style="color:rgb(74, 74, 74);">BASE（Basically Available、Soft state、Eventual consistency）是基于CAP理论逐步演化而来的，核心思想是即便不能达到强一致性（Strong consistency），也可以根据应用特点采用适当的方式来达到最终一致性（Eventual consistency）的效果。</font>
+BASE（Basically Available、Soft state、Eventual consistency）是基于CAP理论逐步演化而来的，核心思想是即便不能达到强一致性（Strong consistency），也可以根据应用特点采用适当的方式来达到最终一致性（Eventual consistency）的效果。
 
 ![1695887360918-d05d2e33-2d39-4f6a-8e57-125528102c0b.png](./assets/1695887360918-d05d2e33-2d39-4f6a-8e57-125528102c0b.png)
 
-## (1) <font style="color:rgb(74, 74, 74);">BASE的主要含义：</font>
+## (1) BASE的主要含义：
 
 
 BASE是Basically Available(基本可用）、**Soft state(软状态）和Eventually consistent(最终一致性）**三个短语的简写。
@@ -17,11 +17,11 @@ BASE是对CAP中一致性和可用性权衡的结果，其来源于对大规模�
 
 
 
-两个对冲理念：<font style="color:#DF2A3F;background-color:rgba(255,244,245,1);">ACID</font>和<font style="color:#DF2A3F;background-color:rgba(255,244,245,1);">BASE</font>
+两个对冲理念：ACID和BASE
 
-<font style="color:#DF2A3F;background-color:rgba(255,244,245,1);">ACID</font>是传统数据库常用的设计理念，<font style="color:#DF2A3F;background-color:rgba(255,244,245,1);">追求强一致性</font>模型。
+ACID是传统数据库常用的设计理念，追求强一致性模型。
 
-<font style="color:#DF2A3F;background-color:rgba(255,244,245,1);">BASE</font>支持的是大型分布式系统，提出通过<font style="color:#DF2A3F;background-color:rgba(255,244,245,1);">牺牲强一致性</font>获得<font style="color:#DF2A3F;background-color:rgba(255,244,245,1);">高可用性</font>。
+BASE支持的是大型分布式系统，提出通过牺牲强一致性获得高可用性。
 
 
 
@@ -64,17 +64,17 @@ BASE是对CAP中一致性和可用性权衡的结果，其来源于对大规模�
 
  
 
-## <font style="color:rgb(79, 79, 79);">(3) Soft state（软状态）</font>
-> <font style="color:rgb(85, 86, 102);">原子性（硬状态） -> 要求多个节点的数据副本都是一致的,这是一种"硬状态"</font>
+## (3) Soft state（软状态）
+> 原子性（硬状态） -> 要求多个节点的数据副本都是一致的,这是一种"硬状态"
 >
 
 ![1695887730861-b283fb00-2697-440e-b7ca-e6d4273bab1e.png](./assets/1695887730861-b283fb00-2697-440e-b7ca-e6d4273bab1e.png)
 
-<font style="color:rgb(85, 86, 102);">软状态（弱状态） -> 允许系统中的数据存在中间状态,并认为该状态不影响系统的整体可用性,即允许系统在多个不同节点的数据副本存在数据延迟。</font>
+软状态（弱状态） -> 允许系统中的数据存在中间状态,并认为该状态不影响系统的整体可用性,即允许系统在多个不同节点的数据副本存在数据延迟。
 
 ![1695887752843-f18f9d33-71db-4b27-8e62-3e2a6ed62a70.png](./assets/1695887752843-f18f9d33-71db-4b27-8e62-3e2a6ed62a70.png)
 
-## <font style="color:rgb(79, 79, 79);">(4) Eventually consistent（最终一致性）</font>
+## (4) Eventually consistent（最终一致性）
 上面说软状态，然后不可能一直是软状态，必须有个时间期限。在期限过后，应当保证所有副本保持数据一致性。从而达到数据的最终一致性。这个时间期限取决于网络延时，系统负载，数据复制方案设计等等因素。
 
 ![1695887862032-f9e54d72-e901-49b7-a100-93dc82e79e0b.png](./assets/1695887862032-f9e54d72-e901-49b7-a100-93dc82e79e0b.png)稍微官方一点的说法就是：

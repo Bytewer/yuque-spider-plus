@@ -1,14 +1,14 @@
 ## 1.RocketMQ介绍
 RocketMQ是一款由阿里巴巴开源的分布式消息中间件。它具有低延迟、高吞吐量、高可用性和高可靠性等特点，适用于构建具有海量消息堆积和异步解耦功能的应用系统。
 
-### <font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">1.1.基本概念</font>
-+ **<font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">生产者（Producer）</font>**<font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">：也称为</font><font style="color:rgb(18, 18, 18);">消息发布者，</font><font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">是RocketMQ中用来构建并传输消息到服务端的运行实体。</font>
-+ **<font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">主题（Topic）</font>**<font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">：Topic是RocketMQ中消息传输和存储的顶层容器，用于标识同一类业务逻辑的消息；</font><font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">Topic是一个逻辑概念，并不是实际的消息容器；</font><font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);"></font>
-+ **<font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">消息队列（MessageQueue）</font>**<font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">：队列是RocketMQ中消息存储和传输的实际容器，也是消息的最小存储单元。</font>
-+ **<font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">消费者（Consumer）</font>**<font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">：</font><font style="color:rgb(18, 18, 18);">也称为消息订阅者，</font><font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">是RocketMQ中用来接收并处理消息的运行实体。</font>
-+ **<font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">消费者组（ConsumerGroup）</font>**<font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">：消费者组是RocketMQ中承载多个消费行为一致的消费者负载均衡分组。和消费者不同，消费者组是一个逻辑概念。</font>
-+ **NameServer**：<font style="color:rgb(37, 41, 51);">可以理解成注册中心，负责</font><font style="color:rgb(18, 18, 18);">更新和发现Broker服务</font><font style="color:rgb(37, 41, 51);">。在NameServer的集群中，NameServer与NameServer之间是没有任何通信的，它是无状态的。</font>
-+ **<font style="color:rgb(37, 41, 51);">Broker</font>**<font style="color:rgb(37, 41, 51);">：可以理解为</font><font style="color:rgb(18, 18, 18);">消息中转角色，</font>负责消息的存储和转发，接收生产者产生的消息并持久化消息；当用户发送的消息被发送到Broker时，Broker会将消息转发到与之关联的Topic中，以便让更多的接收者进行处理。
+### 1.1.基本概念
++ **生产者（Producer）**：也称为消息发布者，是RocketMQ中用来构建并传输消息到服务端的运行实体。
++ **主题（Topic）**：Topic是RocketMQ中消息传输和存储的顶层容器，用于标识同一类业务逻辑的消息；Topic是一个逻辑概念，并不是实际的消息容器；
++ **消息队列（MessageQueue）**：队列是RocketMQ中消息存储和传输的实际容器，也是消息的最小存储单元。
++ **消费者（Consumer）**：也称为消息订阅者，是RocketMQ中用来接收并处理消息的运行实体。
++ **消费者组（ConsumerGroup）**：消费者组是RocketMQ中承载多个消费行为一致的消费者负载均衡分组。和消费者不同，消费者组是一个逻辑概念。
++ **NameServer**：可以理解成注册中心，负责更新和发现Broker服务。在NameServer的集群中，NameServer与NameServer之间是没有任何通信的，它是无状态的。
++ **Broker**：可以理解为消息中转角色，负责消息的存储和转发，接收生产者产生的消息并持久化消息；当用户发送的消息被发送到Broker时，Broker会将消息转发到与之关联的Topic中，以便让更多的接收者进行处理。
 
 ### 1.2.消息模型  
 ![1682494557603-cdaeec45-92ee-49c4-8df1-6f567111f8b7.png](./assets/1682494557603-cdaeec45-92ee-49c4-8df1-6f567111f8b7.png)
@@ -104,7 +104,7 @@ ROCKETMQ_HOME的环境变量是必须要单独配置的，如果不配置的话�
 ### 3.4.RocketMQ工作原理
 官网5.0版本速览链接：[https://rocketmq.apache.org/zh/version/](https://rocketmq.apache.org/zh/version/)
 
-<font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">RocketMQ5.0 引入了全新的弹性无状态代理模式，将当前的Broker职责进行拆分，对于客户端协议适配、权限管理、消费管理等计算逻辑进行抽离，独立无状态的代理角色提供服务，Broker则继续专注于存储能力的持续优化。值得注意的是RocketMQ 5.0的全新模式是和4.0的极简架构模式相容相通的，5.0的代理架构完全可以以Local模式运行，实现与4.0架构完全一致的效果。开发者可以根据自身的业务场景自由选择架构部署，本教程也是部署的Local模式。</font>
+RocketMQ5.0 引入了全新的弹性无状态代理模式，将当前的Broker职责进行拆分，对于客户端协议适配、权限管理、消费管理等计算逻辑进行抽离，独立无状态的代理角色提供服务，Broker则继续专注于存储能力的持续优化。值得注意的是RocketMQ 5.0的全新模式是和4.0的极简架构模式相容相通的，5.0的代理架构完全可以以Local模式运行，实现与4.0架构完全一致的效果。开发者可以根据自身的业务场景自由选择架构部署，本教程也是部署的Local模式。
 
 RocketMQ启动流程如下：
 
@@ -187,7 +187,7 @@ Broker的配置修改完成，然后我们用静默启动的方式启动Broker�
 在RocketMQ的安装包中，提供了一个tools.sh工具可以用来在命令行快速验证RocketMQ服务。
 
 #### 1.我们在bin录下执行以下命令测试消息发送，默认会发1000条消息，发送完成自动关闭
-**<font style="color:#DF2A3F;">如果出现route报错，跳转到目录4.2.1章节</font>**
+**如果出现route报错，跳转到目录4.2.1章节**
 
 ```powershell
 [root@localhost bin]# export NAMESRV_ADDR='localhost:9876'
@@ -198,7 +198,7 @@ Broker的配置修改完成，然后我们用静默启动的方式启动Broker�
 ![1682401999161-676df375-6ad1-4ec1-bf62-a206966068d2.png](./assets/1682401999161-676df375-6ad1-4ec1-bf62-a206966068d2.png)
 
 #### 3.执行以下命令测试消息接收，Consumer执行不会自动关闭，会一直挂起等待新消息过来；
-**<font style="color:rgb(223, 42, 63);">需</font>****<font style="color:rgb(223, 42, 63);">如果出现route报错，跳转到目录4.2.1章节</font>**
+**需****如果出现route报错，跳转到目录4.2.1章节**
 
 ```powershell
 [root@localhost bin]# export NAMESRV_ADDR='localhost:9876'
@@ -744,7 +744,7 @@ $MAVEN_HOME/bin:
 ![1682406135232-976ae3d3-a4c2-4218-9e7f-2a6f3ab75596.png](./assets/1682406135232-976ae3d3-a4c2-4218-9e7f-2a6f3ab75596.png)
 
 ##### 4.2.4.7.启动dashboard
-**<font style="color:#DF2A3F;">如果编译失败，使用提供的 jar 启动报错，请在下载源码本机启动项目，只需改动 yml 中的 namesrvAddrs 配置</font>**
+**如果编译失败，使用提供的 jar 启动报错，请在下载源码本机启动项目，只需改动 yml 中的 namesrvAddrs 配置**
 
 ```powershell
 #编译成功后，进入target目录，静默启动dashboard
@@ -761,13 +761,13 @@ $MAVEN_HOME/bin:
 
 ![1682406292904-2d0c7cf1-d436-430a-870a-0d72bc23b350.png](./assets/1682406292904-2d0c7cf1-d436-430a-870a-0d72bc23b350.png)
 
-#### 4.2.5.部署5.x版本-<font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">Local模式</font>
-<font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">Apache RocketMQ 5.0 版本完成基本消息收发，包括 NameServer、Broker、Proxy 组件。 在 5.0 版本中 Proxy 和 Broker 根据实际诉求可以分为 Local 模式和 Cluster 模式，一般情况下如果没有特殊需求，或者遵循从早期版本平滑升级的思路，可以选用Local模式。</font>
+#### 4.2.5.部署5.x版本-Local模式
+Apache RocketMQ 5.0 版本完成基本消息收发，包括 NameServer、Broker、Proxy 组件。 在 5.0 版本中 Proxy 和 Broker 根据实际诉求可以分为 Local 模式和 Cluster 模式，一般情况下如果没有特殊需求，或者遵循从早期版本平滑升级的思路，可以选用Local模式。
 
-+ <font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">在 Local 模式下，Broker 和 Proxy 是同进程部署，只是在原有 Broker 的配置基础上新增 Proxy 的简易配置就可以运行。</font>
-+ <font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">在 Cluster 模式下，Broker 和 Proxy 分别部署，即在原有的集群基础上，额外再部署 Proxy 即可。</font>
++ 在 Local 模式下，Broker 和 Proxy 是同进程部署，只是在原有 Broker 的配置基础上新增 Proxy 的简易配置就可以运行。
++ 在 Cluster 模式下，Broker 和 Proxy 分别部署，即在原有的集群基础上，额外再部署 Proxy 即可。
 
-##### <font style="color:rgb(28, 30, 33);background-color:rgb(250, 250, 250);">4.2.5.1.</font>关闭worker2,worker3的broker服务
+##### 4.2.5.1.关闭worker2,worker3的broker服务
 ```powershell
 [root@localhost bin]# sh ./mqshutdown broker
 ```
@@ -1950,17 +1950,17 @@ public class TransactionListenerImpl implements TransactionListener {
 
 ![1682410620811-813c407e-1f7c-4fa3-b79d-f7e72f7d1713.png](./assets/1682410620811-813c407e-1f7c-4fa3-b79d-f7e72f7d1713.png)
 
-<font style="color:rgb(18, 18, 18);">我们将消息流程分为三大部分，每一部分都有可能会丢失数据。</font>
+我们将消息流程分为三大部分，每一部分都有可能会丢失数据。
 
-+ <font style="color:rgb(18, 18, 18);">生产阶段：Producer通过网络将消息发送给Broker，这个发送可能会发生丢失。比如网络延迟不可达等。</font>
-+ <font style="color:rgb(18, 18, 18);">存储阶段：Broker肯定是先把消息放到内存的，然后根据刷盘策略持久化到硬盘中。刚收到Producer的消息，放入内存，但是异常宕机了，导致消息丢失。</font>
-+ <font style="color:rgb(18, 18, 18);">消费阶段：消费失败。比如先提交ack再消费，处理过程中出现异常，该消息就出现了丢失。</font>
++ 生产阶段：Producer通过网络将消息发送给Broker，这个发送可能会发生丢失。比如网络延迟不可达等。
++ 存储阶段：Broker肯定是先把消息放到内存的，然后根据刷盘策略持久化到硬盘中。刚收到Producer的消息，放入内存，但是异常宕机了，导致消息丢失。
++ 消费阶段：消费失败。比如先提交ack再消费，处理过程中出现异常，该消息就出现了丢失。
 
 解决方案：
 
-+ <font style="color:rgb(18, 18, 18);">生产阶段：使用同步发送失败重试机制；异步发送重写回调方法检查发送结果；Ack确认机制。</font>
-+ <font style="color:rgb(18, 18, 18);">存储阶段：同步刷盘机制；集群模式采用同步复制。</font>
-+ <font style="color:rgb(18, 18, 18);">消费阶段：正常消费处理完成才提交ACK；如果处理异常返回重试标识。</font>
++ 生产阶段：使用同步发送失败重试机制；异步发送重写回调方法检查发送结果；Ack确认机制。
++ 存储阶段：同步刷盘机制；集群模式采用同步复制。
++ 消费阶段：正常消费处理完成才提交ACK；如果处理异常返回重试标识。
 
 除了上述，在生产阶段与消费者阶段部分消息还需要确保消息顺序消费。
 

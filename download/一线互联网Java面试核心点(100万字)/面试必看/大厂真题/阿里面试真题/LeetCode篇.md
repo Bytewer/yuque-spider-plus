@@ -1,4 +1,4 @@
-<font style="color:rgb(255, 129, 36);">【Python语法】</font>
+【Python语法】
 
 ```plain
 reduce(function, iterable[, initializer])    reduce(lambda x,y:x * y,ns) # 数组之乘积 (ns[0] * ns[1]) * ns[2]    reduce(lambda x,y:x + y,ns) # 数组之和# 记忆化搜索@functools.lru_cache(None)res = helper(0,N,0)helper.cache_clear()tuple(ns) 可以hash做参数# 大根堆q = list(map(lambda x:-x,ns))heapq.heapify(q)key = -heapq.heappop(q)# 过滤函数filter(function, iterable)    filter(lambda x: 2 < x < 10 and x % 2 == 0, range(18))    filter(dfs, range(len(graph)))# 除数div, mod = divmod(sum(ns), 4)random.randint(i,len(self.ns)-1)#第一个降序，第二个升序sorted(pss,key = lambda x:[x[0],-x[1]])
@@ -16,18 +16,18 @@ reduce(function, iterable[, initializer])    reduce(lambda x,y:x * y,ns) # 数�
 # ^     ：匹配字符串开头# [\+\-]：代表一个+字符或-字符# ?     ：前面一个字符可有可无# \d    ：一个数字# +     ：前面一个字符的一个或多个# \D    ：一个非数字字符# *     ：前面一个字符的0个或多个matches = re.match('[ ]*([+-]?\d+)', s)
 ```
 
-<font style="color:rgb(255, 129, 36);">【背包模板】</font>
+【背包模板】
 
-**<font style="color:rgb(62, 62, 62);">「力扣」</font>**<font style="color:rgb(62, 62, 62);">上的 0-1 背包问题：</font>
+**「力扣」**上的 0-1 背包问题：
 
-+ <font style="color:rgb(62, 62, 62);">组合问题模板</font>
++ 组合问题模板
 
-<font style="color:rgb(51, 51, 51);">#0-1背包，不可重复for n in ns:     for i in range(T, n-1, -1):        dp[i] = max(dp[i], dp[i - n] + ws[i])#完全背包，可重复，无序，算重量for n in ns:     for i in range(n, T+1):        dp[i] = max(dp[i], dp[i - n] + ws[i]) #完全背包，可重复，有序，算次数     for i in range(1, T+1):    for n in ns:        dp[i] += dp[i-n]</font>
+#0-1背包，不可重复for n in ns:     for i in range(T, n-1, -1):        dp[i] = max(dp[i], dp[i - n] + ws[i])#完全背包，可重复，无序，算重量for n in ns:     for i in range(n, T+1):        dp[i] = max(dp[i], dp[i - n] + ws[i]) #完全背包，可重复，有序，算次数     for i in range(1, T+1):    for n in ns:        dp[i] += dp[i-n]
 
-+ <font style="color:rgb(62, 62, 62);">377</font><font style="color:rgb(62, 62, 62);"> </font><font style="color:rgb(62, 62, 62);">组合总和 Ⅳ</font>
-+ <font style="color:rgb(62, 62, 62);">494</font><font style="color:rgb(62, 62, 62);"> </font><font style="color:rgb(62, 62, 62);">目标和</font>
-+ <font style="color:rgb(62, 62, 62);">518</font><font style="color:rgb(62, 62, 62);"> </font><font style="color:rgb(62, 62, 62);">零钱兑换 II</font>
-+ <font style="color:rgb(62, 62, 62);">True、False问题</font>
++ 377 组合总和 Ⅳ
++ 494 目标和
++ 518 零钱兑换 II
++ True、False问题
 
 
 
@@ -39,8 +39,8 @@ dp[i] |= dp[i-num]
 
 ```
 
-+ <font style="color:rgb(62, 62, 62);">139 单词拆分</font>
-+ <font style="color:rgb(62, 62, 62);">416 分割等和子集</font>
++ 139 单词拆分
++ 416 分割等和子集
 
 ```plain
 
@@ -52,27 +52,27 @@ dp[i] |= dp[i-num]
 #特殊的可以使用bit数组
 ```
 
-+ <font style="color:rgb(62, 62, 62);">最大最小问题：</font>
++ 最大最小问题：
 
-<font style="color:rgb(51, 51, 51);">dp[i] = min(dp[i], dp[i-num]+1)dp[i] = max(dp[i], dp[i-num]+1)</font>
+dp[i] = min(dp[i], dp[i-num]+1)dp[i] = max(dp[i], dp[i-num]+1)
 
-+ <font style="color:rgb(62, 62, 62);">474 一和零</font>
-+ <font style="color:rgb(62, 62, 62);">322 零钱兑换</font>
++ 474 一和零
++ 322 零钱兑换
 
-**<font style="color:rgb(62, 62, 62);">「力扣」</font>**<font style="color:rgb(62, 62, 62);">第 879 题：盈利计划（困难）；  
-</font>**<font style="color:rgb(62, 62, 62);">「力扣」</font>**<font style="color:rgb(62, 62, 62);">第 1449 题：数位成本和为目标值的最大数字（困难）。</font>
+**「力扣」**第 879 题：盈利计划（困难）；  
+**「力扣」**第 1449 题：数位成本和为目标值的最大数字（困难）。
 
-<font style="color:rgb(255, 129, 36);">【回溯模板】</font>
+【回溯模板】
 
 ```plain
 # 回溯算法，复杂度较高2^n或者N！，因为回溯算法就是暴力穷举，可用lru剪枝@functools.lru_cache(None)def backtrack(路径, 选择列表):    if 满足结束条件:        结果.append(路径)        return    for 选择 in 选择列表:    # 核心代码段          if vst[i]:   # 辅助数组，减枝          continue        做出选择        递归执行backtrack        撤销选择
 ```
 
-**<font style="color:rgb(62, 62, 62);">「剪枝」</font>**<font style="color:rgb(62, 62, 62);">第 46 题 全排列 第 47 题 全排列②</font>
+**「剪枝」**第 46 题 全排列 第 47 题 全排列②
 
-<font style="color:rgb(51, 51, 51);"># 剪枝def backtrack(temp_list, length):    if length == n:      res.append(temp_list)    for i in range(n):      if not visited[i]:          visited[i] = 1          backtrack(temp_list + [nums[i]], length + 1)          visited[i] = 0</font>
+# 剪枝def backtrack(temp_list, length):    if length == n:      res.append(temp_list)    for i in range(n):      if not visited[i]:          visited[i] = 1          backtrack(temp_list + [nums[i]], length + 1)          visited[i] = 0
 
-**<font style="color:rgb(62, 62, 62);">「索引遍历」</font>**<font style="color:rgb(62, 62, 62);">第 78 题 子集 | 第 47 题 子集② | 第 131 题 分割字符串</font>
+**「索引遍历」**第 78 题 子集 | 第 47 题 子集② | 第 131 题 分割字符串
 
 
 
@@ -80,17 +80,17 @@ dp[i] |= dp[i-num]
 第 **39 **题 组合 | 第 **40** 题 组合②  | 第 **216** 题 组合③
 ```
 
-<font style="color:rgb(51, 51, 51);"># 索引遍历def helper1(idx, n, temp_list):  if temp_list not in res:    res.append(temp_list)  for i in range(idx, n):    helper1(i + 1, n, temp_list + [nums[i]])</font>
+# 索引遍历def helper1(idx, n, temp_list):  if temp_list not in res:    res.append(temp_list)  for i in range(idx, n):    helper1(i + 1, n, temp_list + [nums[i]])
 
-**<font style="color:rgb(62, 62, 62);">「 资源消耗」</font>**<font style="color:rgb(62, 62, 62);">第 22 题 夸号生成</font>
+**「 资源消耗」**第 22 题 夸号生成
 
-<font style="color:rgb(51, 51, 51);"># 资源消耗def backtrack(S, L, R):  if not L and not R:    ans.append(''.join(S))    return  if L :     backtrack(S + ['('], L-1, R)  if R > L : backtrack(S + [')'], L, R-1)</font>
+# 资源消耗def backtrack(S, L, R):  if not L and not R:    ans.append(''.join(S))    return  if L :     backtrack(S + ['('], L-1, R)  if R > L : backtrack(S + [')'], L, R-1)
 
-**<font style="color:rgb(62, 62, 62);">「资源消耗」</font>**<font style="color:rgb(62, 62, 62);">第 93 题 复原IP</font>
+**「资源消耗」**第 93 题 复原IP
 
-<font style="color:rgb(51, 51, 51);">资源消耗def backtrack(i, tmp, flag):  if i == n and flag == 0:    res.append(tmp[:-1])  elif i<n and s[i] == '0':    backtrack(i + 1, tmp + s[i] + ".", flag - 1)  elif flag :    for j in range(i, min(n,i + 3)):      if 0 < int(s[i:j + 1]) <= 255:        backtrack(j + 1, tmp + s[i:j + 1] + ".", flag - 1)</font>
+资源消耗def backtrack(i, tmp, flag):  if i == n and flag == 0:    res.append(tmp[:-1])  elif i<n and s[i] == '0':    backtrack(i + 1, tmp + s[i] + ".", flag - 1)  elif flag :    for j in range(i, min(n,i + 3)):      if 0 < int(s[i:j + 1]) <= 255:        backtrack(j + 1, tmp + s[i:j + 1] + ".", flag - 1)
 
-**<font style="color:rgb(62, 62, 62);">「资源消耗」</font>**<font style="color:rgb(62, 62, 62);">第 17 题 电话号码</font>
+**「资源消耗」**第 17 题 电话号码
 
 
 
@@ -99,194 +99,194 @@ dp[i] |= dp[i-num]
 # 套模板def dfs(pth,idx):    if idx == len(ds):        res.append(pth)        return    for c in dic[ds[idx]]:        dfs(pth + c, idx + 1)
 ```
 
-**<font style="color:rgb(62, 62, 62);">「多重限制」</font>**<font style="color:rgb(62, 62, 62);">第 37 题 解数独 | 第 51 题 N皇后</font>
+**「多重限制」**第 37 题 解数独 | 第 51 题 N皇后
 
 ```plain
 # 多重限制def backtrack(pos):  if pos == n:    return True  i, j = empty[pos]  for num in row[i] & col[j] & block[bidx(i, j)]:    row[i].remove(num)    col[j].remove(num)    block[bidx(i, j)].remove(num)    board[i][j] = str(num)    if backtrack(pos + 1): return True    row[i].add(num)    col[j].add(num)    block[bidx(i, j)].add(num)
 ```
 
-**<font style="color:rgb(62, 62, 62);">「递归」</font>**<font style="color:rgb(62, 62, 62);">第 10 题 正则匹配</font>
+**「递归」**第 10 题 正则匹配
 
-<font style="color:rgb(51, 51, 51);"># 递归def isMatch(self, s: str, p: str) -> bool:  if not p:     return not s  f = bool(s and p[0] in {s[0],'.'})  if len(p) >= 2 and p[1] == "*":    return self.isMatch(s, p[2:]) or f and self.isMatch(s[1:], p)  else:    return f and self.isMatch(s[1:], p[1:])</font>
+# 递归def isMatch(self, s: str, p: str) -> bool:  if not p:     return not s  f = bool(s and p[0] in {s[0],'.'})  if len(p) >= 2 and p[1] == "*":    return self.isMatch(s, p[2:]) or f and self.isMatch(s[1:], p)  else:    return f and self.isMatch(s[1:], p[1:])
 
-<font style="color:rgb(255, 129, 36);">【并查集模板】</font>
+【并查集模板】
 
 ```plain
 #虚拟节点用以连接某一特征的全部节点，类似于链表的preHeaddummy parent = {}size = collections.defaultdict(lambda:1)cnt = 0def find(x):    parent.setdefault(x,x)    while x != parent[x]:        x = parent[x]        #路径压缩 parent[x] = parent[parent[x]];    return xdef union(x,y):    nonlocal cnt    if connected(x,y): return    # 小的树挂到大的树上， 使树尽量平衡    xP = find(x)    yP = find(y)    if size[hP] < size[yP]:        parent[xP] = yP    else:        parent[yP] = xP    size[xP] += size[yP]    # 优化结束    parent[find(x)] = find(y)    # 不优化    cnt -= 1    return size[xP]def connected(x, y):    return find(x) == find(y)def add(self,x):    if x not in parent:        parent[x] = None        cnt += 1# 检查是否有环for a, b in edges:    if connected(a, b):         return True    union(a, b)# 将每个集合组成以头为key的字典res = collections.defaultdict(list)for e in e2n:    res[uf.find(e)].append(e)
 ```
 
-<font style="color:rgb(255, 129, 36);">【拓扑排序模板】</font>
+【拓扑排序模板】
 
 ```plain
 # 【拓扑排序模板】ins = [0] * nous = collections.defaultdict(list)for cur, pre in ps:    ins[cur] += 1              #入度    ous[pre].append(cur)    #出度res = list(filter(lambda x:ins[x]==0, range(n)))q = collections.deque(res)while q:    pre = q.popleft()    for cur in ous[pre]:   #释放出度队列        ins[cur] -= 1        if not ins[cur]:             q.append(cur)  #入度为0解锁            res.append(cur)
 ```
 
-<font style="color:rgb(255, 129, 36);">【单调栈模板】</font>
+【单调栈模板】
 
 ```plain
 # s中一般存索引for i in range(len(ns):    while stack and ns[stack[-1]] <= ns[i]: # 单调递减栈        stack.pop()    # 业务逻辑    stack.append(i)
 ```
 
-**<font style="color:rgb(62, 62, 62);">「单调递增」</font>**<font style="color:rgb(62, 62, 62);">第 84 题 求最大矩形</font>
+**「单调递增」**第 84 题 求最大矩形
 
 ```plain
 # 第 **84** 题 求最大矩形for i in range(len(hs)):    while s and hs[i] < hs[s[-1]]:        base = s.pop()        if s:            H = hs[base]            W = i - s[-1] - 1 # 当前弹出的做高，当前与次小做宽            res = max(res, H * W)    s.append(i)
 ```
 
-**<font style="color:rgb(62, 62, 62);">「单调递增,考虑剩余」</font>**<font style="color:rgb(62, 62, 62);">第 316 题 去除重复字符</font>
+**「单调递增,考虑剩余」**第 316 题 去除重复字符
 
 ```plain
 # 第 **316** 题 去除重复字符for i,c in enumerate(ss):    if c not in s:        while s and c < s[-1] and s[-1] in ss[i:]:            s.pop()        s.append(c)
 ```
 
-**<font style="color:rgb(62, 62, 62);">「单调递减」</font>**<font style="color:rgb(62, 62, 62);">第 42 题 接雨水</font>
+**「单调递减」**第 42 题 接雨水
 
 ```plain
 # 第 **42** 题 接雨水for i in range(len(hgt)):    while stack and hgt[i] > hgt[stack[-1]]: #递减栈        base = stack.pop()        if stack:            LH = hgt[stack[-1]]            W = i - stack[-1] - 1            H = min(LH,hgt[i]) - hgt[base]            res += W * H     stack.append(i)
 ```
 
-**<font style="color:rgb(62, 62, 62);">「单调递减」</font>**<font style="color:rgb(62, 62, 62);">第 739 题 每日温度</font>
+**「单调递减」**第 739 题 每日温度
 
 ```plain
 # 第 **739** 题 每日温度for i in range(len(T)-1,-1,-1):    while s and T[s[-1]] <= T[i] :   #递减栈        s.pop()    res[i] = s[-1] - i if s else 0    s.append(i)
 ```
 
-<font style="color:rgb(255, 129, 36);">【二分模板】</font>
+【二分模板】
 
-<font style="color:rgb(51, 51, 51);"># 1355579 T=5 => 13(5)55579 返回2# ps[i-1] < ps[i] <= ps[i+1]bisect.bisect_left(ps, T, L=0, R=len(ns))  # 1355579 T=5 => 13555(5)79 返回5# ps[i-1] <= ps[i] < ps[i+1]bisect.bisect_right(ps, T, L=0, R=len(ns))  bisect.bisect(ps, T, L=0, R=len(ns))   </font>
+# 1355579 T=5 => 13(5)55579 返回2# ps[i-1] < ps[i] <= ps[i+1]bisect.bisect_left(ps, T, L=0, R=len(ns))  # 1355579 T=5 => 13555(5)79 返回5# ps[i-1] <= ps[i] < ps[i+1]bisect.bisect_right(ps, T, L=0, R=len(ns))  bisect.bisect(ps, T, L=0, R=len(ns))   
 
-**<font style="color:rgb(62, 62, 62);">「中位返回」</font>**<font style="color:rgb(62, 62, 62);">第 33 题 搜索旋转排序数组 | 第374题 猜数字大小 | 第69题 x平方根</font>
+**「中位返回」**第 33 题 搜索旋转排序数组 | 第374题 猜数字大小 | 第69题 x平方根
 
-<font style="color:rgb(51, 51, 51);"># 中位返回while L <= R:    M = (L + R) // 2    if nums[M] == T:        return M    elif nums[M] < T:        L = M + 1    else:        R = M - 1</font>
+# 中位返回while L <= R:    M = (L + R) // 2    if nums[M] == T:        return M    elif nums[M] < T:        L = M + 1    else:        R = M - 1
 
-**<font style="color:rgb(62, 62, 62);">「区域压缩」</font>**<font style="color:rgb(62, 62, 62);">第278题 第一个错误版本| 第162题 寻找峰值 | 第153题 寻找数组最小值</font>
+**「区域压缩」**第278题 第一个错误版本| 第162题 寻找峰值 | 第153题 寻找数组最小值
 
-<font style="color:rgb(51, 51, 51);"># 区域压缩while L < R:    M = (L + R) // 2    if need in s[L:M]:        R = M    else:        L = M + 1</font>
+# 区域压缩while L < R:    M = (L + R) // 2    if need in s[L:M]:        R = M    else:        L = M + 1
 
-<font style="color:rgb(255, 129, 36);">【动态规划模板】</font>
+【动态规划模板】
 
-<font style="color:rgb(62, 62, 62);">  
-</font>
+  
 
-**<font style="color:rgb(62, 62, 62);">「单串问题」</font>**
 
-+ <font style="color:rgb(62, 62, 62);">70 爬楼梯问题</font>
-+ <font style="color:rgb(62, 62, 62);">801 使序列递增的最小交换次数</font>
-+ <font style="color:rgb(62, 62, 62);">746 使用最小花费爬楼梯</font>
-+ <font style="color:rgb(62, 62, 62);">300 最长上升子序列</font>
+**「单串问题」**
 
-<font style="color:rgb(51, 51, 51);"># 依赖前单个元素dp[i] = dp[i-1] + ns[i]# 依赖前部区域元素for i in range(n)    for j in range(i)        dp[i] = min(dp[i], f(dp[j])</font>
++ 70 爬楼梯问题
++ 801 使序列递增的最小交换次数
++ 746 使用最小花费爬楼梯
++ 300 最长上升子序列
 
-<font style="color:rgb(62, 62, 62);">  
-</font>
+# 依赖前单个元素dp[i] = dp[i-1] + ns[i]# 依赖前部区域元素for i in range(n)    for j in range(i)        dp[i] = min(dp[i], f(dp[j])
 
-**<font style="color:rgb(62, 62, 62);">「单串加状态问题」</font>**
+  
 
-+ <font style="color:rgb(62, 62, 62);">887 鸡蛋掉落</font>
 
-<font style="color:rgb(51, 51, 51);"># 鸡蛋掉落while cur[K] < N:             # 还剩 j 个蛋 测 ans 次 覆盖多少层    for j in range(1, K + 1): # 覆盖总层数 碎了 -1 次层数 + 1 + 没碎 -1 次层数        cur[j] = prev[j - 1] + 1 + prev[j]    ans += 1    prev = copy.deepcopy(cur)</font>
+**「单串加状态问题」**
 
-+ <font style="color:rgb(62, 62, 62);">813 最大平均值分组</font>
++ 887 鸡蛋掉落
+
+# 鸡蛋掉落while cur[K] < N:             # 还剩 j 个蛋 测 ans 次 覆盖多少层    for j in range(1, K + 1): # 覆盖总层数 碎了 -1 次层数 + 1 + 没碎 -1 次层数        cur[j] = prev[j - 1] + 1 + prev[j]    ans += 1    prev = copy.deepcopy(cur)
+
++ 813 最大平均值分组
 
 ```plain
 
 ```
 
-<font style="color:rgb(51, 51, 51);"># 813 最大平均值分组for k in range(K-1):            #循环k次    for i in range(N):          #每次均依赖上次的结果        for j in range(i+1, N):            dp[i] = max(dp[i], avrg(i, j) + dp[j])</font>
+# 813 最大平均值分组for k in range(K-1):            #循环k次    for i in range(N):          #每次均依赖上次的结果        for j in range(i+1, N):            dp[i] = max(dp[i], avrg(i, j) + dp[j])
 
-+ <font style="color:rgb(62, 62, 62);">410 分割数组最大值</font>
++ 410 分割数组最大值
 
-<font style="color:rgb(51, 51, 51);"># 410 分割数组最大值for k in range(1,K):    for i in range(N):         for j in range(i):            # 0~i中分 k 段最大 即为            # 0~j中分k-1段最大 和 j到i的前缀和的最大            dp[i][k] = min(dp[i][k], max(dp[j][k-1], ps[i+1] - ps[</font>
+# 410 分割数组最大值for k in range(1,K):    for i in range(N):         for j in range(i):            # 0~i中分 k 段最大 即为            # 0~j中分k-1段最大 和 j到i的前缀和的最大            dp[i][k] = min(dp[i][k], max(dp[j][k-1], ps[i+1] - ps[
 
-<font style="color:rgb(62, 62, 62);">  
-</font>
+  
 
-**<font style="color:rgb(62, 62, 62);">「经典双串LCS问题」</font>**
 
-<font style="color:rgb(51, 51, 51);"># 经典双串LCS问题dp = [[0] * (M+1) for _ in range(N+1)]for i in range(N):    for j in range(M):        if t1[i] == t2[j] : dp[i+1][j+1] = dp[i][j] + 1         else : dp[i+1][j+1] = max(dp[i][j+1],dp[i+1][j])</font>
+**「经典双串LCS问题」**
 
-<font style="color:rgb(62, 62, 62);">  
-</font>
+# 经典双串LCS问题dp = [[0] * (M+1) for _ in range(N+1)]for i in range(N):    for j in range(M):        if t1[i] == t2[j] : dp[i+1][j+1] = dp[i][j] + 1         else : dp[i+1][j+1] = max(dp[i][j+1],dp[i+1][j])
 
-**<font style="color:rgb(62, 62, 62);">「区间动态规划」</font>**
+  
 
-+ <font style="color:rgb(62, 62, 62);">5 最长回文子串</font>
-+ <font style="color:rgb(62, 62, 62);">647 最多回文子串</font>
-+ <font style="color:rgb(62, 62, 62);">516 最长回文子序列</font>
-+ <font style="color:rgb(62, 62, 62);">1312 最长回文插入次数</font>
 
-<font style="color:rgb(51, 51, 51);"># dp[i][j] 代表从 i 到 j 的最长子串满足条件的数量# i-- < j++  ==> i 在 0~j 范围内 --dp = [[0] * (N) for _ in range(N)]for j in range(N):    dp[j][j] = 1    for i in range(j-1,-1,-1):        if ss[i] == ss[j]:            dp[i][j] = dp[i+1][j-1] +2        else :            dp[i][j] = max(dp[i+1][j],dp[i][j-1])</font>
+**「区间动态规划」**
 
-<font style="color:rgb(62, 62, 62);">  
-</font>
++ 5 最长回文子串
++ 647 最多回文子串
++ 516 最长回文子序列
++ 1312 最长回文插入次数
 
-**<font style="color:rgb(62, 62, 62);">「区间分治动态规划」</font>**
+# dp[i][j] 代表从 i 到 j 的最长子串满足条件的数量# i-- < j++  ==> i 在 0~j 范围内 --dp = [[0] * (N) for _ in range(N)]for j in range(N):    dp[j][j] = 1    for i in range(j-1,-1,-1):        if ss[i] == ss[j]:            dp[i][j] = dp[i+1][j-1] +2        else :            dp[i][j] = max(dp[i+1][j],dp[i][j-1])
 
-<font style="color:rgb(62, 62, 62);">486 预测赢家：https://leetcode-cn.com/problems/predict-the-winner/?spm=ata.21736010.0.0.49ae7ec0sfNWbz</font>
+  
 
-<font style="color:rgb(62, 62, 62);">312 戳气球：https://ata.atatech.org/articles/***https://leetcode-cn.com/problems/burst-balloons/***?spm=ata.21736010.0.0.49ae7ec0sfNWbz</font>
 
-<font style="color:rgb(62, 62, 62);">664 奇怪的打印机：https://ata.atatech.org/articles/***https://leetcode-cn.com/problems/strange-printer/***?spm=ata.21736010.0.0.49ae7ec0sfNWbz</font>
+**「区间分治动态规划」**
 
-<font style="color:rgb(62, 62, 62);">546 移除盒子：https://ata.atatech.org/articles/***https://leetcode-cn.com/problems/remove-boxes/***?spm=ata.21736010.0.0.49ae7ec0sfNWbz</font>
+486 预测赢家：https://leetcode-cn.com/problems/predict-the-winner/?spm=ata.21736010.0.0.49ae7ec0sfNWbz
+
+312 戳气球：https://ata.atatech.org/articles/***https://leetcode-cn.com/problems/burst-balloons/***?spm=ata.21736010.0.0.49ae7ec0sfNWbz
+
+664 奇怪的打印机：https://ata.atatech.org/articles/***https://leetcode-cn.com/problems/strange-printer/***?spm=ata.21736010.0.0.49ae7ec0sfNWbz
+
+546 移除盒子：https://ata.atatech.org/articles/***https://leetcode-cn.com/problems/remove-boxes/***?spm=ata.21736010.0.0.49ae7ec0sfNWbz
 
 ```plain
 # 区间分治动态规划def helper(self, ns: List[int]) :    N = len(ns)    dp = [[0] * N for _ in range(N+1)]    for l in range(N): # 长度从小到大        for i in range(N-l): # 以 i 为 开头            j = i + l           # 以 j 为 终点            for k in range(i,j): # 以 k 为分割点，进行分治                         // Todo 业务逻辑
 ```
 
-**<font style="color:rgb(62, 62, 62);">「卡特兰数」</font>**
+**「卡特兰数」**
 
-<font style="color:rgb(51, 51, 51);"># 卡特兰数g(n) = g(0)*g(n-1) + g(1)*g(n-2) ...g(n-1)*g(0)dp=[1] + [0] * nfor i in range(1,n+1):    for j in range(1,i+1):        dp[i] += dp[j-1] * dp[i-j]</font>
+# 卡特兰数g(n) = g(0)*g(n-1) + g(1)*g(n-2) ...g(n-1)*g(0)dp=[1] + [0] * nfor i in range(1,n+1):    for j in range(1,i+1):        dp[i] += dp[j-1] * dp[i-j]
 
-<font style="color:rgb(255, 129, 36);">【滑动窗口】</font>
+【滑动窗口】
 
 ```plain
 """给定待查串s和目标串t"""nd, wd = {}, {}nd = collections.Counter(s1)L, R = 0, 0cnt = 0 # 满足条件个数while R < len(s):        # 窗口右边界不断扩大，本质是搜索问题的可能解    c = s[R]      # 即将加入到窗口中的字符    R += 1    更新窗口中的数据    while 满足窗口收缩条件：  # 窗口的左边界收缩，本质是优化可行解        记录或返回结果        d = s[L]   # 即将从窗口中删除的字符        L += 1        更新窗口中的数据return 结果
 # 固定窗口 ,比滑动窗口更快一些i = j = cnt = 0      for j in range(len(A)):    if A[j] == 0:         cnt += 1    if cnt > K: #不满足时 平移        if A[i] == 0:            cnt -= 1        i += 1return j - i + 1         for j in range(len(A)):    if A[j] == 0:        cnt += 1    while cnt > K:        if A[i] == 0:            cnt -= 1        i += 1    res = max(res, j - i + 1)return res
 ```
 
-<font style="color:rgb(255, 129, 36);">【前缀和】</font>
+【前缀和】
 
-**<font style="color:rgb(62, 62, 62);">「累加和存位置」</font>**
+**「累加和存位置」**
 
-<font style="color:rgb(62, 62, 62);">1371 最长偶数元音子数组</font>
+1371 最长偶数元音子数组
 
-<font style="color:rgb(62, 62, 62);">525 最长相等01子数组</font>
+525 最长相等01子数组
 
-<font style="color:rgb(62, 62, 62);">325 最长和为k 子数组</font>
+325 最长和为k 子数组
 
-<font style="color:rgb(51, 51, 51);"># 前缀和初始化psd = {0: -1}  for i in range(len(s)):    t ^= cd.get(s[i], 0) # 业务逻辑    if t not in psd:        psd[t] = i       # 第一次存入数组    else:        ans = max(ans, i - psd[t]) #已存入则开始计算</font>
+# 前缀和初始化psd = {0: -1}  for i in range(len(s)):    t ^= cd.get(s[i], 0) # 业务逻辑    if t not in psd:        psd[t] = i       # 第一次存入数组    else:        ans = max(ans, i - psd[t]) #已存入则开始计算
 
-**<font style="color:rgb(62, 62, 62);">「累加和存数量」</font>**
+**「累加和存数量」**
 
-<font style="color:rgb(62, 62, 62);">560 和为K的子数组数量</font>
+560 和为K的子数组数量
 
-<font style="color:rgb(62, 62, 62);">统计优美子数组</font>
+统计优美子数组
 
-<font style="color:rgb(51, 51, 51);"># 累加和存数量psd = {0:1}for i in range(len(ns)):    s += ns[i]    if s - T in psd:        ans += psd[s - T] # 存数量    psd[s] = psd.get(s,0) + 1</font>
+# 累加和存数量psd = {0:1}for i in range(len(ns)):    s += ns[i]    if s - T in psd:        ans += psd[s - T] # 存数量    psd[s] = psd.get(s,0) + 1
 
-**<font style="color:rgb(62, 62, 62);">「模K状态前缀和」</font>**
+**「模K状态前缀和」**
 
-<font style="color:rgb(62, 62, 62);">523 连续和为 k 倍 的子数组（存索引）</font>
+523 连续和为 k 倍 的子数组（存索引）
 
-<font style="color:rgb(62, 62, 62);">974 和被k 整除 子数组数量（存数量）</font>
+974 和被k 整除 子数组数量（存数量）
 
-<font style="color:rgb(51, 51, 51);"># 模K状态前缀和psd = {0:-1}ans = s = 0for i in range(len(ns)):    s += ns[i]                # 业务逻辑    if T != 0: s %= abs(T)    # 模k状态做key，索引做值    if s not in psd:        psd[s] = i    elif i - psd[s] > 1:        return True</font>
+# 模K状态前缀和psd = {0:-1}ans = s = 0for i in range(len(ns)):    s += ns[i]                # 业务逻辑    if T != 0: s %= abs(T)    # 模k状态做key，索引做值    if s not in psd:        psd[s] = i    elif i - psd[s] > 1:        return True
 
-**<font style="color:rgb(62, 62, 62);">「矩阵前缀和」</font>**
+**「矩阵前缀和」**
 
-+ <font style="color:rgb(62, 62, 62);">363 不超过K的最大数值和</font>
-+ <font style="color:rgb(62, 62, 62);">1074 和为目标值的子矩阵数量</font>
++ 363 不超过K的最大数值和
++ 1074 和为目标值的子矩阵数量
 
-<font style="color:rgb(51, 51, 51);"># 矩阵前缀和for i in range(m):        #固定左边界    ps = [0] * n    for j in range(i, m): #固定右边界        psS = 0            dct = {0:1}       #初始只有一种可能        for k in range(n): # 以高做前缀和            ps[k] += mtx[j][k]          # 每行前缀和            psS += ps[k]                # n行前缀和            cnt += dct.get(psS - T, 0)  # 满足条件cnt            dct[psS] = dct.get(psS,0) + 1 # 保存当前状态return cnt</font>
+# 矩阵前缀和for i in range(m):        #固定左边界    ps = [0] * n    for j in range(i, m): #固定右边界        psS = 0            dct = {0:1}       #初始只有一种可能        for k in range(n): # 以高做前缀和            ps[k] += mtx[j][k]          # 每行前缀和            psS += ps[k]                # n行前缀和            cnt += dct.get(psS - T, 0)  # 满足条件cnt            dct[psS] = dct.get(psS,0) + 1 # 保存当前状态return cnt
 
-<font style="color:rgb(255, 129, 36);">【双指针】</font>
+【双指针】
 
-<font style="color:rgb(51, 51, 51);"># 双指针def removeElement(self, ns: List[int], val: int) -> int:    slow = 0    n = len(ns)    for fast in range(n):        if ns[fast] != val:            ns[slow] = ns[fast]            slow += 1    return slow</font>
+# 双指针def removeElement(self, ns: List[int], val: int) -> int:    slow = 0    n = len(ns)    for fast in range(n):        if ns[fast] != val:            ns[slow] = ns[fast]            slow += 1    return slow
 
-<font style="color:rgb(255, 129, 36);">【深度优先】</font>
+【深度优先】
 
-**<font style="color:rgb(62, 62, 62);">「二叉树遍历模板」</font>**
+**「二叉树遍历模板」**
 
 
 
@@ -314,21 +314,21 @@ dp[i] |= dp[i-num]
 # N叉树迭代方法class Solution:    def preorder(self, root: 'Node') -> List[int]:        if not root:            return []        s = [root]        # s.append(root)        res = []        while s:            node = s.pop()            res.append(node.val)            # for child in node.children[::-1]:            #     s.append(child)            s.extend(node.children[::-1])        return res
 ```
 
-<font style="color:rgb(255, 129, 36);">【广度优先】</font>
+【广度优先】
 
 ```plain
 # 「**无向图的遍历**」q = collections.deque([i])while q:    cur = q.popleft()    for nxt in dt[cur]:        if not vst[nxt]:            vstd[nxt] = True            q.append(nxt)
 ```
 
-<font style="color:rgb(51, 51, 51);"># 「**二叉树层序遍历**」q = deque([root])res = []while q :    l = []    for i in range(len(q)) :        t = q.popleft()        l.append(t.val)        if t.left : q.append(t.left)        if t.right : q.append(t.right)    res.append(l)return res</font>
+# 「**二叉树层序遍历**」q = deque([root])res = []while q :    l = []    for i in range(len(q)) :        t = q.popleft()        l.append(t.val)        if t.left : q.append(t.left)        if t.right : q.append(t.right)    res.append(l)return res
 
-<font style="color:rgb(255, 129, 36);">【图论】</font>
+【图论】
 
 ```plain
 #「Dijkstra最短路径」dic = collections.defaultdict(list)for u, v, w in edges:    dic[u].append([v, w])    dic[v].append([u, w])q = [(0, n)]dist = [-1] * (n + 1)while q:    dis, cur = heapq.heappop(q)    if dist[cur] < 0:        dist[cur] = dis        for nxt, wi in dic[cur]:            heapq.heappush(q, [dis + wi, nxt])
 ```
 
-**<font style="color:rgb(62, 62, 62);">「Floyd 求图中路径」</font>**
+**「Floyd 求图中路径」**
 
-<font style="color:rgb(51, 51, 51);"># Floyd算法 求图中任意2点距离ds = defaultdict(int)st = set()for i, (x, y) in enumerate(ess):    ds[(x, y)] = vs[i]    ds[(y, x)] = 1 / vs[i]    st.update({x,y})arr = list(st)for k in arr:    for i in arr:        for j in arr:            if ds[(i, k)] and ds[(k, j)]:                ds[(i, j)] = ds[(i, k)] * ds[(k, j)]</font>
+# Floyd算法 求图中任意2点距离ds = defaultdict(int)st = set()for i, (x, y) in enumerate(ess):    ds[(x, y)] = vs[i]    ds[(y, x)] = 1 / vs[i]    st.update({x,y})arr = list(st)for k in arr:    for i in arr:        for j in arr:            if ds[(i, k)] and ds[(k, j)]:                ds[(i, j)] = ds[(i, k)] * ds[(k, j)]
 

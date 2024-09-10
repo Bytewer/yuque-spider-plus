@@ -1,10 +1,10 @@
-<font style="color:rgba(0, 0, 0, 0.82);">消息积压是消息中间件中常见的问题，主要由消费速度跟不上生产速度导致。以下是几种解决方案：</font>
+消息积压是消息中间件中常见的问题，主要由消费速度跟不上生产速度导致。以下是几种解决方案：
 
-1. **<font style="color:rgba(0, 0, 0, 0.82);">增加消费者线程数量</font>**
+1. **增加消费者线程数量**
 
-<font style="color:rgba(0, 0, 0, 0.82);">这是最直接的方法，通过增加消费者线程数来提高消费能力。</font>
+这是最直接的方法，通过增加消费者线程数来提高消费能力。
 
-<font style="color:rgba(0, 0, 0, 0.82);">示例代码：</font>
+示例代码：
 
 ```java
 DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("ConsumerGroupName");  
@@ -27,9 +27,9 @@ consumer.registerMessageListener(new MessageListenerConcurrently() {
 consumer.start();
 ```
 
-2. **<font style="color:rgba(0, 0, 0, 0.82);">消息业务异步处理</font>**
+2. **消息业务异步处理**
 
-<font style="color:rgba(0, 0, 0, 0.82);">示例代码：</font>
+示例代码：
 
 ```java
 consumer.registerMessageListener(new MessageListenerConcurrently() {  
@@ -47,11 +47,11 @@ consumer.registerMessageListener(new MessageListenerConcurrently() {
 });
 ```
 
-3. **<font style="color:rgba(0, 0, 0, 0.82);">调整消费者的消费模式</font>**
+3. **调整消费者的消费模式**
 
-<font style="color:rgba(0, 0, 0, 0.82);">将顺序消费改为并行消费，提高消费效率。</font>
+将顺序消费改为并行消费，提高消费效率。
 
-<font style="color:rgba(0, 0, 0, 0.82);">示例代码：</font>
+示例代码：
 
 ```java
 // 将MessageListenerOrderly改为MessageListenerConcurrently  
@@ -64,21 +64,21 @@ consumer.registerMessageListener(new MessageListenerConcurrently() {
 });
 ```
 
-4. **<font style="color:rgba(0, 0, 0, 0.82);">使用消息过滤</font>**
+4. **使用消息过滤**
 
-<font style="color:rgba(0, 0, 0, 0.82);">通过消息过滤，只消费重要的消息，降低消费压力。</font>
+通过消息过滤，只消费重要的消息，降低消费压力。
 
-<font style="color:rgba(0, 0, 0, 0.82);">示例代码：</font>
+示例代码：
 
 ```java
 consumer.subscribe("TopicTest", "tag1 || tag2 || tag3");
 ```
 
-5. **<font style="color:rgba(0, 0, 0, 0.82);">临时扩容</font>**
+5. **临时扩容**
 
-<font style="color:rgba(0, 0, 0, 0.82);">在消息积压严重时，可以临时启动额外的消费者实例来快速消费积压的消息。</font>
+在消息积压严重时，可以临时启动额外的消费者实例来快速消费积压的消息。
 
-<font style="color:rgba(0, 0, 0, 0.82);">示例代码：</font>
+示例代码：
 
 ```java
 public class TemporaryConsumer {  
@@ -99,11 +99,11 @@ public class TemporaryConsumer {
 }
 ```
 
-6. **<font style="color:rgba(0, 0, 0, 0.82);">调整生产者发送策略</font>**
+6. **调整生产者发送策略**
 
-<font style="color:rgba(0, 0, 0, 0.82);">如果可能，可以调整生产者的发送策略，如降低发送频率或者实现背压机制。</font>
+如果可能，可以调整生产者的发送策略，如降低发送频率或者实现背压机制。
 
-<font style="color:rgba(0, 0, 0, 0.82);">示例代码：</font>
+示例代码：
 
 ```java
 DefaultMQProducer producer = new DefaultMQProducer("ProducerGroupName");  
@@ -151,11 +151,11 @@ public Boolean checkMessageAccumulation(String groupName) throws Exception {
 
 ```
 
-**<font style="color:rgba(0, 0, 0, 0.82);">代码说明：</font>**
+**代码说明：**
 
-`<font style="color:rgba(0, 0, 0, 0.82);">DefaultMQAdminExt</font>`<font style="color:rgba(0, 0, 0, 0.82);"> 是 RocketMQ 提供的一个管理类，属于 RocketMQ 的管理工具模块。它继承自 </font>`<font style="color:rgba(0, 0, 0, 0.82);">MQAdmin</font>`<font style="color:rgba(0, 0, 0, 0.82);">，是用于扩展和增强 RocketMQ 管理能力的一个类。这个类提供了一系列的管理 API，用于管理和监控 RocketMQ 集群，包括消息查询、消费进度管理、主题管理、Broker 状态监控等功能。</font>
+`DefaultMQAdminExt` 是 RocketMQ 提供的一个管理类，属于 RocketMQ 的管理工具模块。它继承自 `MQAdmin`，是用于扩展和增强 RocketMQ 管理能力的一个类。这个类提供了一系列的管理 API，用于管理和监控 RocketMQ 集群，包括消息查询、消费进度管理、主题管理、Broker 状态监控等功能。
 
-**<font style="color:rgba(0, 0, 0, 0.82);">总结：</font>**
+**总结：**
 
-<font style="color:rgba(0, 0, 0, 0.82);">这些方法可以单独使用，也可以组合使用，具体取决于您的业务场景和系统架构。在实施这些解决方案时，请注意监控系统性能，确保不会因为过度优化而导致其他问题。同时，也要考虑长期的解决方案，如优化系统架构、升级硬件等，以从根本上提高系统的消息处理能力。</font>
+这些方法可以单独使用，也可以组合使用，具体取决于您的业务场景和系统架构。在实施这些解决方案时，请注意监控系统性能，确保不会因为过度优化而导致其他问题。同时，也要考虑长期的解决方案，如优化系统架构、升级硬件等，以从根本上提高系统的消息处理能力。
 

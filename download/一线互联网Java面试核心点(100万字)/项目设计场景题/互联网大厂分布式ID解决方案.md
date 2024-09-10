@@ -331,23 +331,23 @@ Tinyid 的原理比较简单，其架构如下图所示：
 Tinyid 的优缺点这里就不分析了，结合数据库号段模式的优缺点和 Tinyid 的原理就能知道。
 
 ####  
-#### <font style="color:rgb(51, 51, 51);">IdGenerator(个人)</font>
-<font style="color:rgb(51, 51, 51);">和 UidGenerator、Leaf 一样，</font>[IdGenerator](https://github.com/yitter/IdGenerator)<font style="color:rgb(51, 51, 51);"> 也是一款基于 Snowflake(雪花算法)的唯一 ID 生成器。</font><font style="color:rgb(51, 51, 51);">IdGenerator 有如下特点：</font>
+#### IdGenerator(个人)
+和 UidGenerator、Leaf 一样，[IdGenerator](https://github.com/yitter/IdGenerator) 也是一款基于 Snowflake(雪花算法)的唯一 ID 生成器。IdGenerator 有如下特点：
 
-+ <font style="color:rgb(51, 51, 51);">生成的唯一 ID 更短；</font>
-+ <font style="color:rgb(51, 51, 51);">兼容所有雪花算法（号段模式或经典模式，大厂或小厂）；</font>
-+ <font style="color:rgb(51, 51, 51);">原生支持 C#/Java/Go/C/Rust/Python/Node.js/PHP(C 扩展)/SQL/ 等语言，并提供多线程安全调用动态库（FFI）；</font>
-+ <font style="color:rgb(51, 51, 51);">解决了时间回拨问题，支持手工插入新 ID（当业务需要在历史时间生成新 ID 时，用本算法的预留位能生成 5000 个每秒）；</font>
-+ <font style="color:rgb(51, 51, 51);">不依赖外部存储系统;</font>
-+ <font style="color:rgb(51, 51, 51);">默认配置下，ID 可用 71000 年不重复。</font>
++ 生成的唯一 ID 更短；
++ 兼容所有雪花算法（号段模式或经典模式，大厂或小厂）；
++ 原生支持 C#/Java/Go/C/Rust/Python/Node.js/PHP(C 扩展)/SQL/ 等语言，并提供多线程安全调用动态库（FFI）；
++ 解决了时间回拨问题，支持手工插入新 ID（当业务需要在历史时间生成新 ID 时，用本算法的预留位能生成 5000 个每秒）；
++ 不依赖外部存储系统;
++ 默认配置下，ID 可用 71000 年不重复。
 
-<font style="color:rgb(51, 51, 51);">IdGenerator 生成的唯一 ID 组成如下：</font>![1717569877240-4ec35fa0-c68f-4f5a-b332-81bbb055c0d4.png](./assets/1717569877240-4ec35fa0-c68f-4f5a-b332-81bbb055c0d4.png)
+IdGenerator 生成的唯一 ID 组成如下：![1717569877240-4ec35fa0-c68f-4f5a-b332-81bbb055c0d4.png](./assets/1717569877240-4ec35fa0-c68f-4f5a-b332-81bbb055c0d4.png)
 
-+ **<font style="color:rgb(51, 51, 51);">timestamp (位数不固定)</font>**<font style="color:rgb(51, 51, 51);">:时间差，是生成 ID 时的系统时间减去 BaseTime(基础时间，也称基点时间、原点时间、纪元时间，默认值为 2020 年) 的总时间差（毫秒单位）。初始为 5bits，随着运行时间而增加。如果觉得默认值太老，你可以重新设置，不过要注意，这个值以后最好不变。</font>
-+ **<font style="color:rgb(51, 51, 51);">worker id (默认 6 bits)</font>**<font style="color:rgb(51, 51, 51);">:机器 id，机器码，最重要参数，是区分不同机器或不同应用的唯一 ID，最大值由 WorkerIdBitLength（默认 6）限定。如果一台服务器部署多个独立服务，需要为每个服务指定不同的 WorkerId。</font>
-+ **<font style="color:rgb(51, 51, 51);">sequence (默认 6 bits)</font>**<font style="color:rgb(51, 51, 51);">:序列数，是每毫秒下的序列数，由参数中的 SeqBitLength（默认 6）限定。增加 SeqBitLength 会让性能更高，但生成的 ID 也会更长。</font>
++ **timestamp (位数不固定)**:时间差，是生成 ID 时的系统时间减去 BaseTime(基础时间，也称基点时间、原点时间、纪元时间，默认值为 2020 年) 的总时间差（毫秒单位）。初始为 5bits，随着运行时间而增加。如果觉得默认值太老，你可以重新设置，不过要注意，这个值以后最好不变。
++ **worker id (默认 6 bits)**:机器 id，机器码，最重要参数，是区分不同机器或不同应用的唯一 ID，最大值由 WorkerIdBitLength（默认 6）限定。如果一台服务器部署多个独立服务，需要为每个服务指定不同的 WorkerId。
++ **sequence (默认 6 bits)**:序列数，是每毫秒下的序列数，由参数中的 SeqBitLength（默认 6）限定。增加 SeqBitLength 会让性能更高，但生成的 ID 也会更长。
 
-<font style="color:rgb(51, 51, 51);">Java 语言使用示例：</font>[https://github.com/yitter/idgenerator/tree/master/Java](https://github.com/yitter/idgenerator/tree/master/Java)<font style="color:rgb(51, 51, 51);">。</font>
+Java 语言使用示例：[https://github.com/yitter/idgenerator/tree/master/Java](https://github.com/yitter/idgenerator/tree/master/Java)。
 
 ## 总结
 1. **数据库**
@@ -375,10 +375,10 @@ Tinyid 的优缺点这里就不分析了，结合数据库号段模式的优缺�
         * 增加多 db 支持：支持多个 DB，并且，每个 DB 都能生成唯一 ID，提高了可用性。
         * 增加 tinyid-client：纯本地操作，无 HTTP 请求消耗，性能和可用性都有很大提升。
     4. IdGenerator(个人)
-        * <font style="color:rgb(51, 51, 51);">生成的唯一 ID 更短；</font>
-        * <font style="color:rgb(51, 51, 51);">兼容所有雪花算法（号段模式或经典模式，大厂或小厂）；</font>
-        * <font style="color:rgb(51, 51, 51);">原生支持 C#/Java/Go/C/Rust/Python/Node.js/PHP(C 扩展)/SQL/ 等语言，并提供多线程安全调用动态库（FFI）；</font>
-        * <font style="color:rgb(51, 51, 51);">解决了时间回拨问题，支持手工插入新 ID（当业务需要在历史时间生成新 ID 时，用本算法的预留位能生成 5000 个每秒）；</font>
-        * <font style="color:rgb(51, 51, 51);">不依赖外部存储系统;</font>
-        * <font style="color:rgb(51, 51, 51);">默认配置下，ID 可用 71000 年不重复。</font>
+        * 生成的唯一 ID 更短；
+        * 兼容所有雪花算法（号段模式或经典模式，大厂或小厂）；
+        * 原生支持 C#/Java/Go/C/Rust/Python/Node.js/PHP(C 扩展)/SQL/ 等语言，并提供多线程安全调用动态库（FFI）；
+        * 解决了时间回拨问题，支持手工插入新 ID（当业务需要在历史时间生成新 ID 时，用本算法的预留位能生成 5000 个每秒）；
+        * 不依赖外部存储系统;
+        * 默认配置下，ID 可用 71000 年不重复。
 

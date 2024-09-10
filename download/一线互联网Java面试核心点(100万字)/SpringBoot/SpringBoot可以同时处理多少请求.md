@@ -2,7 +2,7 @@
 
  
 
-<font style="color:rgb(51, 51, 51);">在SpringBoot中处理请求数量相关的参数有四个：</font>  
+在SpringBoot中处理请求数量相关的参数有四个：  
  
 
 + **server.tomcat.threads.min-spare**：最少的工作线程数，默认大小是10。该参数相当于长期工，如果并发请求的数量达不到10，就会依次使用这几个线程去处理请求。

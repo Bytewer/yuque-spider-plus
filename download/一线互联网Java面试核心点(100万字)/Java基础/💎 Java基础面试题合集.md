@@ -1,4 +1,4 @@
-# <font style="color:#01B2BC;">如何优雅的避免空指针异常</font>
+# 如何优雅的避免空指针异常
 空指针异常是导致java程序运行中断最常见的原因，相信每个程序猿都碰见过，也就是NullPointException，我们通常简称为NPE，本文告诉大家如何优雅避免NPE。
 
 ## 1.数据准备
@@ -294,7 +294,7 @@ Exception in thread "main" java.lang.NullPointerException: Cannot invoke "String
 	at npe.BaiLiNpeDemo.main(BaiLiNpeDemo.java:16)
 ```
 
-# <font style="color:#01B2BC;">什么是 CopyOnWriteArrayList</font>
+# 什么是 CopyOnWriteArrayList
 ## 1.Copy-On-Write 是什么？
 Copy-On-Write它是一种在计算机科学中常见的优化技术，主要应用于需要频繁读取但很少修改的数据结构上。  
 简单的说就是在计算机中就是当你想要对一块内存进行修改时，我们不在原有内存块中进行写操作，而是将内存拷贝一份，在新的内存中进行写操作，写完之后呢，就将指向原来内存指针指向新的内存，原来的内存就可以被回收掉了！  
@@ -502,7 +502,7 @@ public class BaiLiConcurrentIteratorTest {
 + 集合不大。为什么？因为写的时候会复制新集合
 + 实时性要求不高。为什么，因为有可能会读取到旧的集合数据
 
-# <font style="color:#01B2BC;">List操作的一些常见问题</font>
+# List操作的一些常见问题
 ![1686981544814-8ba59757-b43c-4215-a041-f56a069f1e0e.jpeg](./assets/1686981544814-8ba59757-b43c-4215-a041-f56a069f1e0e.jpeg)
 
 ## 阿里巴巴开发手册强制规约：
@@ -999,7 +999,7 @@ public class BaiLiConcurrentIteratorTest {
 + 集合不大。为什么？因为写的时候会复制新集合
 + 实时性要求不高。为什么，因为有可能会读取到旧的集合数据
 
-# <font style="color:#01B2BC;">如何优雅的删除HashMap元素</font>
+# 如何优雅的删除HashMap元素
 ## 图灵学院-百里
 ## 1.数据准备
 ```java
@@ -1132,7 +1132,7 @@ public void remove5() {
 `{user1=刘零, user2=郑一, user7=钱六, user8=孙七, user5=李四, user3=吴二, user4=张三}`  
 通过Stream 的 filter 方法进行过滤，然后生成一个新的map。这种方式“一行代码“就能够实现删除的动作，并且没有并发问题。
 
-# <font style="color:#01B2BC;">BigDecimal的常见陷阱</font>
+# BigDecimal的常见陷阱
 ## BigDecimal概述
 BigDecimal 是 Java 中的一个类，用于精确表示和操作任意精度的十进制数。它提供了高精度的数值计算，并且可以避免浮点数计算中常见的精度丢失问题。  
 它提供了大量的方法来支持基本的数学运算，如加法、减法、乘法、除法等。它还支持比较操作和取整操作，可以设置小数位数、舍入模式等。此外，BigDecimal 还提供了一些其他功能，如转换为科学计数法、格式化输出、判断是否是整数等。  
@@ -1334,7 +1334,7 @@ public void bigDecimalDemo4(){
 + 比较两个 BigDecimal 值的大小时，使用 compareTo 方法。如果需要严格限制精度的比较，可以考虑使用 equals 方法。
 + 在进行 BigDecimal 运算前，明确指定精度和舍入模式。使用 setScale 方法设置精度，使用 setRoundingMode 方法设置舍入模式。
 
-# <font style="color:#01B2BC;">鱼和熊掌不可兼得之CAP定理</font>
+# 鱼和熊掌不可兼得之CAP定理
 ## 什么是 CAP 定理？
 CAP 定理是一个分布式系统设计的基本原则。它指出，在一个分布式系统中，无法同时满足一致性（Consistency）、可用性（Availability）和分区容错性（Partition tolerance）三个特性。
 
@@ -1373,7 +1373,7 @@ CP(一致性与分区容忍性)：系统保证所有节点上的数据一致性�
 
 只有当网络分区或故障发生时，才需要在C和A之间进行权衡选择。在网络分区发生时，为了保证可用性和分区容忍性，系统可能需要放弃一致性，例如采用最终一致性模型。反之，如果一致性是更为重要的需求，系统可以牺牲可用性，在网络分区期间停止对外服务，等待分区恢复后再提供一致性数据。
 
-# <font style="color:#01B2BC;">Lambda小课堂：巧用“Function”让代码优雅起来~</font>
+# Lambda小课堂：巧用“Function”让代码优雅起来~
 在开发过程中经常会使用if...else...进行判断抛出异常、分支处理等操作。这些if...else...充斥在代码中严重影响了代码代码的美观，这时我们可以利用Java 8的Function接口来消灭if...else...
 
 ```java
@@ -1388,7 +1388,7 @@ if (...){
 }
 ```
 
-## <font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Function</font><font style="color:rgb(37, 41, 51);"> 函数式接口</font>
+## Function 函数式接口
 使用注解@FunctionalInterface标识，并且只包含一个抽象方法的接口是函数式接口。函数式接口主要分为Supplier供给型函数、Consumer消费型函数、Runnable无参无返回型函数和Function有参有返回型函数。
 
 Function可以看作转换型函数
@@ -1423,8 +1423,8 @@ public interface Supplier<T> {
 
 ```
 
-### <font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Function</font><font style="color:rgb(37, 41, 51);">函数</font>
-<font style="color:rgb(37, 41, 51);">表现形式为接收一个参数，并返回一个值。</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Supplier</font><font style="color:rgb(37, 41, 51);">、</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Consumer</font><font style="color:rgb(37, 41, 51);">和</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Runnable</font><font style="color:rgb(37, 41, 51);">可以看作</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Function</font><font style="color:rgb(37, 41, 51);">的一种特殊表现形式</font>
+### Function函数
+表现形式为接收一个参数，并返回一个值。Supplier、Consumer和Runnable可以看作Function的一种特殊表现形式
 
 ```java
 /**
@@ -1501,8 +1501,8 @@ public interface Function<T, R> {
 }
 ```
 
-### <font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Consumer</font><font style="color:rgb(37, 41, 51);">消费型函数</font>
-<font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Consumer</font><font style="color:rgb(37, 41, 51);">消费型函数和</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Supplier</font><font style="color:rgb(37, 41, 51);">刚好相反。</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Consumer</font><font style="color:rgb(37, 41, 51);">接收一个参数，没有返回值</font>
+### Consumer消费型函数
+Consumer消费型函数和Supplier刚好相反。Consumer接收一个参数，没有返回值
 
 ```java
 /**
@@ -1534,8 +1534,8 @@ public interface Consumer<T> {
 }
 ```
 
-### <font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Runnable</font><font style="color:rgb(37, 41, 51);">无参无返回型函数</font>
-<font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Runnable</font><font style="color:rgb(37, 41, 51);">的表现形式为即没有参数也没有返回值</font>
+### Runnable无参无返回型函数
+Runnable的表现形式为即没有参数也没有返回值
 
 ```java
 @FunctionalInterface
@@ -1555,9 +1555,9 @@ public interface Runnable {
 }
 ```
 
-## <font style="color:rgb(37, 41, 51);">使用小技巧</font>
-### <font style="color:rgb(37, 41, 51);">处理抛出异常的if</font>
-1. <font style="color:rgb(37, 41, 51);">定义函数 定义一个抛出异常的形式的</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">函数式接口</font><font style="color:rgb(37, 41, 51);">, 这个接口只有参数没有返回值是个</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">消费型接口</font>
+## 使用小技巧
+### 处理抛出异常的if
+1. 定义函数 定义一个抛出异常的形式的函数式接口, 这个接口只有参数没有返回值是个消费型接口
 
 ```java
 /**
@@ -1576,7 +1576,7 @@ public interface ThrowExceptionFunction {
 }
 ```
 
-2. <font style="color:rgb(37, 41, 51);">编写判断方法 创建工具类</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">VUtils</font><font style="color:rgb(37, 41, 51);">并创建一个</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">isTure</font><font style="color:rgb(37, 41, 51);">方法，方法的返回值为刚才定义的</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">函数式接口</font><font style="color:rgb(37, 41, 51);">-</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">ThrowExceptionFunction</font><font style="color:rgb(37, 41, 51);">。</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">ThrowExceptionFunction</font><font style="color:rgb(37, 41, 51);">的接口实现逻辑为当参数</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">b</font><font style="color:rgb(37, 41, 51);">为</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">true</font><font style="color:rgb(37, 41, 51);">时抛出异常</font>
+2. 编写判断方法 创建工具类VUtils并创建一个isTure方法，方法的返回值为刚才定义的函数式接口-ThrowExceptionFunction。ThrowExceptionFunction的接口实现逻辑为当参数b为true时抛出异常
 
 ```java
 /**
@@ -1595,7 +1595,7 @@ public static ThrowExceptionFunction isTure(boolean b){
 }
 ```
 
-3. <font style="color:rgb(37, 41, 51);">使用方式 调用工具类参数参数后，调用</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">函数式接口</font><font style="color:rgb(37, 41, 51);">的</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">throwMessage</font><font style="color:rgb(37, 41, 51);">方法传入异常信息。 当出入的参数为</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">false</font><font style="color:rgb(37, 41, 51);">时正常执行</font>
+3. 使用方式 调用工具类参数参数后，调用函数式接口的throwMessage方法传入异常信息。 当出入的参数为false时正常执行
 
 ```java
 // 报错
@@ -1604,8 +1604,8 @@ BeimingUtil.isTure(true).isthrowMessage("哎呀，一不小心就报错啦");
 BeimingUtil.isTure(false).isthrowMessage("哎呀，一不小心就报错啦");
 ```
 
-### <font style="color:rgb(37, 41, 51);">处理if分支操作</font>
-1. <font style="color:rgb(37, 41, 51);">定义函数式接口 创建一个名为</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">BranchHandle</font><font style="color:rgb(37, 41, 51);">的函数式接口，接口的参数为两个</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Runnable</font><font style="color:rgb(37, 41, 51);">接口。这两个两个</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Runnable</font><font style="color:rgb(37, 41, 51);">接口分别代表了为</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">true</font><font style="color:rgb(37, 41, 51);">或</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">false</font><font style="color:rgb(37, 41, 51);">时要进行的操作</font>
+### 处理if分支操作
+1. 定义函数式接口 创建一个名为BranchHandle的函数式接口，接口的参数为两个Runnable接口。这两个两个Runnable接口分别代表了为true或false时要进行的操作
 
 ```java
 /**
@@ -1626,7 +1626,7 @@ public interface BranchHandle {
 }
 ```
 
-2. <font style="color:rgb(37, 41, 51);">编写判断方法 创建一个名为</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">isTureOrFalse</font><font style="color:rgb(37, 41, 51);">的方法，方法的返回值为刚才定义的</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">函数式接口</font><font style="color:rgb(37, 41, 51);">-</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">BranchHandle</font><font style="color:rgb(37, 41, 51);">。</font>
+2. 编写判断方法 创建一个名为isTureOrFalse的方法，方法的返回值为刚才定义的函数式接口-BranchHandle。
 
 ```java
 /**
@@ -1656,8 +1656,8 @@ BeimingUtil.isTureOrFalse(true)
 			}
 ```
 
-### <font style="color:rgb(37, 41, 51);">如果存在值执行消费操作，否则执行基于空的操作</font>
-1. <font style="color:rgb(37, 41, 51);">定义函数 创建一个名为</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">PresentOrElseHandler</font><font style="color:rgb(37, 41, 51);">的函数式接口，接口的参数一个为</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Consumer</font><font style="color:rgb(37, 41, 51);">接口。一个为</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Runnable</font><font style="color:rgb(37, 41, 51);">,分别代表值不为空时执行消费操作和值为空时执行的其他操作</font>
+### 如果存在值执行消费操作，否则执行基于空的操作
+1. 定义函数 创建一个名为PresentOrElseHandler的函数式接口，接口的参数一个为Consumer接口。一个为Runnable,分别代表值不为空时执行消费操作和值为空时执行的其他操作
 
 ```java
 /**
@@ -1678,7 +1678,7 @@ public interface PresentOrElseHandler<T extends Object> {
 }
 ```
 
-2. <font style="color:rgb(37, 41, 51);">编写判断方法 创建一个名为</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">isBlankOrNoBlank</font><font style="color:rgb(37, 41, 51);">的方法，方法的返回值为刚才定义的</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">函数式接口</font><font style="color:rgb(37, 41, 51);">-</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">PresentOrElseHandler</font><font style="color:rgb(37, 41, 51);">。</font>
+2. 编写判断方法 创建一个名为isBlankOrNoBlank的方法，方法的返回值为刚才定义的函数式接口-PresentOrElseHandler。
 
 ```java
 /**
@@ -1699,12 +1699,12 @@ public static PresentOrElseHandler<?> isBlankOrNoBlank(String str){
 }
 ```
 
-3. <font style="color:rgb(37, 41, 51);">使用方式 调用工具类参数参数后，调用</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">函数式接口</font><font style="color:rgb(37, 41, 51);">的</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">presentOrElseHandle</font><font style="color:rgb(37, 41, 51);">方法传入一个</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Consumer</font><font style="color:rgb(37, 41, 51);">和</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Runnable</font>
+3. 使用方式 调用工具类参数参数后，调用函数式接口的presentOrElseHandle方法传入一个Consumer和Runnable
 
-## <font style="color:rgb(37, 41, 51);">结尾</font>
-<font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Function</font><font style="color:rgb(37, 41, 51);">函数式接口是</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">java 8</font><font style="color:rgb(37, 41, 51);">非常重要的特性，利用好</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">Function</font><font style="color:rgb(37, 41, 51);">函数可以极大的简化代码。</font>
+## 结尾
+Function函数式接口是java 8非常重要的特性，利用好Function函数可以极大的简化代码。
 
-# <font style="color:#01B2BC;">怎么理解Java里面的双冒号“::”</font>
+# 怎么理解Java里面的双冒号“::”
 ## “::”是什么含义
 在Java中，双冒号"::"是方法引用（Method Reference）的语法。方法引用是一种简化Lambda表达式的语法结构，使代码更加简洁易读。并且在使用方法引用时，会根据上下文推断参数类型，因此特别适用于直接引用已有方法的情况。
 
@@ -1833,17 +1833,17 @@ public class ArrayListCreator {
 }
 ```
 
-# <font style="color:#01B2BC;">为什么说BigDecimal适合数值计算</font>
-<font style="color:rgb(36, 41, 47);">使用什么类型来进行数值计算？这个问题在程序员群体中一直都是一个争论激烈的问题，</font>
+# 为什么说BigDecimal适合数值计算
+使用什么类型来进行数值计算？这个问题在程序员群体中一直都是一个争论激烈的问题，
 
-**<font style="color:rgb(36, 41, 47);">Int Long Double Float String BigDecimal</font>**
+**Int Long Double Float String BigDecimal**
 
-<font style="color:rgb(36, 41, 47);">如果还能再多几个类型的话，我估计也会有人安排上，究其原因我想大部分都是历史问题。</font>
+如果还能再多几个类型的话，我估计也会有人安排上，究其原因我想大部分都是历史问题。
 
-<font style="color:rgb(36, 41, 47);">如果现在让你从 0 ->1 开始设计一个新的系统，相信大家应该大概也许都会优先考虑使用 BigDecimal 进行运算吧，别告诉我你还会用 String，当然如果是只交付不售后的那种，当我没说。让我来设计的肯定是优先考虑 BigDeCimal 运算了。原因的话我们接下来就一起看看 BigDecimal 的设计就明白了。</font>
+如果现在让你从 0 ->1 开始设计一个新的系统，相信大家应该大概也许都会优先考虑使用 BigDecimal 进行运算吧，别告诉我你还会用 String，当然如果是只交付不售后的那种，当我没说。让我来设计的肯定是优先考虑 BigDeCimal 运算了。原因的话我们接下来就一起看看 BigDecimal 的设计就明白了。
 
-## <font style="color:rgb(36, 41, 47);">变量介绍</font>
-<font style="color:rgb(36, 41, 47);">首先来看一下BigDecimal的类声明以及几个属性：</font>
+## 变量介绍
+首先来看一下BigDecimal的类声明以及几个属性：
 
 ```java
 public class BigDecimal extends Number implements Comparable<BigDecimal> {
@@ -1873,8 +1873,8 @@ public class BigDecimal extends Number implements Comparable<BigDecimal> {
 }
 ```
 
-## <font style="color:rgb(36, 41, 47);">从例子入手</font>
-<font style="color:rgb(36, 41, 47);">通过debug来发现源码中的奥秘是了解类运行机制很好的方式。 请看下面的testBigDecimal方法：</font>
+## 从例子入手
+通过debug来发现源码中的奥秘是了解类运行机制很好的方式。 请看下面的testBigDecimal方法：
 
 ```java
 @Test
@@ -1886,9 +1886,9 @@ public void calBigDecimal(){
 }
 ```
 
-<font style="color:rgb(36, 41, 47);">在 sout 断点，查看debug信息可以发现上述提到的几个属性被赋了值：</font>![1713943241242-23ad6e01-d613-4f04-b87e-61f5bf9bb8f5.png](./assets/1713943241242-23ad6e01-d613-4f04-b87e-61f5bf9bb8f5.png)
+在 sout 断点，查看debug信息可以发现上述提到的几个属性被赋了值：![1713943241242-23ad6e01-d613-4f04-b87e-61f5bf9bb8f5.png](./assets/1713943241242-23ad6e01-d613-4f04-b87e-61f5bf9bb8f5.png)
 
-<font style="color:rgb(36, 41, 47);">接下来进到add方法里面，看看它是怎么计算的：</font>
+接下来进到add方法里面，看看它是怎么计算的：
 
 ```java
 /**
@@ -1923,7 +1923,7 @@ public BigDecimal add(BigDecimal augend) {
 }
 ```
 
-根据传入的值，我们可以知道是<font style="color:rgb(36, 41, 47);">进入第 12 行的add方法：</font>
+根据传入的值，我们可以知道是进入第 12 行的add方法：
 
 ```java
 /**
@@ -1984,7 +1984,7 @@ private static BigDecimal add(final long xs, int scale1, final long ys, int scal
 }
 ```
 
-<font style="color:rgb(36, 41, 47);">这个例子中，该方法传入的参数分别是：xs=31415，scale1=4，ys=1，scale2=4 该方法首先计算scale1 - scale2，根据差值走不同的计算逻辑，这里求出来是 0，所以进入第一个 if 处理逻辑：</font>
+这个例子中，该方法传入的参数分别是：xs=31415，scale1=4，ys=1，scale2=4 该方法首先计算scale1 - scale2，根据差值走不同的计算逻辑，这里求出来是 0，所以进入第一个 if 处理逻辑：
 
 ```java
 /**
@@ -2010,14 +2010,14 @@ private static BigDecimal add(long xs, long ys, int scale) {
 }
 ```
 
-<font style="color:rgb(36, 41, 47);">这个方法很简单，就是计算和，然后返回BigDecimal对象</font>
+这个方法很简单，就是计算和，然后返回BigDecimal对象
 
 ![1713961953890-e585fa7e-73bf-41fe-9b18-6f4260fd9d0e.png](./assets/1713961953890-e585fa7e-73bf-41fe-9b18-6f4260fd9d0e.png)
 
-## <font style="color:rgb(36, 41, 47);">结论</font>
-<font style="color:rgb(36, 41, 47);">其实到这里相信大家都知道 Bigdecimal 是如何保证精度的了，其实就是很多小伙伴正在使用的，将对应的数值进行放大，逻辑上将数值的单位进行缩放。而现在这个过程由 Bigdecimal 进行处理了，我们只需要调用相应的方法即可。</font>
+## 结论
+其实到这里相信大家都知道 Bigdecimal 是如何保证精度的了，其实就是很多小伙伴正在使用的，将对应的数值进行放大，逻辑上将数值的单位进行缩放。而现在这个过程由 Bigdecimal 进行处理了，我们只需要调用相应的方法即可。
 
-<font style="color:rgb(36, 41, 47);">至于其他类型，我这边不使用就不跟大家讨论了，还在使用的看观们，快说出你们还在使用的原因，让大家一起开开眼。</font>
+至于其他类型，我这边不使用就不跟大家讨论了，还在使用的看观们，快说出你们还在使用的原因，让大家一起开开眼。
 
 ```java
 /**
@@ -4752,9 +4752,9 @@ public class BigDecimal extends Number implements Comparable<BigDecimal> {
 }
 ```
 
-<font style="color:rgb(36, 41, 47);">BigDecimal在计算时，实际会把数值扩大10的n次倍，变成一个long型整数进行计算，整数计算时自然可以实现精度不丢失。同时结合精度scale，实现最终结果的计算。</font>
+BigDecimal在计算时，实际会把数值扩大10的n次倍，变成一个long型整数进行计算，整数计算时自然可以实现精度不丢失。同时结合精度scale，实现最终结果的计算。
 
-# <font style="color:#01B2BC;">提升编码效率的15种 Stream API</font>
+# 提升编码效率的15种 Stream API
 ![1715664744704-4c276cdf-650a-4bd8-aab2-3687a8a31648.png](./assets/1715664744704-4c276cdf-650a-4bd8-aab2-3687a8a31648.png)
 
 本文给大家收集了工作常用的 15 种 Java Stream API，可用于进行各种数据处理和操作。具体如下：

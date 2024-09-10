@@ -1,14 +1,14 @@
-# <font style="color:#FFFFFF;background-color:#E4495B;">一.索引</font>
+# 一.索引
 ## ![1685538843144-1b47126c-c052-406c-b297-d4d93d9ba55c.jpeg](./assets/1685538843144-1b47126c-c052-406c-b297-d4d93d9ba55c.jpeg) 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">什么是索引</font>
+## 什么是索引
 :::tips
 💡**什么是索引？**
 
  提到索引， 我们想到的是查询慢了 设置索引呗！但是索引为什么起作用？设置了索引为什么还是慢我们其实不是很清楚。
 
-在关系数据库中，<font style="color:rgb(36, 41, 47);">索引是一种数据结构，他将数据提前按照一定的规则进行排序和组织， 能够</font>帮助<font style="color:rgb(36, 41, 47);">快速定位到数据记录的数据，加快数据库表中数据的查找和访问速度。</font>
+在关系数据库中，索引是一种数据结构，他将数据提前按照一定的规则进行排序和组织， 能够帮助快速定位到数据记录的数据，加快数据库表中数据的查找和访问速度。
 
-<font style="color:rgb(36, 41, 47);">像书籍的目录、文件夹、标签 、房号....  都可以帮助我们快速定位，都可以视为索引。</font>
+像书籍的目录、文件夹、标签 、房号....  都可以帮助我们快速定位，都可以视为索引。
 
  
 
@@ -22,10 +22,10 @@
 
 
 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);"> 索引的种类</font>
+##  索引的种类
 在MySQL中索引是在存储引擎层实现的，而不是在服务器层实现的，所以不同存储引擎具有不同的索引类型和实现。常见的索引分类如下：
 
-+ 按数据结构分类：**<font style="color:#DF2A3F;">B+tree索引</font>**、Hash索引、Full-text索引。
++ 按数据结构分类：**B+tree索引**、Hash索引、Full-text索引。
 + 按物理存储分类：聚集索引、非聚集索引。
 + 按字段特性分类：主键索引(PRIMARY KEY)、唯一索引(UNIQUE)、普通索引(INDEX)、全文索引(FULLTEXT)。
 + 按字段个数分类：单列索引、联合索引（也叫复合索引、组合索引）。
@@ -34,33 +34,33 @@
 
 
 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">常见索引数据结构和区别</font>
-    - <font style="color:rgb(57, 57, 57);">二叉树、红黑树、B树 、B+树 </font>
-    - <font style="color:rgb(57, 57, 57);">区别：树的高度影响获取数据的性能（每一个树节点都是一次磁盘I/O)</font>
+## 常见索引数据结构和区别
+    - 二叉树、红黑树、B树 、B+树 
+    - 区别：树的高度影响获取数据的性能（每一个树节点都是一次磁盘I/O)
 
 
 
 
 
 #### ![1685543364763-54cb85a5-a824-4b46-b980-0dc0245b2c00.png](./assets/1685543364763-54cb85a5-a824-4b46-b980-0dc0245b2c00.png)二叉树：
-<font style="color:rgb(18, 18, 18);">特点：每个节点最多有两个子节,大在右，小在左  ，数据随机性情况下树杈越明显。</font>
+特点：每个节点最多有两个子节,大在右，小在左  ，数据随机性情况下树杈越明显。
 
-<font style="color:rgb(18, 18, 18);"></font>
+
 
 ![1685362290857-b5db6cfb-1ed2-4dff-a048-54e65bbbfc80.png](./assets/1685362290857-b5db6cfb-1ed2-4dff-a048-54e65bbbfc80.png)![1686127709826-a8d093b1-3e0a-47f2-aee2-cd0144933cf3.png](./assets/1686127709826-a8d093b1-3e0a-47f2-aee2-cd0144933cf3.png)
 
 如果数据是按顺序依次进入：
 
-树的高度则会很高<font style="color:rgb(77, 77, 77);">（就是一个链表结构）</font>， <font style="color:rgb(77, 77, 77);">此时元素的查找效率就等于链表查询O(n)，</font>数据检索效率将极为低下。
+树的高度则会很高（就是一个链表结构）， 此时元素的查找效率就等于链表查询O(n)，数据检索效率将极为低下。
 
 ![1685362410423-9f0d2fd7-c4b8-49d0-880a-d7e9e4ecbc80.png](./assets/1685362410423-9f0d2fd7-c4b8-49d0-880a-d7e9e4ecbc80.png)![1686127737896-f85e0f98-5f64-4839-b590-2ceaca2c7fbc.png](./assets/1686127737896-f85e0f98-5f64-4839-b590-2ceaca2c7fbc.png)
 
-<font style="color:rgb(77, 77, 77);"> 极端的情况下 就是一个链表结构（如下图），此时元素的查找效率就等于链表查询O(n)。</font>
+ 极端的情况下 就是一个链表结构（如下图），此时元素的查找效率就等于链表查询O(n)。
 
 #### ![1685543364763-54cb85a5-a824-4b46-b980-0dc0245b2c00.png](./assets/1685543364763-54cb85a5-a824-4b46-b980-0dc0245b2c00.png)红黑树（平衡二叉树）
-<font style="color:rgb(77, 77, 77);">虽通过自旋平衡，子节点会自动分叉为2个分支，从而减少树的高度，当数据有序插入时比二叉树数据检索性能更佳.     </font>
+虽通过自旋平衡，子节点会自动分叉为2个分支，从而减少树的高度，当数据有序插入时比二叉树数据检索性能更佳.     
 
-<font style="color:rgb(77, 77, 77);">但是如果 数据量过大，</font><font style="color:rgb(37, 41, 51);">节点个数就越多，树高度也会增高（也就是树的深度越深），增加磁盘I/O次数，影响查询效率。</font>
+但是如果 数据量过大，节点个数就越多，树高度也会增高（也就是树的深度越深），增加磁盘I/O次数，影响查询效率。
 
 
 
@@ -71,13 +71,13 @@
 ![1685370727244-9917f06b-5416-4e4c-b402-3b8f22719425.png](./assets/1685370727244-9917f06b-5416-4e4c-b402-3b8f22719425.png)
 
 #### ![1685543364763-54cb85a5-a824-4b46-b980-0dc0245b2c00.png](./assets/1685543364763-54cb85a5-a824-4b46-b980-0dc0245b2c00.png)B-树 
-<font style="color:rgb(77, 77, 77);"> </font>
+ 
 
 B树的出现可以解决树高度的问题。之所以是B树，而并不是名称中"xxx二叉树"，就是它不再限制一个父节点中只能有两个子节点，而是允许 M 个子节点（M > 2）。不仅如此，B树的一个节点可以存储多个元素，相比较于前面的那些二叉树数据结构又将整体的树高度降低了。
 
 ![1685543860080-820cb15f-005e-4c95-9342-1b9ee212cc06.png](./assets/1685543860080-820cb15f-005e-4c95-9342-1b9ee212cc06.png)
 
-<font style="color:rgb(37, 41, 51);">B 树的节点可以包含有多个字节点，所以 </font>**<font style="color:rgb(37, 41, 51);">B树是一棵多叉树</font>**<font style="color:rgb(37, 41, 51);">，它的每一个节点包含的最多子节点数量的称为B树的阶。如下图是一颗3阶的B树。</font>
+B 树的节点可以包含有多个字节点，所以 **B树是一棵多叉树**，它的每一个节点包含的最多子节点数量的称为B树的阶。如下图是一颗3阶的B树。
 
 
 
@@ -133,39 +133,39 @@ b. 所有数据记录都有序存储在叶子节点上，就会使得范围查�
 
 c. 数据页之间、数据记录之间都是通过链表链接的，有了这个结构的支持就可以方便的在数据查询后进行升序或者降序操作。 
 
-### <font style="color:rgb(0, 0, 0);">Hash索引</font>
-<font style="color:rgb(0, 0, 0);">Hash索引其实用的不多，最主要是因为最常见的存储引擎InnoDB不支持显示地创建Hash索引，只支持自适应Hash索引。</font>
+### Hash索引
+Hash索引其实用的不多，最主要是因为最常见的存储引擎InnoDB不支持显示地创建Hash索引，只支持自适应Hash索引。
 
-<font style="color:rgb(0, 0, 0);">虽然可以使用sql语句在InnoDB显示声明Hash索引，但是其实是不生效的</font>
+虽然可以使用sql语句在InnoDB显示声明Hash索引，但是其实是不生效的
 
 ![1686060089719-06591684-0765-4523-89c0-9aada91dc1b3.png](./assets/1686060089719-06591684-0765-4523-89c0-9aada91dc1b3.png)
 
-<font style="color:rgb(0, 0, 0);">对name字段建立Hash索引，但是通过</font><font style="color:rgb(239, 112, 96);">show index from 表名</font><font style="color:rgb(0, 0, 0);">就会发现实际还是B+树</font>
+对name字段建立Hash索引，但是通过show index from 表名就会发现实际还是B+树
 
 ![1686060089699-2d9db32b-569d-4d7d-a2ae-05634adb429c.png](./assets/1686060089699-2d9db32b-569d-4d7d-a2ae-05634adb429c.png)
 
-<font style="color:rgb(0, 0, 0);">在存储引擎中，Memory引擎支持Hash索引</font>
+在存储引擎中，Memory引擎支持Hash索引
 
-<font style="color:rgb(0, 0, 0);">Hash索引其实有点像Java中的HashMap底层的数据结构，他也有很多的槽，存的也是键值对，键值为索引列，值为数据的这条数据的行指针，通过行指针就可以找到数据</font>
+Hash索引其实有点像Java中的HashMap底层的数据结构，他也有很多的槽，存的也是键值对，键值为索引列，值为数据的这条数据的行指针，通过行指针就可以找到数据
 
-<font style="color:rgb(0, 0, 0);">假设现在</font><font style="color:rgb(239, 112, 96);">user</font><font style="color:rgb(0, 0, 0);">表用Memory存储引擎，对name字段建立Hash索引，表中插入三条数据</font>
+假设现在user表用Memory存储引擎，对name字段建立Hash索引，表中插入三条数据
 
 ![1686060089667-49ca8a48-b8f3-49a2-9e04-0161ffcae253.png](./assets/1686060089667-49ca8a48-b8f3-49a2-9e04-0161ffcae253.png)
 
-<font style="color:rgb(0, 0, 0);">Hash索引会对索引列name的值进行Hash计算，然后找到对应的槽下面，如下图所示</font>
+Hash索引会对索引列name的值进行Hash计算，然后找到对应的槽下面，如下图所示
 
 ![1686060089633-aa383d2c-2224-40d9-bfab-b2de18802fbd.png](./assets/1686060089633-aa383d2c-2224-40d9-bfab-b2de18802fbd.png)
 
-<font style="color:rgb(0, 0, 0);">当遇到name字段的Hash值相同时，也就是Hash冲突，就会形成一个链表，比如有name=张三有两条数据，就会形成一个链表。</font>
+当遇到name字段的Hash值相同时，也就是Hash冲突，就会形成一个链表，比如有name=张三有两条数据，就会形成一个链表。
 
-<font style="color:rgb(0, 0, 0);">之后如果要查name=李四的数据，只需要对李四进行Hash计算，找到对应的槽，遍历链表，取出name=李四对应的行指针，然后根据行指针去查找对应的数据。</font>
+之后如果要查name=李四的数据，只需要对李四进行Hash计算，找到对应的槽，遍历链表，取出name=李四对应的行指针，然后根据行指针去查找对应的数据。
 
-**<font style="color:rgb(0, 0, 0);">Hash索引优缺点</font>**
+**Hash索引优缺点**
 
-+ <font style="color:rgb(1, 1, 1);">hash索引只能用于等值比较，所以查询效率非常高</font>
-+ <font style="color:rgb(1, 1, 1);">不支持范围查询，也不支持排序，因为索引列的分布是无序的</font>
++ hash索引只能用于等值比较，所以查询效率非常高
++ 不支持范围查询，也不支持排序，因为索引列的分布是无序的
 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">什么是聚簇索引与非聚集索引和区别？</font>
+## 什么是聚簇索引与非聚集索引和区别？
 
 
 按物理存储分类：InnoDB的存储方式是聚集索引，MyISAM的存储方式是非聚集索引。
@@ -195,10 +195,10 @@ c. 数据页之间、数据记录之间都是通过链表链接的，有了这�
 
 
 ## 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">二级索引</font>
+## 二级索引
 
 
-<font style="color:rgb(18, 18, 18);">在MySQL中，创建一张表时会默认为主键创建聚簇索引，B+树将表中所有的数据组织起来，即数据就是索引主键所以在InnoDB里，主键索引也被称为聚簇索引，索引的叶子节点存的是整行数据。而除了聚簇索引以外的所有索引都称为二级索引，二级索引的叶子节点内容是主键的值。</font>
+在MySQL中，创建一张表时会默认为主键创建聚簇索引，B+树将表中所有的数据组织起来，即数据就是索引主键所以在InnoDB里，主键索引也被称为聚簇索引，索引的叶子节点存的是整行数据。而除了聚簇索引以外的所有索引都称为二级索引，二级索引的叶子节点内容是主键的值。
 
 ```sql
 例如创建如下一张表:
@@ -215,20 +215,20 @@ ALTER TABLE users ADD INDEX index_age(age);
 MySQL会分别创建主键id的聚簇索引和age的二级索引:
 ```
 
-<font style="color:rgb(0, 0, 0);"></font>
+
 
 ![1686228312805-5256f72b-5055-4545-963a-95ce7aa145dc.webp](./assets/1686228312805-5256f72b-5055-4545-963a-95ce7aa145dc.webp)
 
-<font style="color:rgb(18, 18, 18);">在MySQL中主键索引的叶子节点存的是整行数据，而二级索引叶子节点内容是主键的值.</font>
+在MySQL中主键索引的叶子节点存的是整行数据，而二级索引叶子节点内容是主键的值.
 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">回表</font>
-<font style="color:rgb(0, 0, 0);">讲完二级索引，接下来讲一讲如何使用二级索引查找数据。</font>
+## 回表
+讲完二级索引，接下来讲一讲如何使用二级索引查找数据。
 
-<font style="color:rgb(0, 0, 0);">这里假设对name字段创建了一个索引，并且表里就存了上面示例中的几条数据，这里我再把图拿过来</font>
+这里假设对name字段创建了一个索引，并且表里就存了上面示例中的几条数据，这里我再把图拿过来
 
 
 
-<font style="color:rgb(0, 0, 0);">例如执行下面这条sql 则需要进行回表:</font>
+例如执行下面这条sql 则需要进行回表:
 
 ```plain
 SELECT * FROM users WHERE age=35;
@@ -236,100 +236,100 @@ SELECT * FROM users WHERE age=35;
 
 ![1686228330541-4a9c644c-2572-4b8a-b2e1-c9dbaa37dfb5.webp](./assets/1686228330541-4a9c644c-2572-4b8a-b2e1-c9dbaa37dfb5.webp)
 
-<font style="color:rgb(0, 0, 0);">由于查询条件是</font><font style="color:rgb(239, 112, 96);">name = '赵六'</font><font style="color:rgb(0, 0, 0);">，所以会走name索引</font>
+由于查询条件是name = '赵六'，所以会走name索引
 
-<font style="color:rgb(0, 0, 0);">整个过程大致分为以下几个步骤：</font>
+整个过程大致分为以下几个步骤：
 
-+ <font style="color:rgb(1, 1, 1);"> </font>
++  
 + 从根节点开始，21<35  定位右边存储指针，
-+ <font style="color:rgb(1, 1, 1);">在索叶子节点找到</font><font style="color:rgb(239, 112, 96);">35</font><font style="color:rgb(1, 1, 1);">的第一条记录，也就是id=9的那条</font>
-+ <font style="color:rgb(1, 1, 1);">由于是</font><font style="color:rgb(239, 112, 96);">select *</font><font style="color:rgb(1, 1, 1);">，还要查其它字段，此时就会根据id=9到聚簇索引（主键索引）中查找其它字段数据，这个查找过程前面说了很多次了，这个根据id=4到聚簇索引中查找数据的过程就被称为</font>**<font style="color:black;">回表</font>**
++ 在索叶子节点找到35的第一条记录，也就是id=9的那条
++ 由于是select *，还要查其它字段，此时就会根据id=9到聚簇索引（主键索引）中查找其它字段数据，这个查找过程前面说了很多次了，这个根据id=4到聚簇索引中查找数据的过程就被称为**回表**
 
 
 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">覆盖索引</font>
-<font style="color:rgb(0, 0, 0);">上一节说当执行</font><font style="color:rgb(239, 112, 96);">select *  from `user` where age = 35;</font><font style="color:rgb(0, 0, 0);">这条sql的时候，会先从索引页中查出来</font><font style="color:rgb(239, 112, 96);">age = 35;</font><font style="color:rgb(0, 0, 0);">对应的主键id，之后再回表，到聚簇索引中查询其它字段的值。</font>
+## 覆盖索引
+上一节说当执行select *  from `user` where age = 35;这条sql的时候，会先从索引页中查出来age = 35;对应的主键id，之后再回表，到聚簇索引中查询其它字段的值。
 
-<font style="color:rgb(0, 0, 0);">那么当执行下面这条sql，又会怎样呢？</font>
+那么当执行下面这条sql，又会怎样呢？
 
 ```plain
 select id from `user` where age = 35;
 ```
 
-<font style="color:rgb(0, 0, 0);">这次查询字段从</font><font style="color:rgb(239, 112, 96);">select *</font><font style="color:rgb(0, 0, 0);">变成</font><font style="color:rgb(239, 112, 96);">select id</font><font style="color:rgb(0, 0, 0);">，查询条件不变，所以也会走age索引</font>
+这次查询字段从select *变成select id，查询条件不变，所以也会走age索引
 
 ![1686228312805-5256f72b-5055-4545-963a-95ce7aa145dc.webp](./assets/1686228312805-5256f72b-5055-4545-963a-95ce7aa145dc.webp)
 
-<font style="color:rgb(0, 0, 0);">所以还是跟前面一样了，先从索引页中查出来</font><font style="color:rgb(239, 112, 96);">age = 35;</font><font style="color:rgb(0, 0, 0);">对应的主键id之后，惊讶的发现，sql中需要查询字段的id值已经查到了，那次此时压根就不需要回表了，已经查到id了，还回什么表。</font>
+所以还是跟前面一样了，先从索引页中查出来age = 35;对应的主键id之后，惊讶的发现，sql中需要查询字段的id值已经查到了，那次此时压根就不需要回表了，已经查到id了，还回什么表。
 
-<font style="color:rgb(0, 0, 0);">而这种需要查询的字段都在索引列中的情况就被称为</font>**<font style="color:rgb(0, 0, 0);">覆盖索引</font>**<font style="color:rgb(0, 0, 0);">，索引列覆盖了查询字段的意思。</font>
+而这种需要查询的字段都在索引列中的情况就被称为**覆盖索引**，索引列覆盖了查询字段的意思。
 
-<font style="color:rgb(0, 0, 0);">当使用覆盖索引时会减少回表的次数，这样查询速度更快，性能更高。</font>
+当使用覆盖索引时会减少回表的次数，这样查询速度更快，性能更高。
 
-<font style="color:black;background-color:rgb(255, 249, 249);">所以，在日常开发中，尽量不要select * ，需要什么查什么，如果出现覆盖索引的情况，查询会快很多。</font>
+所以，在日常开发中，尽量不要select * ，需要什么查什么，如果出现覆盖索引的情况，查询会快很多。
 
 
 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">单列索引</font>
+## 单列索引
 ALTER TABLE `test`.`user`  ADD INDEX(`name`);
 
-<font style="color:rgb(0, 0, 0);">假设，我们现在对name字段加了一个普通非唯一索引，那么name就是索引列，同时name这个索引也就是单列索引</font>
+假设，我们现在对name字段加了一个普通非唯一索引，那么name就是索引列，同时name这个索引也就是单列索引
 
-<font style="color:rgb(0, 0, 0);">此时如果往表中插入三条数据，那么name索引的叶子节点存的数据就如下图所示</font>
+此时如果往表中插入三条数据，那么name索引的叶子节点存的数据就如下图所示
 
 ![1686060426659-e2031309-aa84-4688-bfb7-21a45da14d6e.png](./assets/1686060426659-e2031309-aa84-4688-bfb7-21a45da14d6e.png)
 
-**<font style="color:rgb(0, 0, 0);">mysql会根据name字段的值进行排序，这里我假设张三排在李四前面，当索引列的值相同时，就会根据id排序，所以索引实际上已经根据索引列的值排好序了。</font>**
+**mysql会根据name字段的值进行排序，这里我假设张三排在李四前面，当索引列的值相同时，就会根据id排序，所以索引实际上已经根据索引列的值排好序了。**
 
-<font style="color:rgb(0, 0, 0);">这里肯定有小伙伴疑问，name字段存储的中文也可以排序么？</font>
+这里肯定有小伙伴疑问，name字段存储的中文也可以排序么？
 
-<font style="color:rgb(0, 0, 0);">答案是可以的，并且mysql支持很多种排序规则，我们在建数据库或者是建表的时候等都可以指定排序规则，</font>**<font style="color:rgb(0, 0, 0);">并且后面文章涉及到的字符串排序都是我随便排的，实际情况可能不一样</font>**<font style="color:rgb(0, 0, 0);">。</font>
+答案是可以的，并且mysql支持很多种排序规则，我们在建数据库或者是建表的时候等都可以指定排序规则，**并且后面文章涉及到的字符串排序都是我随便排的，实际情况可能不一样**。
 
 ![1686060426660-da7319da-f0e5-412f-8e10-f26f7509594f.png](./assets/1686060426660-da7319da-f0e5-412f-8e10-f26f7509594f.png)
 
-<font style="color:rgb(0, 0, 0);">对于单个索引列数据查找也是跟前面说的聚簇索引一样，也会对数据分组，之后可以根据二分查找在单个索引列来查找数据。</font>
+对于单个索引列数据查找也是跟前面说的聚簇索引一样，也会对数据分组，之后可以根据二分查找在单个索引列来查找数据。
 
-<font style="color:rgb(0, 0, 0);">当数据不断增多，一个索引页存储不下数据的时候，也会用多个索引页来存储，并且索引页直接也会形成双向链表</font>
+当数据不断增多，一个索引页存储不下数据的时候，也会用多个索引页来存储，并且索引页直接也会形成双向链表
 
 ![1686060426657-4914f989-c010-4f3d-8a7e-72da98624742.png](./assets/1686060426657-4914f989-c010-4f3d-8a7e-72da98624742.png)
 
-<font style="color:rgb(0, 0, 0);">当索引页不断增多是，为了方便在不同索引页中查找数据，也就会抽取一个索引页，除了存页中id，同时也会存储这个id对应的索引列的值</font>
+当索引页不断增多是，为了方便在不同索引页中查找数据，也就会抽取一个索引页，除了存页中id，同时也会存储这个id对应的索引列的值
 
 ![1686060426665-08e361ba-a9e5-4d72-b8fe-02dca7420d63.png](./assets/1686060426665-08e361ba-a9e5-4d72-b8fe-02dca7420d63.png)
 
-<font style="color:rgb(0, 0, 0);">当数据越来越多越来越多，还会抽取，也会形成三层的一个B+树，这里我就不画了。</font>
+当数据越来越多越来越多，还会抽取，也会形成三层的一个B+树，这里我就不画了。
 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">联合索引</font>
+## 联合索引
 ```sql
 ALTER TABLE `test`.`user` ADD INDEX(`name`, `age`, `id`);
 ```
 
-<font style="color:rgb(0, 0, 0);">除了单列索引，联合索引其实也是一样的，只不过索引页存的数据就多了一些索引列</font>
+除了单列索引，联合索引其实也是一样的，只不过索引页存的数据就多了一些索引列
 
-<font style="color:rgb(0, 0, 0);">比如，在name和age上建立一个联合索引，此时单个索引页就如图所示</font>
+比如，在name和age上建立一个联合索引，此时单个索引页就如图所示
 
 ![1686060426681-ac222f22-f3eb-4b61-a8bc-74b73e26c748.png](./assets/1686060426681-ac222f22-f3eb-4b61-a8bc-74b73e26c748.png)
 
-<font style="color:rgb(85, 86, 102);"> </font>
+ 
 
-**<font style="color:rgb(0, 0, 0);">先以name排序，name相同时再以age排序，如果再有其它列，依次类推，最后再以id排序。</font>**
+**先以name排序，name相同时再以age排序，如果再有其它列，依次类推，最后再以id排序。**
 
-<font style="color:rgb(0, 0, 0);">相比于只有name一个字段的索引来说，索引页就多存了一个索引列。</font>
+相比于只有name一个字段的索引来说，索引页就多存了一个索引列。
 
-<font style="color:rgb(0, 0, 0);">最后形成的B+树简化为如下图</font>
+最后形成的B+树简化为如下图
 
 ![1686060427050-8ccf5c09-a630-4074-a4de-91e2ee228f68.png](./assets/1686060427050-8ccf5c09-a630-4074-a4de-91e2ee228f68.png)
 
-### <font style="color:rgb(79, 79, 79);">最左前缀原则</font>
-<font style="color:rgb(79, 79, 79);">顾名思义是最左优先，以最左边的为起点任何连续的索引都能匹配上。</font>
+### 最左前缀原则
+顾名思义是最左优先，以最左边的为起点任何连续的索引都能匹配上。
 
-<font style="color:rgb(85, 86, 102);">如果没有第一列的话，直接访问第二列，那第二列肯定是无序的，直接访问后面的列就用不到索引了</font>
+如果没有第一列的话，直接访问第二列，那第二列肯定是无序的，直接访问后面的列就用不到索引了
 
-<font style="color:rgb(79, 79, 79);">当创建(a,b,c)复合索引时，想要索引生效的话，只能使用 a和ab、ac和abc三种组合！</font>
+当创建(a,b,c)复合索引时，想要索引生效的话，只能使用 a和ab、ac和abc三种组合！
 
-<font style="color:rgb(79, 79, 79);"></font>
 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">单列索引联合索引分别什么场景创建，优势是什么</font>
+
+## 单列索引联合索引分别什么场景创建，优势是什么
  
 
 ### 联合索引的优势
@@ -363,7 +363,7 @@ B:如果是(col1,col2,col3)联合索引,通过三列索引筛选出1000w*10%*10%
 
  
 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">索引下推</font>
+## 索引下推
 索引下推（INDEX CONDITION PUSHDOWN，简称 ICP）是在 MySQL 5.6 针对**扫描二级索引**的一项优化改进。 用来在范围查询时减少回表的次数 。ICP 适用于 MYISAM 和 INNODB。
 
 ```sql
@@ -390,61 +390,61 @@ Explain SELECT * FROM user1 WHERE name LIKE 'A%' and age = 40;
 
 ![1686060427122-d526de38-82e8-4a36-b22e-253d68daefd9.png](./assets/1686060427122-d526de38-82e8-4a36-b22e-253d68daefd9.png)
 
-<font style="color:rgb(0, 0, 0);">接下来要执行如下的sql</font>
+接下来要执行如下的sql
 
 ```plain
 select * from `user` where name > '王五' and age > 22;
 ```
 
-<font style="color:rgb(0, 0, 0);">在MySQL5.6(不包括5.6)之前，整个sql大致执行步骤如下：</font>
+在MySQL5.6(不包括5.6)之前，整个sql大致执行步骤如下：
 
-+ <font style="color:rgb(1, 1, 1);">先根据二分查找，定位到</font><font style="color:rgb(239, 112, 96);">name > '王五'</font><font style="color:rgb(1, 1, 1);">的第一条数据，也就是id=4的那个赵六</font>
-+ <font style="color:rgb(1, 1, 1);">之后就会根据id=4进行回表操作，到聚簇索引中查找id=4其它字段的数据，然后判断数据中的age是否大于22，是的话就说明是我们需要查找的数据，否则就不是</font>
-+ <font style="color:rgb(1, 1, 1);">之后顺着链表，继续遍历，然后找到一条记录就回一次表，然后判断age，如此反复下去，直至结束</font>
++ 先根据二分查找，定位到name > '王五'的第一条数据，也就是id=4的那个赵六
++ 之后就会根据id=4进行回表操作，到聚簇索引中查找id=4其它字段的数据，然后判断数据中的age是否大于22，是的话就说明是我们需要查找的数据，否则就不是
++ 之后顺着链表，继续遍历，然后找到一条记录就回一次表，然后判断age，如此反复下去，直至结束
 
-<font style="color:rgb(0, 0, 0);">所以对于图上所示，整个搜索过程会经历5次回表操作，两个赵六，两个刘七，一个王九，最后符合条件的也就是id=6的赵六那条数据，其余age不符和。</font>
+所以对于图上所示，整个搜索过程会经历5次回表操作，两个赵六，两个刘七，一个王九，最后符合条件的也就是id=6的赵六那条数据，其余age不符和。
 
-<font style="color:rgb(0, 0, 0);">虽然这么执行没什么问题，但是不知有没有发现其实没必要进行那么多次回表，因为光从上面的索引图示就可以看出，符合</font><font style="color:rgb(239, 112, 96);">name > '王五' and age > 22</font><font style="color:rgb(0, 0, 0);">的数据就id=6的赵六那条数据</font>
+虽然这么执行没什么问题，但是不知有没有发现其实没必要进行那么多次回表，因为光从上面的索引图示就可以看出，符合name > '王五' and age > 22的数据就id=6的赵六那条数据
 
-<font style="color:rgb(0, 0, 0);">所以在MySQL5.6之后，对上面的</font><font style="color:rgb(239, 112, 96);">age > 22</font><font style="color:rgb(0, 0, 0);">判断逻辑进行了优化</font>
+所以在MySQL5.6之后，对上面的age > 22判断逻辑进行了优化
 
-<font style="color:rgb(0, 0, 0);">前面还是一样，定位查找到id=4的那个赵六，之后就</font>**<font style="color:rgb(0, 0, 0);">不回表</font>**<font style="color:rgb(0, 0, 0);">来判断age了，因为索引列有age的值了，那么直接根据索引中age判断是否大于22，如果大于的话，再回表查询剩余的字段数据（因为是</font><font style="color:rgb(239, 112, 96);">select *</font><font style="color:rgb(0, 0, 0);">），然后再顺序链表遍历，直至结束</font>
+前面还是一样，定位查找到id=4的那个赵六，之后就**不回表**来判断age了，因为索引列有age的值了，那么直接根据索引中age判断是否大于22，如果大于的话，再回表查询剩余的字段数据（因为是select *），然后再顺序链表遍历，直至结束
 
-<font style="color:rgb(0, 0, 0);">所以这样优化之后，回表次数就成1了，相比于前面的5次，大大减少了回表的次数。</font>
+所以这样优化之后，回表次数就成1了，相比于前面的5次，大大减少了回表的次数。
 
-<font style="color:rgb(0, 0, 0);">而这个优化，就被称为</font>**<font style="color:rgb(0, 0, 0);">索引下推</font>**<font style="color:rgb(0, 0, 0);">，就是为了减少回表的次数。</font>
+而这个优化，就被称为**索引下推**，就是为了减少回表的次数。
 
-<font style="color:black;background-color:rgb(255, 249, 249);">之所以这个优化叫索引下推，其实是跟判断</font><font style="color:rgb(239, 112, 96);background-color:rgb(255, 249, 249);">age > 22</font><font style="color:black;background-color:rgb(255, 249, 249);">逻辑执行的地方有关，这里就不过多赘述了。</font>
+之所以这个优化叫索引下推，其实是跟判断age > 22逻辑执行的地方有关，这里就不过多赘述了。
 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">索引合并</font>
-<font style="color:rgb(0, 0, 0);">索引合并（index merge）是从MySQL5.1开始引入的索引优化机制，在之前的MySQL版本中，一条sql多个查询条件只能使用一个索引，但是引入了索引合并机制之后，MySQL在</font>**<font style="color:rgb(0, 0, 0);">某些特殊</font>**<font style="color:rgb(0, 0, 0);">的情况下会扫描多个索引，然后将扫描结果进行合并</font>
+## 索引合并
+索引合并（index merge）是从MySQL5.1开始引入的索引优化机制，在之前的MySQL版本中，一条sql多个查询条件只能使用一个索引，但是引入了索引合并机制之后，MySQL在**某些特殊**的情况下会扫描多个索引，然后将扫描结果进行合并
 
-<font style="color:rgb(0, 0, 0);">结果合并会为下面三种情况：</font>
+结果合并会为下面三种情况：
 
-+ <font style="color:rgb(1, 1, 1);">取交集（intersect）</font>
-+ <font style="color:rgb(1, 1, 1);">取并集（union）</font>
-+ <font style="color:rgb(1, 1, 1);">排序后取并集（sort-union）</font>
++ 取交集（intersect）
++ 取并集（union）
++ 排序后取并集（sort-union）
 
-<font style="color:rgb(0, 0, 0);">为了不耽误演示，删除之前所有的索引，然后为name和age各自分别创建一个二级索引idx_name和idx_age</font>
+为了不耽误演示，删除之前所有的索引，然后为name和age各自分别创建一个二级索引idx_name和idx_age
 
-#### <font style="color:rgb(0, 0, 0);">取交集（intersect）</font>
-<font style="color:rgb(0, 0, 0);">当执行下面这条sql就会出现取交集的情况</font>
+#### 取交集（intersect）
+当执行下面这条sql就会出现取交集的情况
 
 ```plain
 select * from `user` where name = '赵六' and age= 22;
 ```
 
-<font style="color:rgb(0, 0, 0);">查看执行计划</font>
+查看执行计划
 
 ![1686060427143-0d4fe61f-28b1-4407-b501-4c25a61055db.png](./assets/1686060427143-0d4fe61f-28b1-4407-b501-4c25a61055db.png)
 
-<font style="color:rgb(0, 0, 0);">type是</font><font style="color:rgb(239, 112, 96);">index_merge</font><font style="color:rgb(0, 0, 0);">，并且possible_key和key都是</font><font style="color:rgb(239, 112, 96);">idx_name</font><font style="color:rgb(0, 0, 0);">和</font><font style="color:rgb(239, 112, 96);">idx_age</font><font style="color:rgb(0, 0, 0);">，说明使用了索引合并，并且Extra有</font><font style="color:rgb(239, 112, 96);">Using intersect(idx_age,idx_name)</font><font style="color:rgb(0, 0, 0);">，intersect就是交集的意思。</font>
+type是index_merge，并且possible_key和key都是idx_name和idx_age，说明使用了索引合并，并且Extra有Using intersect(idx_age,idx_name)，intersect就是交集的意思。
 
-<font style="color:rgb(0, 0, 0);">整个过程大致是这样的，分别根据</font><font style="color:rgb(239, 112, 96);">idx_name</font><font style="color:rgb(0, 0, 0);">和</font><font style="color:rgb(239, 112, 96);">idx_age</font><font style="color:rgb(0, 0, 0);">取出对应的主键id，之后将主键id取交集，那么这部分交集的id一定同时满足查询</font><font style="color:rgb(239, 112, 96);">name = '赵六' and age= 22</font><font style="color:rgb(0, 0, 0);">的查询条件（仔细想想），之后再根据交集的id回表</font>
+整个过程大致是这样的，分别根据idx_name和idx_age取出对应的主键id，之后将主键id取交集，那么这部分交集的id一定同时满足查询name = '赵六' and age= 22的查询条件（仔细想想），之后再根据交集的id回表
 
-<font style="color:rgb(0, 0, 0);">不过要想使用取交集的联合索引，需要满足各自索引查出来的主键id是排好序的，这是为了方便可以快速的取交集</font>
+不过要想使用取交集的联合索引，需要满足各自索引查出来的主键id是排好序的，这是为了方便可以快速的取交集
 
-<font style="color:rgb(0, 0, 0);">比如下面这条sql就无法使用联合索引</font>
+比如下面这条sql就无法使用联合索引
 
 ```plain
 select * from `user` where name = '赵六' and age > 22;
@@ -452,89 +452,89 @@ select * from `user` where name = '赵六' and age > 22;
 
 ![1686060427441-ebaf070f-dfb3-4163-afc8-2370954bc3cc.png](./assets/1686060427441-ebaf070f-dfb3-4163-afc8-2370954bc3cc.png)
 
-<font style="color:rgb(0, 0, 0);">只能用name这个索引，因为</font><font style="color:rgb(239, 112, 96);">age > 22</font><font style="color:rgb(0, 0, 0);">查出来的id是无序的，前面在讲索引的时候有说过索引列的排序规则</font>
+只能用name这个索引，因为age > 22查出来的id是无序的，前面在讲索引的时候有说过索引列的排序规则
 
-<font style="color:rgb(0, 0, 0);">由此可以看出，使用联合索引条件还是比较苛刻的。</font>
+由此可以看出，使用联合索引条件还是比较苛刻的。
 
-#### <font style="color:rgb(0, 0, 0);">取并集（union）</font>
-<font style="color:rgb(0, 0, 0);">取并集就是将前面例子中的</font><font style="color:rgb(239, 112, 96);">and</font><font style="color:rgb(0, 0, 0);">换成</font><font style="color:rgb(239, 112, 96);">or</font>
+#### 取并集（union）
+取并集就是将前面例子中的and换成or
 
 ```plain
 select * from `user` where name = '赵六' or age = 22;
 ```
 
-<font style="color:rgb(0, 0, 0);">前面执行的情况都一样，根据条件到各自的索引上去查，之后对查询的id取并集去重，之后再回表</font>
+前面执行的情况都一样，根据条件到各自的索引上去查，之后对查询的id取并集去重，之后再回表
 
-<font style="color:rgb(0, 0, 0);">同样地，取并集也要求各自索引查出来的主键id是排好序的，如果查询条件换成</font><font style="color:rgb(239, 112, 96);">age > 22</font><font style="color:rgb(0, 0, 0);">时就无法使用取并集的索引合并</font>
+同样地，取并集也要求各自索引查出来的主键id是排好序的，如果查询条件换成age > 22时就无法使用取并集的索引合并
 
 ```plain
 select * from `user` where name = '赵六' or age > 22;
 ```
 
-#### <font style="color:rgb(0, 0, 0);">排序后取并集（sort-union）</font>
-<font style="color:rgb(0, 0, 0);">虽然取并集要求各自索引查出来的主键id是排好序的，但是如果遇到没排好序的情况，mysql会自动对这种情况进行优化，会先对主键id排序，然后再取并集，这种情况就叫 排序后取并集（sort-union）。</font>
+#### 排序后取并集（sort-union）
+虽然取并集要求各自索引查出来的主键id是排好序的，但是如果遇到没排好序的情况，mysql会自动对这种情况进行优化，会先对主键id排序，然后再取并集，这种情况就叫 排序后取并集（sort-union）。
 
-<font style="color:rgb(0, 0, 0);">比如上面提到的无法直接取并集的sql就符合排序后取并集（sort-union）这种情况</font>
+比如上面提到的无法直接取并集的sql就符合排序后取并集（sort-union）这种情况
 
 select * from `user` where name = '赵六' or age > 22;
 
 
 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">为什么Mysql默认 InnoDB, 而不是 MyISAM ？</font>
-**<font style="color:rgb(51, 51, 51);">MyISAM 与 InnoDB</font>**
+## 为什么Mysql默认 InnoDB, 而不是 MyISAM ？
+**MyISAM 与 InnoDB**
 
-<font style="color:rgb(51, 51, 51);">众所周知，MySQL 有两种常见的存储引擎。一种是 MyISAM，一种是 InnoDB。</font>
+众所周知，MySQL 有两种常见的存储引擎。一种是 MyISAM，一种是 InnoDB。
 
-_**<font style="color:rgb(51, 51, 51);">一、它们是什么？</font>**_
+_**一、它们是什么？**_
 
-<font style="color:rgb(51, 51, 51);">先来看看官网对 </font>MyISAM<font style="color:rgb(51, 51, 51);"> 的描述，只有一句话，看来官方也不想多加解释。</font>
+先来看看官网对 MyISAM 的描述，只有一句话，看来官方也不想多加解释。
 
-<font style="color:rgb(102, 102, 102);background-color:rgb(248, 248, 248);">MyISAM is based on the older (and no longer available) ISAM storage engine but has many useful extensions.</font>
+MyISAM is based on the older (and no longer available) ISAM storage engine but has many useful extensions.
 
-<font style="color:rgb(51, 51, 51);">大意：MyISAM 是一款青出于蓝而胜于蓝的存储引擎，它在 ISAM 基础上作了一些扩展和加工。关于 ISAM ，我只告诉你它是 Indexed Sequential Access Method 的缩写，翻译为“有索引的顺序访问方法”。</font>
+大意：MyISAM 是一款青出于蓝而胜于蓝的存储引擎，它在 ISAM 基础上作了一些扩展和加工。关于 ISAM ，我只告诉你它是 Indexed Sequential Access Method 的缩写，翻译为“有索引的顺序访问方法”。
 
-<font style="color:rgb(51, 51, 51);">而对</font><font style="color:rgb(51, 51, 51);"> </font>[InnoDB](https://link.juejin.cn/?target=https%3A%2F%2Fdev.mysql.com%2Fdoc%2Frefman%2F8.0%2Fen%2Finnodb-introduction.html)<font style="color:rgb(51, 51, 51);"> </font><font style="color:rgb(51, 51, 51);">的描述，就更 professional 一些了。</font>
+而对 [InnoDB](https://link.juejin.cn/?target=https%3A%2F%2Fdev.mysql.com%2Fdoc%2Frefman%2F8.0%2Fen%2Finnodb-introduction.html) 的描述，就更 professional 一些了。
 
 :::info
-<font style="color:rgb(102, 102, 102);">InnoDB is a general-purpose storage engine that balances high reliability and high performance. In MySQL 8.0, InnoDB is the default MySQL storage engine. Unless you have configured a different default storage engine, issuing a CREATE TABLE statement without an ENGINE= clause creates an InnoDB table.</font>
+InnoDB is a general-purpose storage engine that balances high reliability and high performance. In MySQL 8.0, InnoDB is the default MySQL storage engine. Unless you have configured a different default storage engine, issuing a CREATE TABLE statement without an ENGINE= clause creates an InnoDB table.
 
 :::
 
-<font style="color:rgb(102, 102, 102);background-color:rgb(248, 248, 248);"></font>
 
-<font style="color:rgb(51, 51, 51);">大意：InnoDB 是一种通用的存储引擎，在高可靠和高性能上作了均衡。MySQL 8.0 中，它是默认的存储引擎（其实在5.5之后的版本就是了），当你执行 CREATE TABLE 建表语句并且不带 “ENGINE = ”子句时，默认帮你创建的就是 InnoDB 表了。</font>
 
-_**<font style="color:rgb(51, 51, 51);">二、两者有什么区别？</font>**_
+大意：InnoDB 是一种通用的存储引擎，在高可靠和高性能上作了均衡。MySQL 8.0 中，它是默认的存储引擎（其实在5.5之后的版本就是了），当你执行 CREATE TABLE 建表语句并且不带 “ENGINE = ”子句时，默认帮你创建的就是 InnoDB 表了。
 
-<font style="color:rgb(51, 51, 51);">拿官网两者的 Features 来作一个分析对比吧：</font>
+_**二、两者有什么区别？**_
+
+拿官网两者的 Features 来作一个分析对比吧：
 
 ![1685885295850-cd6ca510-c34c-4c9a-8ca9-eae76c17a224.png](./assets/1685885295850-cd6ca510-c34c-4c9a-8ca9-eae76c17a224.png)
 
 ![1685885420022-adfd96b6-33c8-4310-b4b3-939e298fa958.png](./assets/1685885420022-adfd96b6-33c8-4310-b4b3-939e298fa958.png)
 
-<font style="color:rgb(51, 51, 51);">1、InnoDB 是聚集索引，数据文件是和索引绑在一起的，必须要有主键，通过主键索引效率很高，但是辅助索引需要两次查询，先查询到主键，然后再通过主键查询到数据。因此，主键不应该过大，否则其他索引也会很大。而 MyISAM 是非聚集索引，数据文件是分离的，索引保存的是数据文件的指针，主键索引和辅助索引是独立的。</font>
+1、InnoDB 是聚集索引，数据文件是和索引绑在一起的，必须要有主键，通过主键索引效率很高，但是辅助索引需要两次查询，先查询到主键，然后再通过主键查询到数据。因此，主键不应该过大，否则其他索引也会很大。而 MyISAM 是非聚集索引，数据文件是分离的，索引保存的是数据文件的指针，主键索引和辅助索引是独立的。
 
-<font style="color:rgb(51, 51, 51);">2、InnoDB 支持外键，而 MyISAM 不支持。对一个包含外键的 InnoDB 表转为 MYISAM 会失败。</font>
+2、InnoDB 支持外键，而 MyISAM 不支持。对一个包含外键的 InnoDB 表转为 MYISAM 会失败。
 
-<font style="color:rgb(51, 51, 51);">3、InnoDB 在 MySQL 5.6 之前不支持全文索引，而 MyISAM 一直都支持，如果你用的是老版本，查询效率上 MyISAM 要高。</font>
+3、InnoDB 在 MySQL 5.6 之前不支持全文索引，而 MyISAM 一直都支持，如果你用的是老版本，查询效率上 MyISAM 要高。
 
-<font style="color:rgb(51, 51, 51);">4、InnoDB 锁粒度是行锁，而 MyISAM 是表锁。</font>
+4、InnoDB 锁粒度是行锁，而 MyISAM 是表锁。
 
-<font style="color:rgb(51, 51, 51);">5、InnoDB 支持事务，MyISAM 不支持，对于 InnoDB 每一条 SQL 语言都默认封装成事务，自动提交，这样会影响速度，所以最好把多条 SQL 语言放在 begin 和 commit 之间，组成一个事务。</font>
+5、InnoDB 支持事务，MyISAM 不支持，对于 InnoDB 每一条 SQL 语言都默认封装成事务，自动提交，这样会影响速度，所以最好把多条 SQL 语言放在 begin 和 commit 之间，组成一个事务。
 
-<font style="color:rgb(51, 51, 51);">6、InnoDB 不保存表的具体行数，执行 select count(*) from table 时需要全表扫描。而 MyISAM 用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快，但如果上述语句还包含了 where 子句，那么两者执行效率是一样的。</font>
+6、InnoDB 不保存表的具体行数，执行 select count(*) from table 时需要全表扫描。而 MyISAM 用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快，但如果上述语句还包含了 where 子句，那么两者执行效率是一样的。
 
  
 
-[<font style="color:rgb(51, 51, 51);">https://blogs.oracle.com/mysql/post/still-using-myisam-it-is-time-to-switch-to-innodb</font>](https://blogs.oracle.com/mysql/post/still-using-myisam-it-is-time-to-switch-to-innodb)
+[https://blogs.oracle.com/mysql/post/still-using-myisam-it-is-time-to-switch-to-innodb](https://blogs.oracle.com/mysql/post/still-using-myisam-it-is-time-to-switch-to-innodb)
 
-[<font style="color:rgb(51, 51, 51);">https://tecadmin.net/choosing-between-innodb-myisam-and-memory-storage-engines/</font>](https://tecadmin.net/choosing-between-innodb-myisam-and-memory-storage-engines/)
+[https://tecadmin.net/choosing-between-innodb-myisam-and-memory-storage-engines/](https://tecadmin.net/choosing-between-innodb-myisam-and-memory-storage-engines/)
 
-[<font style="color:rgb(51, 51, 51);">http://dimitrik.free.fr/blog/archives/2015/12/mysql-performance-revisiting-innodb-vs-myisam-with-mysql-57.html</font>](http://dimitrik.free.fr/blog/archives/2015/12/mysql-performance-revisiting-innodb-vs-myisam-with-mysql-57.html)
+[http://dimitrik.free.fr/blog/archives/2015/12/mysql-performance-revisiting-innodb-vs-myisam-with-mysql-57.html](http://dimitrik.free.fr/blog/archives/2015/12/mysql-performance-revisiting-innodb-vs-myisam-with-mysql-57.html)
 
-<font style="color:rgb(51, 51, 51);"></font>
 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">如果一个表没有主键索引那还会创建B+树吗？</font>
+
+## 如果一个表没有主键索引那还会创建B+树吗？
 
 
 **答案是会的！！！**
@@ -545,43 +545,43 @@ InnoDB是MySQL中的一种存储引擎，它会为每个表创建一个主键索
 
 
 
-<font style="color:rgb(102, 102, 102);">  
-</font>
+  
 
-## <font style="color:rgb(255, 255, 255);background-color:rgb(239, 112, 96);">索引的优缺点，什么时候该用和不该用</font>
-<font style="color:rgb(102, 102, 102);">优点：</font>
 
-<font style="color:rgb(102, 102, 102);">1. 提高检索效率</font>
+## 索引的优缺点，什么时候该用和不该用
+优点：
 
-<font style="color:rgb(102, 102, 102);">2. 降低排序成本，索引对应的字段是会有一个自动排序功能的，默认是升序asc。</font>
+1. 提高检索效率
 
-<font style="color:rgb(102, 102, 102);"></font>
+2. 降低排序成本，索引对应的字段是会有一个自动排序功能的，默认是升序asc。
 
-<font style="color:rgb(102, 102, 102);"> 它缺点是</font>
 
-1. <font style="color:rgb(51, 51, 51);">创建索引和维护索引要耗费时间，这种时间随着数据量的增加而增加。</font>
-2. <font style="color:rgb(51, 51, 51);">索引需要占用物理空间，数据量越大，占用空间越大</font>
-3. <font style="color:rgb(51, 51, 51);">会降低表的增删改的效率，因为每次增删改索引，都需要进行动态维护</font>
 
-<font style="color:rgb(102, 102, 102);"></font>
+ 它缺点是
 
-<font style="color:rgb(102, 102, 102);"></font>
+1. 创建索引和维护索引要耗费时间，这种时间随着数据量的增加而增加。
+2. 索引需要占用物理空间，数据量越大，占用空间越大
+3. 会降低表的增删改的效率，因为每次增删改索引，都需要进行动态维护
 
-### <font style="color:rgb(102, 102, 102);">竟然索引有坏有好，什么时候需要索引，什么时候不需要？</font>
-<font style="color:rgb(102, 102, 102);">适合：</font>
 
-<font style="color:rgb(102, 102, 102);">1. 较频繁的作为查询条件的字段应该创建索引</font>
 
-<font style="color:rgb(102, 102, 102);">不适合：</font>
 
-<font style="color:rgb(102, 102, 102);">1. 字段值的唯一性太差不适合</font><font style="color:rgb(102, 102, 102);">单独</font><font style="color:rgb(102, 102, 102);">做索引</font>
 
-<font style="color:rgb(102, 102, 102);">2. 更新非常频繁的字段不适合</font>
+### 竟然索引有坏有好，什么时候需要索引，什么时候不需要？
+适合：
 
-<font style="color:rgb(102, 102, 102);">3. 不会出现在where句中的字段不适合。</font>
+1. 较频繁的作为查询条件的字段应该创建索引
 
-# <font style="color:#FFFFFF;background-color:#ED740C;">二.优化</font>
-## <font style="color:#FFFFFF;background-color:#ED740C;">1、优化方法</font>
+不适合：
+
+1. 字段值的唯一性太差不适合单独做索引
+
+2. 更新非常频繁的字段不适合
+
+3. 不会出现在where句中的字段不适合。
+
+# 二.优化
+## 1、优化方法
 ![1685889373587-181e5819-b6b7-44d4-bdcb-98f3e425ecab.png](./assets/1685889373587-181e5819-b6b7-44d4-bdcb-98f3e425ecab.png)
 
  
@@ -609,12 +609,12 @@ InnoDB是MySQL中的一种存储引擎，它会为每个表创建一个主键索
 Explain是 SQL 分析工具中非常重要的一个功能，它可以模拟优化器执行查询语句，帮助我们理解查询是如何执行的；分析查询执行计划可以帮助我们发现查询瓶颈，优化查询性能。
 
 ### 2.Explain作用
-+ <font style="color:rgb(18, 18, 18);">表的读取顺序</font>
-+ <font style="color:rgb(18, 18, 18);">SQL执行时查询操作类型</font>
-+ <font style="color:rgb(18, 18, 18);">可以使用哪些索引</font>
-+ <font style="color:rgb(18, 18, 18);">实际使用哪些索引</font>
-+ <font style="color:rgb(18, 18, 18);">每张表有多少行记录被扫描</font>
-+ **<font style="color:rgb(18, 18, 18);">SQL语句性能分析</font>**
++ 表的读取顺序
++ SQL执行时查询操作类型
++ 可以使用哪些索引
++ 实际使用哪些索引
++ 每张表有多少行记录被扫描
++ **SQL语句性能分析**
 
 ### 3.Explain用法
 ```sql
@@ -1098,7 +1098,7 @@ select * from orders where user_id > 3;
 
 ![1681449133838-d210e8ea-6a40-4ccb-8ac3-c4d810032f1c.png](./assets/1681449133838-d210e8ea-6a40-4ccb-8ac3-c4d810032f1c.png)
 
-#### 11.filtered列：表示符合查询条件的数据百分比。可以使用rows * filtered/100计算出与**<font style="color:rgb(17, 17, 17);">explain</font>**前一个表进行连接的行数。
+#### 11.filtered列：表示符合查询条件的数据百分比。可以使用rows * filtered/100计算出与**explain**前一个表进行连接的行数。
 前一个表指 explain 中的id值比当前表id值小的表，id相同的时候指后执行的表。
 
 ```sql
@@ -1185,7 +1185,7 @@ select min(password) from users;
 
 ###   
 
-### <font style="background-color:#FFFFFF;">5.索引优化最佳实践</font>  
+### 5.索引优化最佳实践  
 
 示例表： 
 
@@ -1227,7 +1227,7 @@ MySQL全值匹配是指在使用复合索引时，查询条件要包含索引的
 EXPLAIN SELECT * FROM employees WHERE name= '张三'; 
 ```
 
-<font style="color:rgb(51, 51, 51);">查看索引长度是74=(3*24+2),可以算出联合索引中只使用了name前缀索引.</font> 
+查看索引长度是74=(3*24+2),可以算出联合索引中只使用了name前缀索引. 
 
 ![1686058000736-c2814e2e-425f-47fa-ae6e-b8d7c1abef87.png](./assets/1686058000736-c2814e2e-425f-47fa-ae6e-b8d7c1abef87.png)  
 
@@ -1236,7 +1236,7 @@ EXPLAIN SELECT * FROM employees WHERE name= '张三';
 EXPLAIN SELECT * FROM employees WHERE name= '张三' AND age = 18; 
 ```
 
-<font style="color:rgb(51, 51, 51);">查看索引长度是78=(3*24+2)+4,可以算出联合索引中只使用了name和age前缀索引.</font>
+查看索引长度是78=(3*24+2)+4,可以算出联合索引中只使用了name和age前缀索引.
 
 ![1686058010089-64bd6184-680e-4c61-9c97-2076107f1ec4.png](./assets/1686058010089-64bd6184-680e-4c61-9c97-2076107f1ec4.png)  
 
@@ -1245,7 +1245,7 @@ EXPLAIN SELECT * FROM employees WHERE name= '张三' AND age = 18;
 EXPLAIN SELECT * FROM employees WHERE name= '张三' AND age = 18 AND position ='beijing'; 
 ```
 
-<font style="color:rgb(51, 51, 51);">查看索引长度是140=(3*24+2)+4+(3*20+2),可以算出联合索引中只使用了完整的联合索引</font>
+查看索引长度是140=(3*24+2)+4+(3*20+2),可以算出联合索引中只使用了完整的联合索引
 
 ![1686058015744-bb7e6ff0-5d6f-41f0-af4e-d2a7d64ff633.png](./assets/1686058015744-bb7e6ff0-5d6f-41f0-af4e-d2a7d64ff633.png)  
 
@@ -1253,7 +1253,7 @@ EXPLAIN SELECT * FROM employees WHERE name= '张三' AND age = 18 AND position =
 #### 2.最左前缀法则
  如果索引了多列，要遵守最左前缀法则。指的是查询从索引的最左前列开始并且不跳过索引中的列。
 
-**<font style="color:rgb(35, 38, 59);">——带头大哥不能死，中间兄弟不能断；</font>**
+**——带头大哥不能死，中间兄弟不能断；**
 
 ```sql
 -- name 74   +age 78 + position 140
@@ -1308,9 +1308,9 @@ ALTER TABLE `employees` DROP INDEX `idx_hire_time`;
 
 
 #### 4.存储引擎不能使用索引中范围条件右边的列
-<font style="color:rgb(77, 77, 77);">范围查询会使</font>**<font style="color:rgb(77, 77, 77);">后面字段无序，</font>**<font style="color:rgb(77, 77, 77);">造成部分索引失效。</font>
+范围查询会使**后面字段无序，**造成部分索引失效。
 
-**——****<font style="color:rgb(35, 38, 59);">范围之后全失效；</font>**
+**——****范围之后全失效；**
 
 ```sql
 EXPLAIN SELECT * FROM employees WHERE name= '张三' AND age = 18 AND position ='beijing';
@@ -1321,7 +1321,7 @@ EXPLAIN SELECT * FROM employees WHERE name= '张三' AND age > 18 AND position =
 
 
 #### 5.尽量使用覆盖索引（只访问索引的查询（索引列包含查询列）），减少 select * 语句
-**——****<font style="color:rgb(35, 38, 59);">覆盖索引不写星；</font>**
+**——****覆盖索引不写星；**
 
 ```sql
 EXPLAIN SELECT name,age FROM employees WHERE name= '张三' AND age = 18 AND position ='beijing'; 
@@ -1338,7 +1338,7 @@ EXPLAIN SELECT * FROM employees WHERE name= 'LiLei' AND age = 23 AND position ='
 ![1686058283738-a72d9098-da92-4a83-ab1f-ed8598dbb8cf.png](./assets/1686058283738-a72d9098-da92-4a83-ab1f-ed8598dbb8cf.png)  
 
 
-#### 6.<font style="color:rgb(35, 38, 59);">不等空值还有or，索引失效要少用；</font>
+#### 6.不等空值还有or，索引失效要少用；
 **mysql在使用不等于（！=或者<>），not in ，not exists 的时候无法使用索引会导致全表扫描**
 
 **< 小于、 > 大于、 <=、>= 这些，****mysql内部优化器会根据检索比例、表大小等多个因素整体评估是否使用索引**
@@ -1368,8 +1368,8 @@ EXPLAIN SELECT * FROM employees WHERE name = 'LiLei' or name = 'HanMeimei';
 ![1686058463446-f1bcb53c-1580-4060-87fa-662386a75717.png](./assets/1686058463446-f1bcb53c-1580-4060-87fa-662386a75717.png)  
 
 
-#### 7.<font style="color:rgb(35, 38, 59);">Like百分写最右</font>
-**——****<font style="color:rgb(35, 38, 59);">Like百分写最右</font>**
+#### 7.Like百分写最右
+**——****Like百分写最右**
 
 ```sql
 EXPLAIN SELECT * FROM employees WHERE name like '%三' 
@@ -1400,7 +1400,7 @@ b）如果不能使用覆盖索引则可能需要借助搜索引擎
 
 
 #### 8.字符串不加单引号索引失效
-**——****<font style="color:rgb(35, 38, 59);">VAR引号不可丢</font>**
+**——****VAR引号不可丢**
 
 ```sql
 EXPLAIN SELECT * FROM employees WHERE name = '1000'; 
@@ -1448,12 +1448,12 @@ ALTER TABLE `employees` DROP INDEX `idx_age`;
 
 
 #### 索引使用总结：
-**<font style="color:rgb(35, 38, 59);">全值匹配我最爱，最左前缀要遵守；  
-</font>****<font style="color:rgb(35, 38, 59);">带头大哥不能死，中间兄弟不能断；  
-</font>****<font style="color:rgb(35, 38, 59);">索引列上少计算，范围之后全失效；  
-</font>****<font style="color:rgb(35, 38, 59);">Like百分写最右，覆盖索引不写星；  
-</font>****<font style="color:rgb(35, 38, 59);">不等空值还有or，索引失效要少用；  
-</font>****<font style="color:rgb(35, 38, 59);">VAR引号不可丢，SQL高级也不难！</font>**  
+**全值匹配我最爱，最左前缀要遵守；  
+****带头大哥不能死，中间兄弟不能断；  
+****索引列上少计算，范围之后全失效；  
+****Like百分写最右，覆盖索引不写星；  
+****不等空值还有or，索引失效要少用；  
+****VAR引号不可丢，SQL高级也不难！**  
 
 
 ###  6. **trace工具用法：**
@@ -1759,14 +1759,14 @@ END
 
 分析：
 
-查看执行计划，select *<font style="color:rgb(38, 38, 38);"> 走全表扫描，没有用到任何索引，查询效率非常低；查询列都是索引列那么这些列被称为覆盖索引。这种情况下查询的相关字段都能走索引，索引查询的效率相对较高。</font>
+查看执行计划，select * 走全表扫描，没有用到任何索引，查询效率非常低；查询列都是索引列那么这些列被称为覆盖索引。这种情况下查询的相关字段都能走索引，索引查询的效率相对较高。
 
 ```sql
 EXPLAIN select * from student where name like 'mock_name%';--不走索引
 EXPLAIN select name, department from student where name like 'mock_name%';--走索引
 ```
 
-通过show warnings语句查看查询列*号替换成<font style="color:rgb(38, 44, 49);">表所有字段。</font>
+通过show warnings语句查看查询列*号替换成表所有字段。
 
 ```sql
 EXPLAIN select * from student where name like 'mock_name%';--替换成表对应的字段
@@ -1806,7 +1806,7 @@ select * from scores left join student on student.id = scores.student_id;
 
 Join Buffer（连接缓冲区）是优化器用于处理连接查询操作时的临时缓冲区。简单来说当我们需要比较两个或多个表的数据进行Join操作时，Join Buffer可以帮助MySQL临时存储结果，以减少磁盘读取和CPU负担，提高查询效率。需要注意的是每个join都有一个单独的缓冲区。
 
-Block nested-loop join（BNL算法）会将驱动表数据加载到join buffer里面，然后再批量与非驱动表进行匹配；如果驱动表数据量较大，join buffer无法<font style="color:rgb(77, 77, 77);">一次性装载驱动表的结果集，将会分阶段与被驱动表进行批量数据匹配，会增加被驱动表的扫描次数，从而降低查询效率。所以开发中要遵守小表驱动大表的原则。</font>
+Block nested-loop join（BNL算法）会将驱动表数据加载到join buffer里面，然后再批量与非驱动表进行匹配；如果驱动表数据量较大，join buffer无法一次性装载驱动表的结果集，将会分阶段与被驱动表进行批量数据匹配，会增加被驱动表的扫描次数，从而降低查询效率。所以开发中要遵守小表驱动大表的原则。
 
 分阶段匹配过程如下：
 
@@ -1818,9 +1818,9 @@ Block nested-loop join（BNL算法）会将驱动表数据加载到join buffer
 
 4、清空join buffer。
 
-5、再把<font style="color:rgb(38, 38, 38);">student</font>表后15条读取join buffer中。
+5、再把student表后15条读取join buffer中。
 
-6、然后用<font style="color:rgb(38, 38, 38);">scores</font>表去匹配join buffer中的后15条。
+6、然后用scores表去匹配join buffer中的后15条。
 
 7、记录下匹配结果。
 
@@ -1950,9 +1950,9 @@ insert into order(id,code,user_id)  values(123,'001',100),(124,'002',100),(125,'
 
 
 
-**<font style="color:rgb(0, 0, 0);">百万级表Limit翻页越往后越慢咋办</font>**
+**百万级表Limit翻页越往后越慢咋办**
 
-<font style="color:rgb(51, 51, 51);">为什么 offset 偏大之后 limit 查找会变慢？这需要了解 limit 操作是如何运作的，以下面这句查询为例：</font>
+为什么 offset 偏大之后 limit 查找会变慢？这需要了解 limit 操作是如何运作的，以下面这句查询为例：
 
 
 
@@ -1960,20 +1960,20 @@ insert into order(id,code,user_id)  values(123,'001',100),(124,'002',100),(125,'
 select * from table_name limit 10000,10
 ```
 
-<font style="color:rgb(255, 255, 255);background-color:rgb(105, 113, 145);"></font>
-
-<font style="color:rgb(51, 51, 51);">这句 SQL 的执行逻辑是</font>
-
-+ <font style="color:rgb(51, 51, 51);">1.从数据表中读取第N条数据添加到数据集中</font>
-+ <font style="color:rgb(51, 51, 51);">2.重复第一步直到 N = 10000 + 10</font>
-+ <font style="color:rgb(51, 51, 51);">3.根据 offset 抛弃前面 10000 条数</font>
-+ <font style="color:rgb(51, 51, 51);">4.返回剩余的 10 条数据</font>
 
 
+这句 SQL 的执行逻辑是
 
-**<font style="color:rgb(0, 0, 0);">第一次优化</font>**
++ 1.从数据表中读取第N条数据添加到数据集中
++ 2.重复第一步直到 N = 10000 + 10
++ 3.根据 offset 抛弃前面 10000 条数
++ 4.返回剩余的 10 条数据
 
-<font style="color:rgb(51, 51, 51);">根据数据库这种查找的特性，就有了一种想当然的方法，利用自增索引（假设为id）：</font>
+
+
+**第一次优化**
+
+根据数据库这种查找的特性，就有了一种想当然的方法，利用自增索引（假设为id）：
 
 
 
@@ -1983,9 +1983,9 @@ select * from table_name where (id >= 10000) limit 10
 
 
 
-**<font style="color:rgb(0, 0, 0);">第二次优化</font>**
+**第二次优化**
 
-<font style="color:rgb(51, 51, 51);">说起数据库查询优化，第一时间想到的就是索引，所以便有了第二次优化：先查找出需要数据的索引列（假设为 id），再通过索引列查找出需要的数据。</font>
+说起数据库查询优化，第一时间想到的就是索引，所以便有了第二次优化：先查找出需要数据的索引列（假设为 id），再通过索引列查找出需要的数据。
 
 
 
@@ -1995,20 +1995,20 @@ Select * From table_name Where id in (Select id From table_name where ( user = x
 select * from table_name where( user = xxx ) limit 10000,10
 ```
 
-<font style="color:rgb(255, 255, 255);background-color:rgb(105, 113, 145);"></font>
 
-<font style="color:rgb(51, 51, 51);">相比较结果是（500w条数据）：第一条花费平均耗时约为第二条的 1/3 左右。</font>
 
-<font style="color:rgb(51, 51, 51);">同样是较大的 offset，第一条的查询更为复杂，为什么性能反而得到了提升？</font>
+相比较结果是（500w条数据）：第一条花费平均耗时约为第二条的 1/3 左右。
 
-<font style="color:rgb(51, 51, 51);">这涉及到 mysql 主索引的数据结构 b+Tree ，这里不展开，基本原理就是：</font>
+同样是较大的 offset，第一条的查询更为复杂，为什么性能反而得到了提升？
 
-+ <font style="color:rgb(51, 51, 51);">子查询只用到了索引列，没有取实际的数据，所以不涉及到磁盘IO，所以即使是比较大的 offset 查询速度也不会太差。</font>
-+ <font style="color:rgb(51, 51, 51);">利用子查询的方式，把原来的基于 user 的搜索转化为基于主键（id）的搜索，主查询因为已经获得了准确的索引值，所以查询过程也相对较快。</font>
+这涉及到 mysql 主索引的数据结构 b+Tree ，这里不展开，基本原理就是：
 
-**<font style="color:rgb(0, 0, 0);">第三次优化</font>**
++ 子查询只用到了索引列，没有取实际的数据，所以不涉及到磁盘IO，所以即使是比较大的 offset 查询速度也不会太差。
++ 利用子查询的方式，把原来的基于 user 的搜索转化为基于主键（id）的搜索，主查询因为已经获得了准确的索引值，所以查询过程也相对较快。
 
-<font style="color:rgb(51, 51, 51);">在数据量大的时候 in 操作的效率就不怎么样了，我们需要把 in 操作替换掉，使用 join 就是一个不错的选择。</font>
+**第三次优化**
+
+在数据量大的时候 in 操作的效率就不怎么样了，我们需要把 in 操作替换掉，使用 join 就是一个不错的选择。
 
 
 

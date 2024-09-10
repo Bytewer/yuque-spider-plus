@@ -2,7 +2,7 @@
 
 [effective-demo.ppt](https://www.yuque.com/attachments/yuque/0/2024/ppt/22811459/1721053281677-dfda7dcf-e9f0-40a4-967d-7728d84922c7.ppt)
 
-_<font style="color:#DF2A3F;">注：将ppt后缀名改为zip后解压</font>_
+_注：将ppt后缀名改为zip后解压_
 
 jdk版本：1.8.0_181
 

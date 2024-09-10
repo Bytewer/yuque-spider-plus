@@ -29,12 +29,12 @@
 
 线程相比于进程，线程的创建和销毁开销较小，上下文切换开销也较小，因此线程是实现多任务并发的一种更加轻量级的方式。
 
-# <font style="color:rgb(74, 74, 74);">3.</font>说说线程有几种创建方式？
+# 3.说说线程有几种创建方式？
 Java中创建线程主要有三种方式：
 
 ![1684507798397-affa736d-97d8-49cc-9292-f3f605e49001.jpeg](./assets/1684507798397-affa736d-97d8-49cc-9292-f3f605e49001.jpeg)
 
-+ <font style="color:rgb(66, 66, 66);background-color:rgb(250, 250, 250);">定义Thread类的子类，并重写该类的run方法</font>
++ 定义Thread类的子类，并重写该类的run方法
 
 ```java
 /**
@@ -55,7 +55,7 @@ class MyThread extends Thread {
 }
 ```
 
-+ <font style="color:rgb(66, 66, 66);background-color:rgb(250, 250, 250);">定义Runnable接口的实现类，并重写该接口的run()方法</font>
++ 定义Runnable接口的实现类，并重写该接口的run()方法
 
 ```java
 /**
@@ -77,7 +77,7 @@ class MyRunnable implements Runnable {
 }
 ```
 
-+ <font style="color:rgb(66, 66, 66);background-color:rgb(250, 250, 250);">定义Callable接口的实现类，并重写该接口的call()方法，一般配合FutureTask使用</font>
++ 定义Callable接口的实现类，并重写该接口的call()方法，一般配合FutureTask使用
 
 ```java
 /**
@@ -102,14 +102,14 @@ class MyCallable implements Callable<String> {
 ```
 
 # 4.为什么调用start()方法时会执行run()方法，那怎么不直接调用run()方法？
-<font style="color:rgb(74, 74, 74);">JVM执行start方法，会先创建一个线程，由创建出来的新线程去执行thread的run方法，这才起到多线程的效果。</font>
+JVM执行start方法，会先创建一个线程，由创建出来的新线程去执行thread的run方法，这才起到多线程的效果。
 
-<font style="color:rgb(66, 66, 66);background-color:rgb(250, 250, 250);">start()和run()的主要区别如下：</font>
+start()和run()的主要区别如下：
 
-+ <font style="color:rgb(66, 66, 66);background-color:rgb(250, 250, 250);">start方法可以启动一个新线程，run方法只是类的一个普通方法而已，如果直接调用run方法，程序中依然只有主线程这一个线程。</font>
-+ <font style="color:rgb(66, 66, 66);background-color:rgb(250, 250, 250);">start方法实现了多线程，而run方法没有实现多线程。</font>
-+ <font style="color:rgb(66, 66, 66);background-color:rgb(250, 250, 250);">start不能被重复调用，而run方法可以。</font>
-+ <font style="color:rgb(66, 66, 66);background-color:rgb(250, 250, 250);">start方法中的run代码可以不执行完，就继续执行下面的代码，也就是说进行了</font>**<font style="color:rgb(66, 66, 66);background-color:rgb(250, 250, 250);">线程切换</font>**<font style="color:rgb(66, 66, 66);background-color:rgb(250, 250, 250);">。然而，如果直接调用run方法，就必须等待其代码全部执行完才能继续执行下面的代码。</font>
++ start方法可以启动一个新线程，run方法只是类的一个普通方法而已，如果直接调用run方法，程序中依然只有主线程这一个线程。
++ start方法实现了多线程，而run方法没有实现多线程。
++ start不能被重复调用，而run方法可以。
++ start方法中的run代码可以不执行完，就继续执行下面的代码，也就是说进行了**线程切换**。然而，如果直接调用run方法，就必须等待其代码全部执行完才能继续执行下面的代码。
 + ![1684467966836-afd48d78-bbdc-4346-aea8-72fc3da3325b.png](./assets/1684467966836-afd48d78-bbdc-4346-aea8-72fc3da3325b.png)
 
 ```java
@@ -225,7 +225,7 @@ public class InterruptedDemo extends Thread {
 # 6.线程有几种状态？
 ![1684495224848-fe529b07-dfe1-4de3-a561-46eeae238ee6.jpeg](./assets/1684495224848-fe529b07-dfe1-4de3-a561-46eeae238ee6.jpeg)
 
-<font style="color:rgb(74, 74, 74);">线程在自身的生命周期中， 并不是固定地处于某个状态，而是随着代码的执行在不同的状态之间进行切换，如下图：</font>
+线程在自身的生命周期中， 并不是固定地处于某个状态，而是随着代码的执行在不同的状态之间进行切换，如下图：
 
 ![1684495292553-2280ce19-0365-497f-acf4-d3eb6934d466.png](./assets/1684495292553-2280ce19-0365-497f-acf4-d3eb6934d466.png)
 
@@ -474,7 +474,7 @@ public class BaiLiThreadLocalDemo {
 ```
 
 # 10.ThreadLocal怎么实现？
-+ ThreadLocal是Java中所提供的线程本地存储机制，可以利用该机制将数据<font style="color:#000000;">缓存在某个线程内部</font>，该线程可以在任意时刻、任意方法中获取缓存的数据
++ ThreadLocal是Java中所提供的线程本地存储机制，可以利用该机制将数据缓存在某个线程内部，该线程可以在任意时刻、任意方法中获取缓存的数据
 + ThreadLocal底层是通过ThreadLocalMap来实现的，每个Thread对象（注意不是ThreadLocal对象）中都存在一个ThreadLocalMap，Map的key为ThreadLocal对象，Map的value为需要缓存的值
 
 ![1684846794799-75951a8b-1bbe-4208-a911-982716a1df01.png](./assets/1684846794799-75951a8b-1bbe-4208-a911-982716a1df01.png)
@@ -544,11 +544,11 @@ public class BaiLiThreadLocalMemoryLeakDemo {
 ```
 
 # 12.ThreadLocalMap的结构
-<font style="color:rgb(74, 74, 74);">ThreadLocalMap虽然被称为Map，但是其实它是没有实现Map接口的，不过结构还是和HashMap比较类似的，</font>主要关注的是两个要素<font style="color:rgb(74, 74, 74);">：</font>**元素数组和散列方法**<font style="color:rgb(74, 74, 74);">。</font>
+ThreadLocalMap虽然被称为Map，但是其实它是没有实现Map接口的，不过结构还是和HashMap比较类似的，主要关注的是两个要素：**元素数组和散列方法**。
 
 ![1684929312973-a083fc5c-5c4f-4370-a9d4-b28d8f3f68bd.png](./assets/1684929312973-a083fc5c-5c4f-4370-a9d4-b28d8f3f68bd.png)
 
-+ **<font style="color:rgb(74, 74, 74);">元素数组</font>**一个table数组，存储Entry类型的元素，Entry是ThreadLocal弱引用作为key，Object作为value的结构。
++ **元素数组**一个table数组，存储Entry类型的元素，Entry是ThreadLocal弱引用作为key，Object作为value的结构。
 
 ```java
 private Entry[] table;
@@ -560,7 +560,7 @@ private Entry[] table;
 int i = key.threadLocalHashCode & (table.length - 1);
 ```
 
-补充一点每创建一个ThreadLocal对象，它就会新增0x61c88647，这个值很特殊，它是斐波那契数也叫黄金分割数。这样带来的好处就是**hash****<font style="color:rgb(74, 74, 74);">分布非常均匀</font>**<font style="color:rgb(74, 74, 74);">。</font>
+补充一点每创建一个ThreadLocal对象，它就会新增0x61c88647，这个值很特殊，它是斐波那契数也叫黄金分割数。这样带来的好处就是**hash****分布非常均匀**。
 
 ```java
 private static final int HASH_INCREMENT = 0x61c88647;
@@ -580,7 +580,7 @@ ThreadLocalMap内部使用的是开放地址法来解决 Hash冲突的问题。�
 查找的时候，先根据ThreadLocal对象的hash值找到对应的位置，然后比较该槽位Entry对象中的key是否和get的key一致，如果不一致就依次往后查找。
 
 # 14.ThreadLocalMap扩容机制
-<font style="color:rgb(36, 41, 47);background-color:rgb(244, 246, 248);">T</font>hreadLocalMap 的扩容机制和 HashMap 类似，也是在元素数量达到阈值（默认为数组长度的 2/3）时进行扩容。具体来说，在 set() 方法中，如果当前元素数量已经达到了阈值，就会调用 rehash() 方法，rehash()会先去清理过期的Entry，然后还要根据条件判断size >= threshold - threshold / 4 也就是size >= threshold * 3/4来决定是否需要扩容：
+ThreadLocalMap 的扩容机制和 HashMap 类似，也是在元素数量达到阈值（默认为数组长度的 2/3）时进行扩容。具体来说，在 set() 方法中，如果当前元素数量已经达到了阈值，就会调用 rehash() 方法，rehash()会先去清理过期的Entry，然后还要根据条件判断size >= threshold - threshold / 4 也就是size >= threshold * 3/4来决定是否需要扩容：
 
 ```java
 private void rehash() {
@@ -740,12 +740,12 @@ JMM属于语言级的内存模型，它确保在不同的编译器和不同的�
 # 19.指令重排有限制吗？happens-before了解吗？
 指令重排也是有一些限制的，有两个规则happens-before和as-if-serial来约束。
 
-**<font style="color:#DF2A3F;">happens-before的定义</font>**：
+**happens-before的定义**：
 
 + 如果一个操作happens-before另一个操作，那么**第一个操作的执行结果将对第二个操作可见**，而且第一个操作的执行顺序排在第二个操作之前。
 + 两个操作之间存在happens-before关系，并不意味着Java平台的具体实现必须要按照 happens-before关系指定的顺序来执行。**只要没有改变程序的执行结果，编译器和处理器怎么优化都可以**。
 
-**<font style="color:#DF2A3F;">happens-before的六大规则</font>**：
+**happens-before的六大规则**：
 
 ![1685623658731-6e70f199-601b-468a-9b69-bd21c6769e50.png](./assets/1685623658731-6e70f199-601b-468a-9b69-bd21c6769e50.png)
 
@@ -1905,14 +1905,14 @@ write(socket, tmp_buf, len);
 
 ![1686571779937-9f94b405-1366-4964-96b0-a9bd04d915ef.png](./assets/1686571779937-9f94b405-1366-4964-96b0-a9bd04d915ef.png)
 
-+ <font style="color:rgb(18, 18, 18);">用户应用进程调用read函数，向操作系统发起IO调用，</font>**<font style="color:rgb(18, 18, 18);">上下文从用户态转为内核态（切换1）</font>**
-+ <font style="color:rgb(18, 18, 18);">DMA控制器把数据从磁盘中，读取到内核缓冲区。</font>
-+ <font style="color:rgb(18, 18, 18);">CPU把内核缓冲区数据，拷贝到用户应用缓冲区，</font>**<font style="color:rgb(18, 18, 18);">上下文从内核态转为用户态（切换2）</font>**<font style="color:rgb(18, 18, 18);">，read函数返回</font>
-+ <font style="color:rgb(18, 18, 18);">用户应用进程通过write函数，发起IO调用，</font>**<font style="color:rgb(18, 18, 18);">上下文从用户态转为内核态（切换3）</font>**
-+ <font style="color:rgb(18, 18, 18);">CPU将应用缓冲区中的数据，拷贝到socket缓冲区</font>
-+ <font style="color:rgb(18, 18, 18);">DMA控制器把数据从socket缓冲区，拷贝到网卡设备，</font>**<font style="color:rgb(18, 18, 18);">上下文从内核态切换回用户态（切换4）</font>**<font style="color:rgb(18, 18, 18);">，write函数返回</font>
++ 用户应用进程调用read函数，向操作系统发起IO调用，**上下文从用户态转为内核态（切换1）**
++ DMA控制器把数据从磁盘中，读取到内核缓冲区。
++ CPU把内核缓冲区数据，拷贝到用户应用缓冲区，**上下文从内核态转为用户态（切换2）**，read函数返回
++ 用户应用进程通过write函数，发起IO调用，**上下文从用户态转为内核态（切换3）**
++ CPU将应用缓冲区中的数据，拷贝到socket缓冲区
++ DMA控制器把数据从socket缓冲区，拷贝到网卡设备，**上下文从内核态切换回用户态（切换4）**，write函数返回
 
-<font style="color:rgb(18, 18, 18);">从流程图可以看出，传统IO的读写流程，包括了4次上下文切换（4次用户态和内核态的切换），4次数据拷贝（</font>**<font style="color:rgb(18, 18, 18);">两次CPU拷贝以及两次的DMA拷贝</font>**<font style="color:rgb(18, 18, 18);">)</font>
+从流程图可以看出，传统IO的读写流程，包括了4次上下文切换（4次用户态和内核态的切换），4次数据拷贝（**两次CPU拷贝以及两次的DMA拷贝**)
 
 这种简单又传统的文件传输方式，存在冗余的上文切换和数据拷贝，在高并发系统里是非常糟糕的，多了很多不必要的开销，会严重影响系统性能。
 
@@ -1924,26 +1924,26 @@ write(socket, tmp_buf, len);
 
 ![1686572758863-e02d5429-33b1-4967-881f-a14a4af6f9b1.png](./assets/1686572758863-e02d5429-33b1-4967-881f-a14a4af6f9b1.png)
 
-+ <font style="color:rgb(18, 18, 18);">用户进程通过</font>mmap方法<font style="color:rgb(18, 18, 18);">向操作系统内核发起IO调用，</font>**<font style="color:rgb(18, 18, 18);">上下文从用户态切换为内核态</font>**<font style="color:rgb(18, 18, 18);">。</font>
-+ <font style="color:rgb(18, 18, 18);">CPU利用DMA控制器，把数据从硬盘中拷贝到内核缓冲区。</font>
-+ **<font style="color:rgb(18, 18, 18);">上下文从内核态切换回用户态</font>**<font style="color:rgb(18, 18, 18);">，mmap方法返回。</font>
-+ <font style="color:rgb(18, 18, 18);">用户进程通过</font><font style="color:rgb(18, 18, 18);background-color:rgb(246, 246, 246);">write</font><font style="color:rgb(18, 18, 18);">方法向操作系统内核发起IO调用，</font>**<font style="color:rgb(18, 18, 18);">上下文从用户态切换为内核态</font>**<font style="color:rgb(18, 18, 18);">。</font>
-+ <font style="color:rgb(18, 18, 18);">CPU将内核缓冲区的数据拷贝到的socket缓冲区。</font>
-+ <font style="color:rgb(18, 18, 18);">CPU利用DMA控制器，把数据从socket缓冲区拷贝到网卡，</font>**<font style="color:rgb(18, 18, 18);">上下文从内核态切换回用户态</font>**<font style="color:rgb(18, 18, 18);">，write调用返回。</font>
++ 用户进程通过mmap方法向操作系统内核发起IO调用，**上下文从用户态切换为内核态**。
++ CPU利用DMA控制器，把数据从硬盘中拷贝到内核缓冲区。
++ **上下文从内核态切换回用户态**，mmap方法返回。
++ 用户进程通过write方法向操作系统内核发起IO调用，**上下文从用户态切换为内核态**。
++ CPU将内核缓冲区的数据拷贝到的socket缓冲区。
++ CPU利用DMA控制器，把数据从socket缓冲区拷贝到网卡，**上下文从内核态切换回用户态**，write调用返回。
 
-<font style="color:rgb(18, 18, 18);">可以发现，</font>mmap+write<font style="color:rgb(18, 18, 18);">实现的零拷贝，I/O发生了</font>**<font style="color:rgb(18, 18, 18);">4</font>**<font style="color:rgb(18, 18, 18);">次用户空间与内核空间的上下文切换，以及3次数据拷贝。其中3次数据拷贝中，包括了</font>**<font style="color:rgb(18, 18, 18);">2次DMA拷贝和1次CPU拷贝</font>**<font style="color:rgb(18, 18, 18);">。</font>
+可以发现，mmap+write实现的零拷贝，I/O发生了**4**次用户空间与内核空间的上下文切换，以及3次数据拷贝。其中3次数据拷贝中，包括了**2次DMA拷贝和1次CPU拷贝**。
 
-**<font style="color:rgb(18, 18, 18);">SendFile实现零拷贝</font>**<font style="color:rgb(18, 18, 18);">：</font>
+**SendFile实现零拷贝**：
 
 ![1686572781440-6527ed02-7aff-4655-a855-57f703685807.png](./assets/1686572781440-6527ed02-7aff-4655-a855-57f703685807.png)
 
-1. <font style="color:rgb(18, 18, 18);">用户进程发起sendfile系统调用，</font>**<font style="color:rgb(18, 18, 18);">上下文（切换1）从用户态转向内核态</font>**
-2. <font style="color:rgb(18, 18, 18);">DMA控制器，把数据从硬盘中拷贝到内核缓冲区。</font>
-3. <font style="color:rgb(18, 18, 18);">CPU将读缓冲区中数据拷贝到socket缓冲区</font>
-4. <font style="color:rgb(18, 18, 18);">DMA控制器，异步把数据从socket缓冲区拷贝到网卡，</font>
-5. **<font style="color:rgb(18, 18, 18);">上下文（切换2）从内核态切换回用户态</font>**<font style="color:rgb(18, 18, 18);">，sendfile调用返回。</font>
+1. 用户进程发起sendfile系统调用，**上下文（切换1）从用户态转向内核态**
+2. DMA控制器，把数据从硬盘中拷贝到内核缓冲区。
+3. CPU将读缓冲区中数据拷贝到socket缓冲区
+4. DMA控制器，异步把数据从socket缓冲区拷贝到网卡，
+5. **上下文（切换2）从内核态切换回用户态**，sendfile调用返回。
 
-<font style="color:rgb(18, 18, 18);">可以发现，</font>sendfile<font style="color:rgb(18, 18, 18);">实现的零拷贝，I/O发生了</font>**<font style="color:rgb(18, 18, 18);">2</font>**<font style="color:rgb(18, 18, 18);">次用户空间与内核空间的上下文切换，以及3次数据拷贝。其中3次数据拷贝中，包括了</font>**<font style="color:rgb(18, 18, 18);">2次DMA拷贝和1次CPU拷贝</font>**<font style="color:rgb(18, 18, 18);">。</font>
+可以发现，sendfile实现的零拷贝，I/O发生了**2**次用户空间与内核空间的上下文切换，以及3次数据拷贝。其中3次数据拷贝中，包括了**2次DMA拷贝和1次CPU拷贝**。
 
   
 

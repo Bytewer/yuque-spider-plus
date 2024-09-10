@@ -428,21 +428,21 @@ COMMIT;
 ### 什么是临键锁？
 Next-Key 可以理解为一种特殊的**间隙锁**，也可以理解为一种特殊的**算法**。通过**临建锁**可以解决幻读的问题。 每个数据行上的非唯一索引列上都会存在一把**临键锁**，当某个事务持有该数据行的**临键锁**时，会锁住一段**左开右闭区间**的数据。需要强调的一点是，InnoDB 中行级锁是基于索引实现的，**临键锁**只与非唯一索引列有关，在唯一索引列（包括主键列）上不存在**临键锁**。
 
-| <font style="color:rgb(37, 41, 51);">id</font> | <font style="color:rgb(37, 41, 51);">age</font> | <font style="color:rgb(37, 41, 51);">name</font> |
+| id | age | name |
 | --- | --- | --- |
-| <font style="color:rgb(37, 41, 51);">1</font> | <font style="color:rgb(37, 41, 51);">10</font> | 张三 |
-| <font style="color:rgb(37, 41, 51);">3</font> | <font style="color:rgb(37, 41, 51);">24</font> | 李四 |
-| <font style="color:rgb(37, 41, 51);">5</font> | <font style="color:rgb(37, 41, 51);">32</font> | 王五 |
-| <font style="color:rgb(37, 41, 51);">7</font> | <font style="color:rgb(37, 41, 51);">45</font> | 赵六 |
+| 1 | 10 | 张三 |
+| 3 | 24 | 李四 |
+| 5 | 32 | 王五 |
+| 7 | 45 | 赵六 |
 
 
-| <font style="color:rgb(37, 41, 51);">该表中 </font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">age</font><font style="color:rgb(37, 41, 51);"> 列潜在的</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">临键锁</font><font style="color:rgb(37, 41, 51);">有：</font> |
+| 该表中 age 列潜在的临键锁有： |
 | --- |
-| <font style="color:rgb(37, 41, 51);">(-∞, 10],</font> |
-| <font style="color:rgb(37, 41, 51);">(10, 24],</font> |
-| <font style="color:rgb(37, 41, 51);">(24, 32],</font> |
-| <font style="color:rgb(37, 41, 51);">(32, 45],</font> |
-| <font style="color:rgb(37, 41, 51);">(45, +∞],</font> |
+| (-∞, 10], |
+| (10, 24], |
+| (24, 32], |
+| (32, 45], |
+| (45, +∞], |
 
 
 ### 临键锁有哪些使用场景？

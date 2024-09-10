@@ -5,8 +5,8 @@
 
 ## 如何部署和使用？
 + 操作系统：Ubuntu18 （虚拟机和云服务器均可）
-+ Maven版本：<font style="color:rgb(77, 77, 77);">apache-maven-3.6.0 （下载地址：</font>[<font style="color:rgb(77, 77, 77);">https://archive.apache.org/dist/maven/maven-3/3.6.0/binaries/</font>](https://archive.apache.org/dist/maven/maven-3/3.6.0/binaries/)<font style="color:rgb(77, 77, 77);">）</font>
-+ <font style="color:rgb(77, 77, 77);">Nexus版本：nexus-3.58.0 (下载地址：</font>[<font style="color:rgb(77, 77, 77);">https://www.sonatype.com/products/sonatype-nexus-oss-download</font>](https://www.sonatype.com/products/sonatype-nexus-oss-download)<font style="color:rgb(77, 77, 77);">)</font>
++ Maven版本：apache-maven-3.6.0 （下载地址：[https://archive.apache.org/dist/maven/maven-3/3.6.0/binaries/](https://archive.apache.org/dist/maven/maven-3/3.6.0/binaries/)）
++ Nexus版本：nexus-3.58.0 (下载地址：[https://www.sonatype.com/products/sonatype-nexus-oss-download](https://www.sonatype.com/products/sonatype-nexus-oss-download))
 
 ### 配置Maven
 将下载好的maven和nexus上传到服务器上（建议软件都安装在/usr/local目录下），下面解压maven
@@ -43,13 +43,13 @@ mvn -v
 ```
 
 ### 部署Nexus
-<font style="color:rgb(77, 77, 77);">解压Nexus</font>
+解压Nexus
 
 ```bash
 tar -zxvf nexus-3.58.0-04-unix.tar.gz
 ```
 
-<font style="color:rgb(77, 77, 77);">启动</font>
+启动
 
 ```plain
 cd /usr/local/nexus-3.58.0-04/bin
@@ -61,18 +61,18 @@ cd /usr/local/nexus-3.58.0-04/bin
 默认账号密码:`admin/admin123`
 
 #### 修改默认端口
-<font style="color:rgb(77, 77, 77);">新版本的Nexus的配置文件是在Nexus根目录的</font>`<font style="color:rgb(77, 77, 77);">/etc</font>`<font style="color:rgb(77, 77, 77);">下的</font>`<font style="color:rgb(77, 77, 77);">nexus-default.properties</font>`<font style="color:rgb(77, 77, 77);">要修改Nexus的端口，就修改配置文件中的</font>`<font style="color:rgb(77, 77, 77);">application-port</font>`<font style="color:rgb(77, 77, 77);">，然后重启Nexus服务。</font>
+新版本的Nexus的配置文件是在Nexus根目录的`/etc`下的`nexus-default.properties`要修改Nexus的端口，就修改配置文件中的`application-port`，然后重启Nexus服务。
 
-## <font style="color:rgb(77, 77, 77);">Nexus简单功能介绍</font>
+## Nexus简单功能介绍
 ![1689838049503-966a9628-636e-4687-821e-367c2a847d10.png](./assets/1689838049503-966a9628-636e-4687-821e-367c2a847d10.png)
 
 ### 搜索功能
-<font style="color:rgb(77, 77, 77);">这个就是类似</font>Maven<font style="color:rgb(77, 77, 77);">仓库上的搜索功能，就是从私服上查找是否有哪些包。</font>
+这个就是类似Maven仓库上的搜索功能，就是从私服上查找是否有哪些包。
 
-> **<font style="color:rgb(77, 77, 77);">注意：</font>**<font style="color:rgb(77, 77, 77);">在Search这级是支持模糊搜索的</font>
+> **注意：**在Search这级是支持模糊搜索的
 >
 
-### <font style="color:rgb(77, 77, 77);">浏览</font>
+### 浏览
 ![1689838154020-26904c03-a388-4971-b8b9-7d731fa6584f.png](./assets/1689838154020-26904c03-a388-4971-b8b9-7d731fa6584f.png)
 
 ### 上传
@@ -81,19 +81,19 @@ cd /usr/local/nexus-3.58.0-04/bin
 ![1689838218654-5d864c2f-45d7-459b-8180-30647e8535c9.png](./assets/1689838218654-5d864c2f-45d7-459b-8180-30647e8535c9.png)
 
 ### 服务器管理和配置
-<font style="color:rgb(77, 77, 77);">看到这选项是要进行登录的，在右上角点击“Sign In”的登录按钮，输入admin/admin123，登录成功之后，即可看到此功能，如图所示：</font>  
+看到这选项是要进行登录的，在右上角点击“Sign In”的登录按钮，输入admin/admin123，登录成功之后，即可看到此功能，如图所示：  
 ![1689838261182-c81a7b18-6d4e-4d98-9d63-0e550e7e5b63.png](./assets/1689838261182-c81a7b18-6d4e-4d98-9d63-0e550e7e5b63.png)
 
 ### 仓库
 #### Blob Stores
-<font style="color:rgb(77, 77, 77);">文件存储的地方，创建一个目录的话，对应文件系统的一个目录。</font>
+文件存储的地方，创建一个目录的话，对应文件系统的一个目录。
 
 ![1689838320614-711982f6-9c51-4378-b97d-ddf6dba0d682.png](./assets/1689838320614-711982f6-9c51-4378-b97d-ddf6dba0d682.png)
 
 ![1689838344131-e015556d-5f8f-49e7-94be-11dfc2956ec8.png](./assets/1689838344131-e015556d-5f8f-49e7-94be-11dfc2956ec8.png)
 
 #### Repositories
-<font style="color:rgb(77, 77, 77);">仓库分为三种：Proxy、hosted、group</font>
+仓库分为三种：Proxy、hosted、group
 
 ##### Proxy
 这里就是代理的意思，代理中央Maven仓库，当PC访问中央库的时候，先通过Proxy下载到Nexus仓库，然后再从Nexus仓库下载到PC本地。
@@ -104,7 +104,7 @@ cd /usr/local/nexus-3.58.0-04/bin
 
 1. 点击左上角的“Create Repositories”按钮
 2. 选择要创建的类型
-3. <font style="color:rgb(77, 77, 77);">填写详细信息</font>
+3. 填写详细信息
 
 Name：就是为代理起个名字，我取名为“aliyun” Remote Storage: 代理的地址，Maven的地址为: [https://repo1.maven.org/maven2/](https://repo1.maven.org/maven2/)，但Maven官方的代理访问速度太慢了，使用阿里云的Maven代理更好，[http://maven.aliyun.com/nexus/content/groups/public](http://maven.aliyun.com/nexus/content/groups/public) Blob Store: 选择代理下载包的存放路径，我选择的是之前创建的一个。
 
@@ -121,8 +121,8 @@ Hosted的创建和Proxy类似，类型需选择maven2(hosted)。注意：Deploym
 
 ![1689838570845-1ad5cf72-9e60-4054-ad63-e17377436c4e.png](./assets/1689838570845-1ad5cf72-9e60-4054-ad63-e17377436c4e.png)
 
-#### **<font style="color:rgb(77, 77, 77);">Group</font>**
-<font style="color:rgb(77, 77, 77);">能把多个仓库合成一个仓库来使用，把上几步创建的代理仓库和宿主仓库都加入到“maven-public”仓库组中：</font>
+#### **Group**
+能把多个仓库合成一个仓库来使用，把上几步创建的代理仓库和宿主仓库都加入到“maven-public”仓库组中：
 
 ![1689838642381-b85a0b27-b17b-42c1-a860-88359de0922f.png](./assets/1689838642381-b85a0b27-b17b-42c1-a860-88359de0922f.png)
 
@@ -130,14 +130,14 @@ Hosted的创建和Proxy类似，类型需选择maven2(hosted)。注意：Deploym
 包含用户、角色、权限的配置。
 
 #### Support
-<font style="color:rgb(77, 77, 77);">包含日志及数据分析。</font>
+包含日志及数据分析。
 
 #### System
 包含API（Nexus这个API文档貌似是用swagger做的）、邮件服务器，设置调度任务等。
 
 ## Maven结合Nexus配置私有仓库
 ### 配置Maven的settings.xml
-<font style="color:rgb(77, 77, 77);">在idea、eclipse等IDE中配置好maven的settings文件路径后，在mirrors标签中增加一个mirror</font>
+在idea、eclipse等IDE中配置好maven的settings文件路径后，在mirrors标签中增加一个mirror
 
 ```plain
 <mirror>
@@ -148,12 +148,12 @@ Hosted的创建和Proxy类似，类型需选择maven2(hosted)。注意：Deploym
 </mirror>
 ```
 
-<font style="color:rgb(77, 77, 77);">url中填入之前在Nexus中自己创建的代理中央仓库</font>
+url中填入之前在Nexus中自己创建的代理中央仓库
 
 ![1689838963123-b61e61c0-d420-43e7-a841-ca5ba2982a0d.png](./assets/1689838963123-b61e61c0-d420-43e7-a841-ca5ba2982a0d.png)
 
 ### 配置项目中的pom.xml
-<font style="color:rgb(77, 77, 77);">在pom文件中增加一个repository，注意id和name需和代理中央仓库的Name一致。</font>
+在pom文件中增加一个repository，注意id和name需和代理中央仓库的Name一致。
 
 ```plain
 <repositories>
@@ -171,7 +171,7 @@ Hosted的创建和Proxy类似，类型需选择maven2(hosted)。注意：Deploym
 </repositories>
 ```
 
-<font style="color:rgb(77, 77, 77);">上面的配置方法选择其中一种即可。</font>
+上面的配置方法选择其中一种即可。
 
-<font style="color:rgb(77, 77, 77);">如此一来，项目在下载jar包时会从私服的代理中央仓库中获取，如果代理仓库没有该jar，就会去代理仓库配置的远程仓库中下载到私服中，再从私服下载到项目本地。</font>
+如此一来，项目在下载jar包时会从私服的代理中央仓库中获取，如果代理仓库没有该jar，就会去代理仓库配置的远程仓库中下载到私服中，再从私服下载到项目本地。
 

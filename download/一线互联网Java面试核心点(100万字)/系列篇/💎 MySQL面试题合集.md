@@ -1,4 +1,4 @@
-# <font style="color:#01B2BC;">说说你对 MySQL 锁的理解</font>
+# 说说你对 MySQL 锁的理解
 ## 1.MySQL中的锁分类
 + 按粒度分**表锁**、**行锁**和**页锁**三种，
 + 按类型分**读锁和写锁(都属于悲观锁)**两种。
@@ -142,7 +142,7 @@ SELECT * FROM orders WHERE order_id = 15 FOR UPDATE;
 
 其他事务无法在这个（10,正无穷）区间插入任何数据。
 
-<font style="color:#DF2A3F;">如果大家在操作时，按以上步骤未能重现，大概率是客户端工具有问题，在单个客户端界面中使用多查询页，有些工具是一个事务，即使是使用 begin 开启事务。可以尝试多开客户端工具重新测试。</font>
+如果大家在操作时，按以上步骤未能重现，大概率是客户端工具有问题，在单个客户端界面中使用多查询页，有些工具是一个事务，即使是使用 begin 开启事务。可以尝试多开客户端工具重新测试。
 
 ## 5.临键锁（Next-key Locks）
 临键锁（Next-key Locks）是MySQL InnoDB存储引擎实现的一种数据行级别的锁机制，它是**行级锁与间隙锁的组合**，即位于索引记录与索引区间之间的一种排它锁。  
@@ -179,7 +179,7 @@ VALUES
 COMMIt;
 ```
 
-# <font style="color:#01B2BC;">MySQL 为什么选择B+树作为底层数据结构</font>
+# MySQL 为什么选择B+树作为底层数据结构
 MySQL的索引机制中，有一点可谓是路人皆知，既默认使用B+树作为底层的数据结构。有人会说树结构是以二分法查找数据，所以会在很大程度上提升检索性能，这点确实没错，但树结构有那么多，但为什么要选择B+树呢？而不选择二叉树、红黑树或B树呢？下面一起聊一聊这个话题。
 
 ## 索引为何不选择二叉树？
@@ -231,7 +231,7 @@ B+树相比于B树叶子节点之间多了个单项指针，当需要做范围�
 [Data Structure Visualizations](https://link.segmentfault.com/?enc=Yp9MF8LCxzURaYWc1u7reA%3D%3D.cn5%2BQHHlAoMf4HZhUf1PbTCtJwqcS45WkXwspiTohFFFaAamgeWuW9M%2BVb7Px6RcPjbYWyZPRDiaM5EuGz5qwQ%3D%3D)  
 [Data Structure Visualizations（中文）](http://www.rmboot.com/)
 
-# <font style="color:#01B2BC;">什么是索引下推</font>
+# 什么是索引下推
 ## 介绍索引下推
 索引下推（INDEX CONDITION PUSHDOWN，简称 ICP）是在 MySQL 5.6 针对**扫描二级索引**的一项优化改进。总的来说是通过把索引过滤条件下推到**存储引擎**，来减少 MySQL 存储引擎访问基表的次数以及 MySQL 服务层访问存储引擎的次数。ICP 适用于 MYISAM 和 INNODB，本篇的内容只基于 INNODB。  
 在讲这个技术之前你得对mysql架构有一个简单的认识，见下图：
@@ -300,7 +300,7 @@ Explain SELECT * FROM user1 WHERE name LIKE 'A%' and age = 40;
 + ICP不支持引用子查询作为条件。
 + ICP不支持存储函数作为条件，因为存储引擎无法调用存储函数。
 
-# <font style="color:#01B2BC;">慢SQL你是怎么优化的</font>
+# 慢SQL你是怎么优化的
 ![1680009272711-8a8e62aa-31c1-4845-95a0-02a74a15306d.jpeg](./assets/1680009272711-8a8e62aa-31c1-4845-95a0-02a74a15306d.jpeg)
 
 ### 1. SQL语句优化
@@ -535,7 +535,7 @@ SQL优化是提高数据库性能的重要方法，在实际开发中我们的SQ
 3. 减少交互次数
 4. 减少服务器CPU及内存开销
 
-# <font style="color:#01B2BC;">MySQL事务隔离级别</font>
+# MySQL事务隔离级别
 ## 1.事务
 
 
@@ -703,7 +703,7 @@ SELECT balance FROM test WHERE id = 1;
 commit;
 ```
 
-# <font style="color:#01B2BC;">深度解析：掌握MVCC机制的核心原理</font>
+# 深度解析：掌握MVCC机制的核心原理
 这一讲我们来深入分析一下MySQL是如何通过`MVCC`机制来实现隔离性。
 
 上一讲和大家聊到，隔离性本质上是因为同时存在多个并发事务可能会导致脏读、幻读等情况。
@@ -806,45 +806,45 @@ SELECT * FROM student WHERE id = 10001;
 
 
 
-<font style="color:rgb(27, 27, 27);">事务</font>`<font style="color:rgb(27, 27, 27);">A</font>`<font style="color:rgb(27, 27, 27);">和</font>`<font style="color:rgb(27, 27, 27);">B</font>`<font style="color:rgb(27, 27, 27);">均未提交，现在事务</font>`<font style="color:rgb(27, 27, 27);">C</font>`<font style="color:rgb(27, 27, 27);">执行</font>`<font style="color:rgb(27, 27, 27);">select</font>`<font style="color:rgb(27, 27, 27);">, 那么得到的结果是什么呢？</font>
+事务`A`和`B`均未提交，现在事务`C`执行`select`, 那么得到的结果是什么呢？
 
 
 
-1. <font style="color:rgb(27, 27, 27);">在执行</font>`<font style="color:rgb(27, 27, 27);">select</font>`<font style="color:rgb(27, 27, 27);">语句时会先生成一个</font>`<font style="color:rgb(27, 27, 27);">ReadView</font>`<font style="color:rgb(27, 27, 27);">：</font>
-    1. `<font style="color:rgb(27, 27, 27);">trx_ids</font>`<font style="color:rgb(27, 27, 27);">列表的内容就是</font>`<font style="color:rgb(27, 27, 27);">[2, 3]</font>`
-    2. `<font style="color:rgb(27, 27, 27);">min_trx_id</font>`<font style="color:rgb(27, 27, 27);">为</font>`<font style="color:rgb(27, 27, 27);">1</font>`
-    3. `<font style="color:rgb(27, 27, 27);">max_trx_id</font>`<font style="color:rgb(27, 27, 27);">为</font>`<font style="color:rgb(27, 27, 27);">4</font>`
-    4. `<font style="color:rgb(27, 27, 27);">creator_trx_id</font>`<font style="color:rgb(27, 27, 27);">为</font>`<font style="color:rgb(27, 27, 27);">0</font>`
-2. <font style="color:rgb(27, 27, 27);">然后从版本链中挑选可见的记录，从图中看出，</font>
-    1. <font style="color:rgb(27, 27, 27);">最新版本的列</font>`<font style="color:rgb(27, 27, 27);">name</font>`<font style="color:rgb(27, 27, 27);">的内容是</font>`<font style="color:rgb(27, 27, 27);">'北冥-3'</font>`
-    2. `<font style="color:rgb(27, 27, 27);">trx_id</font>`<font style="color:rgb(27, 27, 27);">值为</font>`<font style="color:rgb(27, 27, 27);">3</font>`
-    3. <font style="color:rgb(27, 27, 27);">在</font>`<font style="color:rgb(27, 27, 27);">trx_ids</font>`<font style="color:rgb(27, 27, 27);">列表内，所以不符合可见性要求</font>
-    4. <font style="color:rgb(27, 27, 27);">根据</font>`<font style="color:rgb(27, 27, 27);">roll_pointer</font>`<font style="color:rgb(27, 27, 27);">跳到下一个版本。</font>
-3. <font style="color:rgb(27, 27, 27);">下一个版本的列</font>`<font style="color:rgb(27, 27, 27);">name</font>`<font style="color:rgb(27, 27, 27);">的内容是</font>`<font style="color:rgb(27, 27, 27);">'北冥-2'</font>`
-    1. <font style="color:rgb(27, 27, 27);">该版本的</font>`<font style="color:rgb(27, 27, 27);">trx_id</font>`<font style="color:rgb(27, 27, 27);">值为</font>`<font style="color:rgb(27, 27, 27);">2</font>`
-    2. <font style="color:rgb(27, 27, 27);">也在</font>`<font style="color:rgb(27, 27, 27);">trx_ids</font>`<font style="color:rgb(27, 27, 27);">列表内</font>
-    3. <font style="color:rgb(27, 27, 27);">所以也不符合要求，继续跳到下一个版本。</font>
-4. <font style="color:rgb(27, 27, 27);">下一个版本的列</font>`<font style="color:rgb(27, 27, 27);">name</font>`<font style="color:rgb(27, 27, 27);">的内容是</font>`<font style="color:rgb(27, 27, 27);">'北冥'</font>`
-    1. <font style="color:rgb(27, 27, 27);">该版本的</font>`<font style="color:rgb(27, 27, 27);">trx_id</font>`<font style="color:rgb(27, 27, 27);">值为</font>`<font style="color:rgb(27, 27, 27);">1</font>`
-    2. <font style="color:rgb(27, 27, 27);">小于</font>`<font style="color:rgb(27, 27, 27);">ReadView</font>`<font style="color:rgb(27, 27, 27);">中的</font>`<font style="color:rgb(27, 27, 27);">min_trx_id</font>`<font style="color:rgb(27, 27, 27);">值</font>`<font style="color:rgb(27, 27, 27);">2</font>`
-    3. <font style="color:rgb(27, 27, 27);">说明已经提交了，那么最终返回</font>`<font style="color:rgb(27, 27, 27);">'北冥'</font>`<font style="color:rgb(27, 27, 27);">。</font>
+1. 在执行`select`语句时会先生成一个`ReadView`：
+    1. `trx_ids`列表的内容就是`[2, 3]`
+    2. `min_trx_id`为`1`
+    3. `max_trx_id`为`4`
+    4. `creator_trx_id`为`0`
+2. 然后从版本链中挑选可见的记录，从图中看出，
+    1. 最新版本的列`name`的内容是`'北冥-3'`
+    2. `trx_id`值为`3`
+    3. 在`trx_ids`列表内，所以不符合可见性要求
+    4. 根据`roll_pointer`跳到下一个版本。
+3. 下一个版本的列`name`的内容是`'北冥-2'`
+    1. 该版本的`trx_id`值为`2`
+    2. 也在`trx_ids`列表内
+    3. 所以也不符合要求，继续跳到下一个版本。
+4. 下一个版本的列`name`的内容是`'北冥'`
+    1. 该版本的`trx_id`值为`1`
+    2. 小于`ReadView`中的`min_trx_id`值`2`
+    3. 说明已经提交了，那么最终返回`'北冥'`。
 
 
 
-<font style="color:rgb(27, 27, 27);">读已提交</font>`<font style="color:rgb(27, 27, 27);">READ COMMITTED</font>`<font style="color:rgb(27, 27, 27);">是每次读取数据前都生成一个</font>`<font style="color:rgb(27, 27, 27);">ReadView</font>`<font style="color:rgb(27, 27, 27);">。</font>
+读已提交`READ COMMITTED`是每次读取数据前都生成一个`ReadView`。
 
 ![1680176728820-fd131d06-d868-4aef-951c-e195acf4e2cc.png](./assets/1680176728820-fd131d06-d868-4aef-951c-e195acf4e2cc.png)
 
-<font style="color:rgb(27, 27, 27);"></font>
+
 
 ![1680180052328-998ea2ad-345a-41d6-b37a-036fcb0f5223.png](./assets/1680180052328-998ea2ad-345a-41d6-b37a-036fcb0f5223.png)
 
-<font style="color:rgb(27, 27, 27);">这里重点介绍了</font>`<font style="color:rgb(27, 27, 27);">MVCC</font>`<font style="color:rgb(27, 27, 27);">机制，以及 </font>`<font style="color:rgb(27, 27, 27);">MVCC</font>`<font style="color:rgb(27, 27, 27);"> 在 </font>`<font style="color:rgb(27, 27, 27);">READ COMMITTD</font>`<font style="color:rgb(27, 27, 27);">、 </font>`<font style="color:rgb(27, 27, 27);">REPEATABLE READ</font>`<font style="color:rgb(27, 27, 27);"> 这两种隔离级别的事务在执行快照读操作时访问记录的版本链的过程。这样使不同事务的 </font>`<font style="color:rgb(27, 27, 27);">读-写</font>`<font style="color:rgb(27, 27, 27);"> 、 </font>`<font style="color:rgb(27, 27, 27);">写-读</font>`<font style="color:rgb(27, 27, 27);"> 操作并发执行，从而提升系统性能。</font>
+这里重点介绍了`MVCC`机制，以及 `MVCC` 在 `READ COMMITTD`、 `REPEATABLE READ` 这两种隔离级别的事务在执行快照读操作时访问记录的版本链的过程。这样使不同事务的 `读-写` 、 `写-读` 操作并发执行，从而提升系统性能。
 
-+ `<font style="color:rgb(27, 27, 27);">READ COMMITTD</font>`<font style="color:rgb(27, 27, 27);"> 在每一次进行普通</font>`<font style="color:rgb(27, 27, 27);">SELECT</font>`<font style="color:rgb(27, 27, 27);">操作前都会生成一个</font>`<font style="color:rgb(27, 27, 27);">ReadView</font>`
-+ `<font style="color:rgb(27, 27, 27);">REPEATABLE READ</font>`<font style="color:rgb(27, 27, 27);"> 只在第一次进行普通</font>`<font style="color:rgb(27, 27, 27);">SELECT</font>`<font style="color:rgb(27, 27, 27);">操作前生成一个</font>`<font style="color:rgb(27, 27, 27);">ReadView</font>`<font style="color:rgb(27, 27, 27);">，之后的查询操作都重复使用这个</font>`<font style="color:rgb(27, 27, 27);">ReadView</font>`<font style="color:rgb(27, 27, 27);">就好了。</font>
++ `READ COMMITTD` 在每一次进行普通`SELECT`操作前都会生成一个`ReadView`
++ `REPEATABLE READ` 只在第一次进行普通`SELECT`操作前生成一个`ReadView`，之后的查询操作都重复使用这个`ReadView`就好了。
 
-# <font style="color:#01B2BC;">MySQL 深分页优化方案</font>
+# MySQL 深分页优化方案
 ### 1.数据准备
 ```plsql
 -- 1.创建表：
@@ -1017,7 +1017,7 @@ SELECT * FROM user_login_log where id > 1000000 LIMIT 100;
 
 + 添加where条件缩减扫描条数，然后limit关键再进行数据筛选（使用索引字段进行条件过滤）
 
-# <font style="color:#01B2BC;">Binlog有几种录入格式与区别</font>
+# Binlog有几种录入格式与区别
 MySQL的Binlog有三种录入格式，分别是**Statement格式**、**Row格式**和**Mixed格式**。它们的主要区别如下：
 
 ## Statement格式：
@@ -1042,7 +1042,7 @@ MySQL的Binlog有三种录入格式，分别是**Statement格式**、**Row格式
 + Row格式适用于需要精确复制的场景；
 + Mixed格式是综合考虑两种格式的优势而出现的折中方案。
 
-# <font style="color:#01B2BC;">添加索引真的不会锁表吗？</font>
+# 添加索引真的不会锁表吗？
 ## 1.MySQL DDL执行方式
 MySQL5.5以及之前的版本，通常更改数据表结构操作(DDL)会阻塞对表数据的增删改操作(DML)。  
 MySQL5.6提供Online DDL之后可支持DDL与DML操作同时执行，降低了DDL期间对业务延迟带来的影响。
@@ -1221,7 +1221,7 @@ show processlist;
 + 在操作之前最好确认对要操作的表没有任何进行中的操作、没有未提交事务、也没有显式事务中的报错语句。
 + 设置超时时间lock_wait_timeout，避免长时间的metedata锁等待。
 
-# <font style="color:#01B2BC;">7种SQL的进阶用法</font>
+# 7种SQL的进阶用法
 ## 前言
 还只会使用SQL进行简单的insert、update、detele吗？本文给大家带来7种SQL的进阶用法，让大家在平常工作中使用SQL简化复杂的代码逻辑。
 
@@ -1395,7 +1395,7 @@ INSERT INTO movies (id, movie_name, actors, price, release_date) VALUES
 
 ![1682694256728-2a84a068-39ac-4aad-a8b5-2077f8f032df.png](./assets/1682694256728-2a84a068-39ac-4aad-a8b5-2077f8f032df.png)
 
-# <font style="color:#01B2BC;">MySQL表设计经验汇总篇</font>
+# MySQL表设计经验汇总篇
 表设计是每一个后端程序员都无法避开的一块砖，而且这块砖一不小心就很容易烫手，本篇笔记就是为了帮助大家在设计表时能够轻松拿捏。
 
 ### 1.命名规范
@@ -1557,7 +1557,7 @@ PRIMARY KEY (`id`)
 通过这种反范式的设计方式，我们可以避免表关联操作，提高查询效率。但同时也带来了一些缺点，例如数据冗余、数据更新困难等。因此，在实际应用中需要根据具体情况进行选择。
 
 ### 11. 避免使用MySQL保留字
-<font style="color:rgb(43, 43, 43);">如果库名、表名、字段名等属性含有保留字时，SQL语句必须用反引号来引用属性名称，这将使得SQL语句书写、SHELL脚本中变量的转义等变得非常复杂。</font>
+如果库名、表名、字段名等属性含有保留字时，SQL语句必须用反引号来引用属性名称，这将使得SQL语句书写、SHELL脚本中变量的转义等变得非常复杂。
 
 如果你需要使用这些保留字作为表名、列名或其他标识符，你可以考虑以下方法来避免冲突：
 
@@ -1636,32 +1636,32 @@ WHERE
 14. 在适当的时候，使用覆盖索引。
 15. 使用EXPLAIN 分析你SQL的计划。
 
-# <font style="color:#01B2BC;">为什么MySQL要默认使用RR隔离级别？</font>
+# 为什么MySQL要默认使用RR隔离级别？
 ## 隔离级别的划分
 ![1713701321250-68f56ec1-8ac9-4655-b042-318043ed61aa.png](./assets/1713701321250-68f56ec1-8ac9-4655-b042-318043ed61aa.png)
 
-<font style="color:rgb(77, 77, 77);">SQL-92 标准定义了 4 种隔离级别，从低到高依次为：</font>  
-**<font style="color:rgb(77, 77, 77);">读未提交(Read Uncommitted)、读已提交(Read Committed)、可重复读(Repeatable Reads)、序列化(Serializable)</font>**<font style="color:rgb(77, 77, 77);">。</font>
+SQL-92 标准定义了 4 种隔离级别，从低到高依次为：  
+**读未提交(Read Uncommitted)、读已提交(Read Committed)、可重复读(Repeatable Reads)、序列化(Serializable)**。
 
-> <font style="color:rgb(85, 86, 102);">在 RU 级别下，可能会出现脏读、幻读、</font>不可重复读<font style="color:rgb(85, 86, 102);">等问题。</font>  
-<font style="color:rgb(85, 86, 102);">在 RC 级别下，解决了脏读的问题，但仍存在幻读、不可重复读的问题。</font>  
-<font style="color:rgb(85, 86, 102);">在 RR 级别下，解决了脏读和不可重复读的问题，但仍存在幻读的问题。</font>  
-<font style="color:rgb(85, 86, 102);">在 Serializable 隔离级别下，解决了脏读、幻读、不可重复读全部问题。</font>
+> 在 RU 级别下，可能会出现脏读、幻读、不可重复读等问题。  
+在 RC 级别下，解决了脏读的问题，但仍存在幻读、不可重复读的问题。  
+在 RR 级别下，解决了脏读和不可重复读的问题，但仍存在幻读的问题。  
+在 Serializable 隔离级别下，解决了脏读、幻读、不可重复读全部问题。
 >
 
 ## 常见数据库的隔离级别支持
-<font style="color:rgb(77, 77, 77);">Oracle 数据库只支持 SQL92 中的 Serializable 和 Read Committed，但实际上根据Oracle官方文档的介绍，Oracle支持三种隔离级别：Read Committed、Serializable 和 Read-Only，</font>[官网地址](https://docs.oracle.com/cd/E11882_01/server.112/e40540/consist.htm#CNCPT621)。
+Oracle 数据库只支持 SQL92 中的 Serializable 和 Read Committed，但实际上根据Oracle官方文档的介绍，Oracle支持三种隔离级别：Read Committed、Serializable 和 Read-Only，[官网地址](https://docs.oracle.com/cd/E11882_01/server.112/e40540/consist.htm#CNCPT621)。
 
 ![1713704153308-c4461b3d-50ac-486c-bc79-6b4f4321b0f1.png](./assets/1713704153308-c4461b3d-50ac-486c-bc79-6b4f4321b0f1.png)
 
-<font style="color:rgb(77, 77, 77);">MySQL 数据库支持SQL92 中的四种隔离级别。</font>
+MySQL 数据库支持SQL92 中的四种隔离级别。
 
-<font style="color:rgb(77, 77, 77);">需要注意的是，</font>**<font style="color:rgb(77, 77, 77);">Oracle的默认隔离级别是RC，而MySQL的默认隔离级别是RR</font>**<font style="color:rgb(77, 77, 77);">。</font>
+需要注意的是，**Oracle的默认隔离级别是RC，而MySQL的默认隔离级别是RR**。
 
-## <font style="color:rgb(77, 77, 77);">为什么 MySQL 选择的是 RR 级别？</font>
-<font style="color:rgb(77, 77, 77);">MySQL 默认使用RR（可重复读）隔离级别的原因是基于历史和技术考虑。</font>
+## 为什么 MySQL 选择的是 RR 级别？
+MySQL 默认使用RR（可重复读）隔离级别的原因是基于历史和技术考虑。
 
-<font style="color:rgb(77, 77, 77);">MySQL 主从复制是通过 binlog 日志进行数据同步的，而在早期的版本中 binlog 记录的是SQL语句的原文。这个时候就会有一个问题，如果此时 </font>[binlog 格式](https://www.yuque.com/tulingzhouyu/db22bv/yasy523q6yns52tc?singleDoc# 《Binlog有几种录入格式与区别》 密码：yk3o)<font style="color:rgb(77, 77, 77);">设置为 statement 格式时，MySQL 可能会在从库执行 SQL 的逻辑与主库不一致。比如：</font>
+MySQL 主从复制是通过 binlog 日志进行数据同步的，而在早期的版本中 binlog 记录的是SQL语句的原文。这个时候就会有一个问题，如果此时 [binlog 格式](https://www.yuque.com/tulingzhouyu/db22bv/yasy523q6yns52tc?singleDoc# 《Binlog有几种录入格式与区别》 密码：yk3o)设置为 statement 格式时，MySQL 可能会在从库执行 SQL 的逻辑与主库不一致。比如：
 
 ```sql
 delete from user where a >= 13 and b<= '2024-04-21' limit 1;
@@ -1677,7 +1677,7 @@ delete from user where a >= 13 and b<= '2024-04-21' limit 1;
 
 可重复读隔离级别，在更新数据时会增加记录锁和间隙锁，可以避免事务乱序导致的数据不一致问题。
 
-<font style="color:rgb(77, 77, 77);">还有一点需要注意，查资料的时候看到有说MySQL禁止在使用 statement 格式的 bin log 情况下，使用 READ COMMITTED 作为</font>事务隔离级别<font style="color:rgb(77, 77, 77);">会报错问题，亲测 MySQL8.0 不存在这个问题。可能是高版本修复了这个问题，SQL 如下：</font>
+还有一点需要注意，查资料的时候看到有说MySQL禁止在使用 statement 格式的 bin log 情况下，使用 READ COMMITTED 作为事务隔离级别会报错问题，亲测 MySQL8.0 不存在这个问题。可能是高版本修复了这个问题，SQL 如下：
 
 ```sql
 SHOW VARIABLES LIKE 'binlog_format';
@@ -1689,15 +1689,15 @@ SET binlog_format = 'STATEMENT';
 SET SESSION TRANSACTION ISOLATION LEVEL read committed;
 ```
 
-## <font style="color:rgb(77, 77, 77);">为什么 Oracle 选择的是 RC 级别？</font>
-<font style="color:rgb(77, 77, 77);">Read-Only 隔离级别类似于序列化隔离级别，但只读事务甚至不允许在事务中进行数据修改。</font>
+## 为什么 Oracle 选择的是 RC 级别？
+Read-Only 隔离级别类似于序列化隔离级别，但只读事务甚至不允许在事务中进行数据修改。
 
-<font style="color:rgb(77, 77, 77);">很显然，在这三种隔离级别中，Serializable 和 Read-Only 显然都不适合作为默认隔离级别，Oracle 只剩下 Read Committed 这个选择。</font>
+很显然，在这三种隔离级别中，Serializable 和 Read-Only 显然都不适合作为默认隔离级别，Oracle 只剩下 Read Committed 这个选择。
 
-## <font style="color:rgb(79, 79, 79);">为什么默认 RR，大厂要改成 RC？</font>
+## 为什么默认 RR，大厂要改成 RC？
 
 
-# <font style="color:#01B2BC;">Not In 不仅仅会导致索引失效，还会~~~~</font>
+# Not In 不仅仅会导致索引失效，还会~~~~
 通常提到 not in，大家脑海里第一个飘过的想法是什么？
 
 是不是可能会导致索引失效。因为大部分小伙伴在通关八股文的时候是这么背的。
@@ -1744,13 +1744,13 @@ SELECT * FROM products WHERE category NOT IN ('Electronics', NULL);
 
 到这里大家是不是就发现问题了，使用 Not In 会导致数据丢失，那么为什么会出现这种情况？
 
-<font style="color:rgb(36, 41, 47);">其实是当 SQL 中，使用 </font><font style="color:rgb(36, 41, 47);">NOT IN</font><font style="color:rgb(36, 41, 47);"> 条件时，如果其中包含 NULL，可能会导致意外的结果，因为 </font><font style="color:rgb(36, 41, 47);">NOT IN</font><font style="color:rgb(36, 41, 47);"> 不会返回任何匹配 NULL 值的行。因此，我们通常需要另外处理 NULL 值。比如：</font>
+其实是当 SQL 中，使用 NOT IN 条件时，如果其中包含 NULL，可能会导致意外的结果，因为 NOT IN 不会返回任何匹配 NULL 值的行。因此，我们通常需要另外处理 NULL 值。比如：
 
 ```sql
 SELECT * FROM products WHERE category NOT IN ('Electronics') OR category IS NULL;
 ```
 
-### 但 <font style="color:rgb(36, 41, 47);">NOT IN 不会返回任何匹配 NULL 值的行？</font>
+### 但 NOT IN 不会返回任何匹配 NULL 值的行？
 这个问题涉及到 SQL 中的三值逻辑，即真（TRUE）、假（FALSE）和未知（UNKNOWN）。
 
 当你使用 NOT IN 条件时，如果其中包含 NULL 值，这会导致整个条件的结果不确定。这是因为 SQL 中的比较操作符（如 IN、NOT IN、=, !=等）对于 NULL 的处理方式是特殊的。具体来说：
@@ -1793,7 +1793,7 @@ select * from student where name not in ('李四','周九');
 
 
 
-# <font style="color:#01B2BC;">自增主键用完会遇到什么问题</font>
+# 自增主键用完会遇到什么问题
 自增主键的特点是当表中每新增一条记录时，主键值会根据自增步长自动叠加，通常会将自增步长设置1，也就是说自增主键值是连续的。那么MySQL自增主键值一定会连续吗？今天这篇文章就来说说这个问题，看看什么情况下自增主键会出现不连续？
 
 ## 数据准备
@@ -1936,7 +1936,7 @@ SELECT * FROM increnment_test2;
 第3次：id-4、5、6、7  
 由于只有5条记录，所以只使用了4、5被浪费了。当我们在次插入数据时，AUTO_INCREMENT从8开始。
 
-# <font style="color:#01B2BC;">分库分表下如何实现精准分页？</font>
+# 分库分表下如何实现精准分页？
 ## 前言
 随着互联网的快速发展，各大互联网公司的业务数据也随之爆发式增长。在这个过程中，数据库面临着越来越大的压力，单表记录数量庞大已经成为常态。
 
@@ -2185,101 +2185,101 @@ SELECT * FROM `table` ORDER BY `time` LIMIT #{offset}, #{limit}
 
 + 需要进行两次数据库查询，对数据库存在一定的消耗，但比全局视野法的网络和CPU的消耗少。
 
-# <font style="color:#01B2BC;">MySQL 同步 ES 的 4种方案</font>
-<font style="color:rgb(6, 6, 7);">在现代数据架构中，MySQL与Elasticsearch的集成是实现高效数据管理和复杂查询的关键。然而，保持两者间数据同步是一个挑战，涉及实时性、性能和一致性等多个方面。</font>
+# MySQL 同步 ES 的 4种方案
+在现代数据架构中，MySQL与Elasticsearch的集成是实现高效数据管理和复杂查询的关键。然而，保持两者间数据同步是一个挑战，涉及实时性、性能和一致性等多个方面。
 
-<font style="color:rgb(6, 6, 7);">本文将探讨</font>**<font style="color:rgb(6, 6, 7);">四种主要的同步方案</font>**<font style="color:rgb(6, 6, 7);">，旨在帮助技术团队根据业务需求和系统特性，选择最合适的同步方案。</font>
+本文将探讨**四种主要的同步方案**，旨在帮助技术团队根据业务需求和系统特性，选择最合适的同步方案。
 
-<font style="color:rgb(6, 6, 7);">通过简要分析各方案的优缺点及实施步骤，本文提供了一系列实用的参考信息，以指导数据同步架构的设计。我们的目标是让技术决策者能够快速把握每种策略的核心要点，做出明智的技术选择。</font>
+通过简要分析各方案的优缺点及实施步骤，本文提供了一系列实用的参考信息，以指导数据同步架构的设计。我们的目标是让技术决策者能够快速把握每种策略的核心要点，做出明智的技术选择。
 
 ![1715860885880-bce23c76-9328-4d1f-9046-f922b2a1c577.jpeg](./assets/1715860885880-bce23c76-9328-4d1f-9046-f922b2a1c577.jpeg)
 
 ## 数据同步方案
 ## 同步双写
-<font style="color:rgb(6, 6, 7);">在数据写入MySQL的同时，通过编程逻辑将相同数据写入ES。</font>
+在数据写入MySQL的同时，通过编程逻辑将相同数据写入ES。
 
 ![1715782155225-39e87a9e-45fa-4a69-9d43-6dd452f7b232.png](./assets/1715782155225-39e87a9e-45fa-4a69-9d43-6dd452f7b232.png)
 
 ### 优点：
-1. **<font style="color:rgb(6, 6, 7);">实时性</font>**<font style="color:rgb(6, 6, 7);">：数据变更能够立即反映到Elasticsearch，保证了查询的实时性。</font>
-2. **<font style="color:rgb(6, 6, 7);">简单性</font>**<font style="color:rgb(6, 6, 7);">：实现起来相对简单，不需要引入额外的组件或复杂逻辑。</font>
+1. **实时性**：数据变更能够立即反映到Elasticsearch，保证了查询的实时性。
+2. **简单性**：实现起来相对简单，不需要引入额外的组件或复杂逻辑。
 
 ### 缺点：
-1. **<font style="color:rgb(6, 6, 7);">性能影响</font>**<font style="color:rgb(6, 6, 7);">：每次写入MySQL的同时写入Elasticsearch，可能会对两个系统的性能都产生影响。</font>
-2. **<font style="color:rgb(6, 6, 7);">数据一致性风险</font>**<font style="color:rgb(6, 6, 7);">：在高并发情况下，可能会遇到双写失败导致数据不一致的问题。</font>
-3. **<font style="color:rgb(6, 6, 7);">系统耦合</font>**<font style="color:rgb(6, 6, 7);">：每个写入操作都需要双写逻辑，增加了业务逻辑的复杂性和维护难度。</font>
+1. **性能影响**：每次写入MySQL的同时写入Elasticsearch，可能会对两个系统的性能都产生影响。
+2. **数据一致性风险**：在高并发情况下，可能会遇到双写失败导致数据不一致的问题。
+3. **系统耦合**：每个写入操作都需要双写逻辑，增加了业务逻辑的复杂性和维护难度。
 
 ### 实施步骤：
-1. **<font style="color:rgb(6, 6, 7);">代码修改</font>**<font style="color:rgb(6, 6, 7);">：在业务逻辑中，对于每次对MySQL的写入操作，复制相同的逻辑到Elasticsearch。</font>
-2. **<font style="color:rgb(6, 6, 7);">事务管理</font>**<font style="color:rgb(6, 6, 7);">：使用数据库事务确保操作的原子性，避免数据不一致。</font>
-3. **<font style="color:rgb(6, 6, 7);">性能优化</font>**<font style="color:rgb(6, 6, 7);">：考虑使用批量写入或异步处理来减少对性能的影响。</font>
+1. **代码修改**：在业务逻辑中，对于每次对MySQL的写入操作，复制相同的逻辑到Elasticsearch。
+2. **事务管理**：使用数据库事务确保操作的原子性，避免数据不一致。
+3. **性能优化**：考虑使用批量写入或异步处理来减少对性能的影响。
 
 ## 异步双写
-<font style="color:rgb(6, 6, 7);">利用消息队列（MQ）异步处理数据写入操作。</font>
+利用消息队列（MQ）异步处理数据写入操作。
 
 ![1715782166537-a01992b8-4f54-4a8a-9066-f28e8fcd4ee0.png](./assets/1715782166537-a01992b8-4f54-4a8a-9066-f28e8fcd4ee0.png)
 
 ### 优点：
-1. **<font style="color:rgb(6, 6, 7);">性能提升</font>**<font style="color:rgb(6, 6, 7);">：通过异步处理，减少了对MySQL写入性能的影响。</font>
-2. **<font style="color:rgb(6, 6, 7);">容错性</font>**<font style="color:rgb(6, 6, 7);">：利用消息队列的持久化和重试机制，提高了数据同步的可靠性。</font>
+1. **性能提升**：通过异步处理，减少了对MySQL写入性能的影响。
+2. **容错性**：利用消息队列的持久化和重试机制，提高了数据同步的可靠性。
 
 ### 缺点：
-1. **<font style="color:rgb(6, 6, 7);">数据延迟</font>**<font style="color:rgb(6, 6, 7);">：由于是异步处理，存在数据同步的延迟问题。</font>
-2. **<font style="color:rgb(6, 6, 7);">系统复杂度</font>**<font style="color:rgb(6, 6, 7);">：需要引入消息队列和额外的消费者逻辑，增加了系统的复杂性。</font>
+1. **数据延迟**：由于是异步处理，存在数据同步的延迟问题。
+2. **系统复杂度**：需要引入消息队列和额外的消费者逻辑，增加了系统的复杂性。
 
-### <font style="color:rgb(6, 6, 7);">实施步骤：</font>
-1. **<font style="color:rgb(6, 6, 7);">消息队列集成</font>**<font style="color:rgb(6, 6, 7);">：选择并集成一个消息队列系统，如Kafka或RabbitMQ。</font>
-2. **<font style="color:rgb(6, 6, 7);">业务逻辑修改</font>**<font style="color:rgb(6, 6, 7);">：将数据写入MySQL后，将变更信息发送到消息队列。</font>
-3. **<font style="color:rgb(6, 6, 7);">消费者开发</font>**<font style="color:rgb(6, 6, 7);">：开发消费者服务，从消息队列中读取消息并异步写入Elasticsearch。</font>
-4. **<font style="color:rgb(6, 6, 7);">异常处理</font>**<font style="color:rgb(6, 6, 7);">：为消息队列的消费者实现异常处理和重试逻辑。</font>
+### 实施步骤：
+1. **消息队列集成**：选择并集成一个消息队列系统，如Kafka或RabbitMQ。
+2. **业务逻辑修改**：将数据写入MySQL后，将变更信息发送到消息队列。
+3. **消费者开发**：开发消费者服务，从消息队列中读取消息并异步写入Elasticsearch。
+4. **异常处理**：为消息队列的消费者实现异常处理和重试逻辑。
 
 ## 基于 SQL 抽取
-<font style="color:rgb(6, 6, 7);">通过定时任务，根据数据库中的时间戳字段变化来抽取并同步数据至ES。</font>
+通过定时任务，根据数据库中的时间戳字段变化来抽取并同步数据至ES。
 
 ![1715782181187-3db911ba-0406-49c1-bd8a-10740efbf8d1.png](./assets/1715782181187-3db911ba-0406-49c1-bd8a-10740efbf8d1.png)
 
 ### 优点：
-1. **<font style="color:rgb(6, 6, 7);">无侵入性</font>**<font style="color:rgb(6, 6, 7);">：不需要修改现有业务逻辑，对原系统无感知。</font>
-2. **<font style="color:rgb(6, 6, 7);">简单实现</font>**<font style="color:rgb(6, 6, 7);">：通过定时任务实现，逻辑简单，易于理解和维护。</font>
+1. **无侵入性**：不需要修改现有业务逻辑，对原系统无感知。
+2. **简单实现**：通过定时任务实现，逻辑简单，易于理解和维护。
 
 ### 缺点：
-1. **<font style="color:rgb(6, 6, 7);">时效性差</font>**<font style="color:rgb(6, 6, 7);">：数据同步存在延迟，无法满足实时性要求。</font>
-2. **<font style="color:rgb(6, 6, 7);">性能压力</font>**<font style="color:rgb(6, 6, 7);">：定时任务可能会对数据库产生额外的查询压力。</font>
+1. **时效性差**：数据同步存在延迟，无法满足实时性要求。
+2. **性能压力**：定时任务可能会对数据库产生额外的查询压力。
 
-### <font style="color:rgb(6, 6, 7);">实施步骤：</font>
-1. **<font style="color:rgb(6, 6, 7);">时间戳字段添加</font>**<font style="color:rgb(6, 6, 7);">：在MySQL的数据表中添加时间戳字段，用于记录数据变更时间。</font>
-2. **<font style="color:rgb(6, 6, 7);">定时任务配置</font>**<font style="color:rgb(6, 6, 7);">：设置定时任务，按照固定频率查询MySQL中自上次同步以来发生变化的数据。</font>
-3. **<font style="color:rgb(6, 6, 7);">数据抽取</font>**<font style="color:rgb(6, 6, 7);">：定时任务将查询结果抽取出来，准备同步到Elasticsearch。</font>
-4. **<font style="color:rgb(6, 6, 7);">数据同步</font>**<font style="color:rgb(6, 6, 7);">：将抽取的数据写入Elasticsearch，完成同步过程。</font>
+### 实施步骤：
+1. **时间戳字段添加**：在MySQL的数据表中添加时间戳字段，用于记录数据变更时间。
+2. **定时任务配置**：设置定时任务，按照固定频率查询MySQL中自上次同步以来发生变化的数据。
+3. **数据抽取**：定时任务将查询结果抽取出来，准备同步到Elasticsearch。
+4. **数据同步**：将抽取的数据写入Elasticsearch，完成同步过程。
 
 ## 基于 Binlog 实时同步
-<font style="color:rgb(6, 6, 7);">利用MySQL的Binlog日志，通过消息队列或直接消费Binlog变化来同步数据至ES。</font>
+利用MySQL的Binlog日志，通过消息队列或直接消费Binlog变化来同步数据至ES。
 
 ![1715782204303-ab5d8250-493b-4b20-bae3-0ab252cd73a6.png](./assets/1715782204303-ab5d8250-493b-4b20-bae3-0ab252cd73a6.png)
 
 ### 优点：
-1. **<font style="color:rgb(6, 6, 7);">无侵入性</font>**<font style="color:rgb(6, 6, 7);">：不需要修改现有的业务代码，对现有系统无感知。</font>
-2. **<font style="color:rgb(6, 6, 7);">数据一致性</font>**<font style="color:rgb(6, 6, 7);">：可以利用Binlog精确捕捉到数据库的所有变更，确保数据同步的完整性。</font>
-3. **<font style="color:rgb(6, 6, 7);">高性能</font>**<font style="color:rgb(6, 6, 7);">：Binlog可以高效地处理数据变更，对原数据库性能影响较小。</font>
-4. **<font style="color:rgb(6, 6, 7);">容错性</font>**<font style="color:rgb(6, 6, 7);">：通常配合消息队列使用，即使在网络波动或服务故障的情况下，也能保证数据最终一致性。</font>
+1. **无侵入性**：不需要修改现有的业务代码，对现有系统无感知。
+2. **数据一致性**：可以利用Binlog精确捕捉到数据库的所有变更，确保数据同步的完整性。
+3. **高性能**：Binlog可以高效地处理数据变更，对原数据库性能影响较小。
+4. **容错性**：通常配合消息队列使用，即使在网络波动或服务故障的情况下，也能保证数据最终一致性。
 
 ### 缺点：
-1. **<font style="color:rgb(6, 6, 7);">系统复杂性</font>**<font style="color:rgb(6, 6, 7);">：需要搭建和维护Binlog监听和消息队列系统，增加了系统架构的复杂度。</font>
-2. **<font style="color:rgb(6, 6, 7);">延时问题</font>**<font style="color:rgb(6, 6, 7);">：虽然是基于实时同步，但在极端情况下，如消息队列积压，仍然可能遇到数据同步延迟</font>
+1. **系统复杂性**：需要搭建和维护Binlog监听和消息队列系统，增加了系统架构的复杂度。
+2. **延时问题**：虽然是基于实时同步，但在极端情况下，如消息队列积压，仍然可能遇到数据同步延迟
 
-### <font style="color:rgb(6, 6, 7);">实施步骤：</font>
-1. **<font style="color:rgb(6, 6, 7);">Binlog启用</font>**<font style="color:rgb(6, 6, 7);">：确保MySQL实例开启了Binlog功能，并且Binlog格式（row或mixed）能够支持所需的数据同步需求。</font>
-2. **<font style="color:rgb(6, 6, 7);">Binlog监听器配置</font>**<font style="color:rgb(6, 6, 7);">：部署并配置Binlog监听器（如Debezium），监听指定的MySQL实例和数据库。</font>
-3. **<font style="color:rgb(6, 6, 7);">消息队列集成</font>**<font style="color:rgb(6, 6, 7);">：将Binlog监听器与消息队列（如Kafka）集成，确保Binlog变更能够被转换成消息并发送到队列中。</font>
-4. **<font style="color:rgb(6, 6, 7);">消息消费者开发</font>**<font style="color:rgb(6, 6, 7);">：开发消息消费者服务，该服务从消息队列中读取Binlog变更消息，并将其转换为Elasticsearch能够理解的格式。</font>
-5. **<font style="color:rgb(6, 6, 7);">数据同步</font>**<font style="color:rgb(6, 6, 7);">：消息消费者服务将转换后的数据写入Elasticsearch，完成数据同步。</font>
-6. **<font style="color:rgb(6, 6, 7);">异常处理</font>**<font style="color:rgb(6, 6, 7);">：实现异常处理机制，确保在数据同步失败时能够进行重试或记录日志以便后续处理。</font>
-
-
+### 实施步骤：
+1. **Binlog启用**：确保MySQL实例开启了Binlog功能，并且Binlog格式（row或mixed）能够支持所需的数据同步需求。
+2. **Binlog监听器配置**：部署并配置Binlog监听器（如Debezium），监听指定的MySQL实例和数据库。
+3. **消息队列集成**：将Binlog监听器与消息队列（如Kafka）集成，确保Binlog变更能够被转换成消息并发送到队列中。
+4. **消息消费者开发**：开发消息消费者服务，该服务从消息队列中读取Binlog变更消息，并将其转换为Elasticsearch能够理解的格式。
+5. **数据同步**：消息消费者服务将转换后的数据写入Elasticsearch，完成数据同步。
+6. **异常处理**：实现异常处理机制，确保在数据同步失败时能够进行重试或记录日志以便后续处理。
 
 
 
-# <font style="color:#01B2BC;">我有一个朋友，不小心删库了，怎么办？</font>
+
+
+# 我有一个朋友，不小心删库了，怎么办？
 最近跟一位朋友聊天，说是刚入职的新人不小心把测试库数据不小心全给删了，当时给小伙汁吓坏了，慌得不行啊。
 
 其实这个问题稍微有点经验的小伙伴应该都能知道删掉的数据是可以恢复的，那今天就给大家准备了一份 MySQL8 恢复数据的教程，再也不怕 DBA 叼你啦，希望大家看完能够多多点赞。
@@ -2375,8 +2375,8 @@ mysqldump -h192.168.75.129 -uroot -p1qaz@WSX -P3306 --single-transaction --maste
 
 生成了全量的备份后，直接执行 SQL 脚本。
 
-# <font style="color:#01B2BC;">order by 的工作原理</font>
-<font style="color:rgb(0, 50, 60);">日常开发中，我们经常会使用到 order by，但是你知道 order by 的工作原理吗？本文以最简单的方式带大家快速拿下 order by 的工作原理。</font>**<font style="color:rgb(0, 50, 60);">注意这里的 MySQL 版本为 5.7</font>**
+# order by 的工作原理
+日常开发中，我们经常会使用到 order by，但是你知道 order by 的工作原理吗？本文以最简单的方式带大家快速拿下 order by 的工作原理。**注意这里的 MySQL 版本为 5.7**
 
 ## 数据准备
 ```plsql
@@ -2406,57 +2406,57 @@ INSERT IGNORE INTO `user` (`id`, `id_card`, `name`, `age`, `city`) VALUES (10, '
 
 ![1721050255959-f38a357f-33bb-4799-a664-5272f83a9969.png](./assets/1721050255959-f38a357f-33bb-4799-a664-5272f83a9969.png)
 
-<font style="color:rgb(0, 50, 60);">我们现在有这么一个需求：</font>**<font style="color:rgb(0, 50, 60);">查询前 10 个，来自深圳员工的姓名、年龄、城市，并且按照年龄小到大排序</font>**<font style="color:rgb(0, 50, 60);">。对应的 SQL 语句就可以这么写：</font>
+我们现在有这么一个需求：**查询前 10 个，来自深圳员工的姓名、年龄、城市，并且按照年龄小到大排序**。对应的 SQL 语句就可以这么写：
 
 ```plsql
 select name,age,city from staff where city = 'shenzhen' order by age limit 10;
 ```
 
-<font style="color:rgb(0, 50, 60);">这条语句的逻辑很清楚，但是它的</font>**<font style="color:rgb(0, 50, 60);">底层执行流程</font>**<font style="color:rgb(0, 50, 60);">是怎样的呢？</font>
+这条语句的逻辑很清楚，但是它的**底层执行流程**是怎样的呢？
 
-## <font style="color:rgb(0, 50, 60);">工作原理</font>
-### <font style="color:rgb(0, 50, 60);">explain 执行计划</font>
-<font style="color:rgb(0, 50, 60);">我们先用</font>**<font style="color:rgb(0, 50, 60);">Explain</font>**<font style="color:rgb(0, 50, 60);">关键字查看一下执行计划</font>
+## 工作原理
+### explain 执行计划
+我们先用**Explain**关键字查看一下执行计划
 
 ![1721113503195-aead0a99-e683-404b-88a7-f5df52b27a0d.png](./assets/1721113503195-aead0a99-e683-404b-88a7-f5df52b27a0d.png)
 
-+ <font style="color:rgb(0, 50, 60);">执行计划的</font>**<font style="color:rgb(0, 50, 60);">key</font>**<font style="color:rgb(0, 50, 60);">这个字段，表示使用到索引 idx_city</font>
-+ <font style="color:rgb(0, 50, 60);">Extra 这个字段的 </font>**<font style="color:rgb(0, 50, 60);">Using index condition</font>**<font style="color:rgb(0, 50, 60);"> 表示索引条件</font>
-+ <font style="color:rgb(0, 50, 60);">Extra 这个字段的 </font>**<font style="color:rgb(0, 50, 60);">Using filesort </font>**<font style="color:rgb(0, 50, 60);">表示用到排序</font>
++ 执行计划的**key**这个字段，表示使用到索引 idx_city
++ Extra 这个字段的 **Using index condition** 表示索引条件
++ Extra 这个字段的 **Using filesort **表示用到排序
 
-<font style="color:rgb(0, 50, 60);">我们可以发现，这条 SQL 使用到了索引，并且也用到排序。那么它是</font>**<font style="color:rgb(0, 50, 60);">怎么排序</font>**<font style="color:rgb(0, 50, 60);">的呢？</font>
+我们可以发现，这条 SQL 使用到了索引，并且也用到排序。那么它是**怎么排序**的呢？
 
-### <font style="color:rgb(0, 50, 60);">全字段排序</font>
-<font style="color:rgb(0, 50, 60);">MySQL 会给每个查询线程分配一块小</font>**<font style="color:rgb(0, 50, 60);">内存</font>**<font style="color:rgb(0, 50, 60);">，用于</font>**<font style="color:rgb(0, 50, 60);">排序</font>**<font style="color:rgb(0, 50, 60);">的，称为</font><font style="color:rgb(0, 50, 60);"> </font>**<font style="color:rgb(0, 50, 60);">sort_buffer</font>**<font style="color:rgb(0, 50, 60);">。什么时候把字段放进去排序呢，其实是通过</font>`idx_city`<font style="color:rgb(0, 50, 60);">索引找到对应的数据，才把数据放进去啦。</font>
+### 全字段排序
+MySQL 会给每个查询线程分配一块小**内存**，用于**排序**的，称为 **sort_buffer**。什么时候把字段放进去排序呢，其实是通过`idx_city`索引找到对应的数据，才把数据放进去啦。
 
-<font style="color:rgb(0, 50, 60);">我们回顾下索引是怎么找到匹配的数据的，现在先把索引树画出来吧，</font>**<font style="color:rgb(0, 50, 60);">idx_city</font>**<font style="color:rgb(0, 50, 60);">索引树如下：</font>
+我们回顾下索引是怎么找到匹配的数据的，现在先把索引树画出来吧，**idx_city**索引树如下：
 
 ![1721050028705-4a95a474-af70-47ff-88a6-96ecf4366e9e.png](./assets/1721050028705-4a95a474-af70-47ff-88a6-96ecf4366e9e.png)
 
-<font style="color:rgb(0, 50, 60);">idx_city 索引树，叶子节点存储的是</font>**<font style="color:rgb(0, 50, 60);">主键 id</font>**<font style="color:rgb(0, 50, 60);">。还有一棵 id 主键聚族索引树，我们再画出聚族索引树图吧</font>![1721050038505-d85af2e0-aa59-4c58-86d9-fbbdd06982c8.png](./assets/1721050038505-d85af2e0-aa59-4c58-86d9-fbbdd06982c8.png)
+idx_city 索引树，叶子节点存储的是**主键 id**。还有一棵 id 主键聚族索引树，我们再画出聚族索引树图吧![1721050038505-d85af2e0-aa59-4c58-86d9-fbbdd06982c8.png](./assets/1721050038505-d85af2e0-aa59-4c58-86d9-fbbdd06982c8.png)
 
-**<font style="color:rgb(0, 50, 60);">我们的查询语句是怎么找到匹配数据的呢</font>**<font style="color:rgb(0, 50, 60);">？先通过</font>**<font style="color:rgb(0, 50, 60);">idx_city</font>**<font style="color:rgb(0, 50, 60);">索引树，找到对应的主键 id，然后再通过拿到的主键 id，搜索</font>**<font style="color:rgb(0, 50, 60);">id 主键索引树</font>**<font style="color:rgb(0, 50, 60);">，找到对应的行数据。</font>
+**我们的查询语句是怎么找到匹配数据的呢**？先通过**idx_city**索引树，找到对应的主键 id，然后再通过拿到的主键 id，搜索**id 主键索引树**，找到对应的行数据。
 
-<font style="color:rgb(0, 50, 60);">加上</font>**<font style="color:rgb(0, 50, 60);">order by</font>**<font style="color:rgb(0, 50, 60);">之后，整体的执行流程就是：</font>
+加上**order by**之后，整体的执行流程就是：
 
-1. <font style="color:rgb(0, 50, 60);">MySQL 为对应的线程初始化</font>**<font style="color:rgb(0, 50, 60);">sort_buffer</font>**<font style="color:rgb(0, 50, 60);">，放入需要查询的 name、age、city 字段；</font>
-2. <font style="color:rgb(0, 50, 60);">从</font>**<font style="color:rgb(0, 50, 60);">索引树 idx_city</font>**<font style="color:rgb(0, 50, 60);">， 找到第一个满足 city='shenzhen’条件的主键 id，也就是图中的 id=2；</font>
-3. <font style="color:rgb(0, 50, 60);">到</font>**<font style="color:rgb(0, 50, 60);">主键 id 索引树</font>**<font style="color:rgb(0, 50, 60);">拿到 id=2 的这一行数据， 取 name、age、city 三个字段的值，存到 sort_buffer；</font>
-4. <font style="color:rgb(0, 50, 60);">从</font>**<font style="color:rgb(0, 50, 60);">索引树 idx_city</font>**<font style="color:rgb(0, 50, 60);"> 拿到下一个记录的主键 id，即图中的 id=6；</font>
-5. <font style="color:rgb(0, 50, 60);">重复步骤 3、4 直到</font>**<font style="color:rgb(0, 50, 60);">city 的值不等于 shenzhen</font>**<font style="color:rgb(0, 50, 60);"> 为止；</font>
-6. <font style="color:rgb(0, 50, 60);">前面 5 步已经查找到了所有</font>**<font style="color:rgb(0, 50, 60);">city 为 shenzhen</font>**<font style="color:rgb(0, 50, 60);"> 的数据，在 sort_buffer 中，将所有数据根据 age 进行排序；</font>
-7. <font style="color:rgb(0, 50, 60);">按照排序结果取前 10 行返回给客户端。</font>
+1. MySQL 为对应的线程初始化**sort_buffer**，放入需要查询的 name、age、city 字段；
+2. 从**索引树 idx_city**， 找到第一个满足 city='shenzhen’条件的主键 id，也就是图中的 id=2；
+3. 到**主键 id 索引树**拿到 id=2 的这一行数据， 取 name、age、city 三个字段的值，存到 sort_buffer；
+4. 从**索引树 idx_city** 拿到下一个记录的主键 id，即图中的 id=6；
+5. 重复步骤 3、4 直到**city 的值不等于 shenzhen** 为止；
+6. 前面 5 步已经查找到了所有**city 为 shenzhen** 的数据，在 sort_buffer 中，将所有数据根据 age 进行排序；
+7. 按照排序结果取前 10 行返回给客户端。
 
-<font style="color:rgb(0, 50, 60);">执行示意图如下：</font>
+执行示意图如下：
 
 ![1721043622047-556818f1-e768-4d9f-8ebc-8a36c878bc00.png](./assets/1721043622047-556818f1-e768-4d9f-8ebc-8a36c878bc00.png)
 
-<font style="color:rgb(0, 50, 60);">将查询所需的字段全部读取到 sort_buffer 中，就是</font>**<font style="color:rgb(0, 50, 60);">全字段排序</font>**<font style="color:rgb(0, 50, 60);">。这里面，有些小伙伴可能会有个疑问,把查询的所有字段都放到 sort_buffer，而 sort_buffer 是一块内存来的，如果数据量太大，sort_buffer 放不下怎么办呢？</font>
+将查询所需的字段全部读取到 sort_buffer 中，就是**全字段排序**。这里面，有些小伙伴可能会有个疑问,把查询的所有字段都放到 sort_buffer，而 sort_buffer 是一块内存来的，如果数据量太大，sort_buffer 放不下怎么办呢？
 
-### <font style="color:rgb(0, 50, 60);">磁盘临时文件辅助排序</font>
-<font style="color:rgb(0, 50, 60);">实际上，sort_buffer 的大小是由一个参数控制的：</font>**<font style="color:rgb(0, 50, 60);">sort_buffer_size</font>**<font style="color:rgb(0, 50, 60);">。如果要排序的数据小于 sort_buffer_size，排序在</font>**<font style="color:rgb(0, 50, 60);">sort_buffer</font>**<font style="color:rgb(0, 50, 60);"> </font><font style="color:rgb(0, 50, 60);">内存中完成，如果要排序的数据大于 sort_buffer_size，则</font>**<font style="color:rgb(0, 50, 60);">借助磁盘文件来进行排序</font>**
+### 磁盘临时文件辅助排序
+实际上，sort_buffer 的大小是由一个参数控制的：**sort_buffer_size**。如果要排序的数据小于 sort_buffer_size，排序在**sort_buffer** 内存中完成，如果要排序的数据大于 sort_buffer_size，则**借助磁盘文件来进行排序**
 
-<font style="color:rgb(0, 50, 60);">如何确定是否使用了磁盘文件来进行排序呢？可以使用以下这几个命令</font>
+如何确定是否使用了磁盘文件来进行排序呢？可以使用以下这几个命令
 
 ```plsql
 -- 打开optimizer_trace，开启统计
@@ -2469,7 +2469,7 @@ select name,age,city from user where city = 'shenzhen' order by age limit 10;
 select * from information_schema.optimizer_trace;
 ```
 
-<font style="color:rgb(0, 50, 60);">可以从 number_of_tmp_files</font><font style="color:rgb(0, 50, 60);"> 中看出，是否使用了临时文件。</font>
+可以从 number_of_tmp_files 中看出，是否使用了临时文件。
 
 ```json
 "filesort_summary": {
@@ -2481,22 +2481,22 @@ select * from information_schema.optimizer_trace;
 }
 ```
 
-number_of_tmp_files<font style="color:rgb(0, 50, 60);"> 表示使用来排序的磁盘临时文件数。如果 number_of_tmp_files >0，则表示使用了磁盘文件来进行排序。</font>
+number_of_tmp_files 表示使用来排序的磁盘临时文件数。如果 number_of_tmp_files >0，则表示使用了磁盘文件来进行排序。
 
-<font style="color:rgb(0, 50, 60);">使用了磁盘临时文件，整个排序过程又是怎样的呢？</font>
+使用了磁盘临时文件，整个排序过程又是怎样的呢？
 
-1. <font style="color:rgb(0, 50, 60);">从</font>**<font style="color:rgb(0, 50, 60);">主键 Id 索引树</font>**<font style="color:rgb(0, 50, 60);">，拿到需要的数据，并放到 </font>**<font style="color:rgb(0, 50, 60);">sort_buffer 内存</font>**<font style="color:rgb(0, 50, 60);">块中。当 sort_buffer 快要满时，就对 sort_buffer 中的数据排序，排完后，把数据临时放到磁盘一个小文件中。</font>
-2. <font style="color:rgb(0, 50, 60);">继续回到主键 id 索引树取数据，继续放到 sort_buffer 内存中，排序后，也把这些数据写入到磁盘临时小文件中。</font>
-3. <font style="color:rgb(0, 50, 60);">继续循环，直到取出所有满足条件的数据。最后把磁盘的临时排好序的小文件，合并成一个有序的大文件。</font>
+1. 从**主键 Id 索引树**，拿到需要的数据，并放到 **sort_buffer 内存**块中。当 sort_buffer 快要满时，就对 sort_buffer 中的数据排序，排完后，把数据临时放到磁盘一个小文件中。
+2. 继续回到主键 id 索引树取数据，继续放到 sort_buffer 内存中，排序后，也把这些数据写入到磁盘临时小文件中。
+3. 继续循环，直到取出所有满足条件的数据。最后把磁盘的临时排好序的小文件，合并成一个有序的大文件。
 
-**<font style="color:rgb(0, 50, 60);">TPS:</font>**<font style="color:rgb(0, 50, 60);"> </font><font style="color:rgb(0, 50, 60);">借助磁盘临时小文件排序，实际上使用的是</font>**<font style="color:rgb(0, 50, 60);">归并排序</font>**<font style="color:rgb(0, 50, 60);">算法。</font>
+**TPS:** 借助磁盘临时小文件排序，实际上使用的是**归并排序**算法。
 
-<font style="color:rgb(0, 50, 60);">小伙伴们可能会有个疑问，既然 </font>**<font style="color:rgb(0, 50, 60);">sort_buffer </font>**<font style="color:rgb(0, 50, 60);">放不下，就需要用到临时磁盘文件，这会影响排序效率。那为什么还要把排序不相关的字段（name，city）放到 sort_buffer 中呢？只放排序相关的 age 字段，它</font>**<font style="color:rgb(0, 50, 60);">不香</font>**<font style="color:rgb(0, 50, 60);">吗？可以了解下</font>**<font style="color:rgb(0, 50, 60);">rowid 排序</font>**<font style="color:rgb(0, 50, 60);">。</font>
+小伙伴们可能会有个疑问，既然 **sort_buffer **放不下，就需要用到临时磁盘文件，这会影响排序效率。那为什么还要把排序不相关的字段（name，city）放到 sort_buffer 中呢？只放排序相关的 age 字段，它**不香**吗？可以了解下**rowid 排序**。
 
-### <font style="color:rgb(0, 50, 60);">rowid 排序</font>
-<font style="color:rgb(0, 50, 60);">rowid 排序就是，只把查询 SQL</font>**<font style="color:rgb(0, 50, 60);">需要用于排序的字段和主键 id</font>**<font style="color:rgb(0, 50, 60);">，放到 sort_buffer 中。那怎么确定走的是全字段排序还是 rowid 排序呢？</font>
+### rowid 排序
+rowid 排序就是，只把查询 SQL**需要用于排序的字段和主键 id**，放到 sort_buffer 中。那怎么确定走的是全字段排序还是 rowid 排序呢？
 
-<font style="color:rgb(0, 50, 60);">实际上有个参数控制的。这个参数就是 </font>**<font style="color:rgb(0, 50, 60);">max_length_for_sort_data</font>**<font style="color:rgb(0, 50, 60);">，它表示 MySQL 用于排序行数据的长度的一个参数，如果单行的长度超过这个值，MySQL 就认为单行太大，就换 rowid 排序。我们可以通过命令看下这个参数取值。</font>
+实际上有个参数控制的。这个参数就是 **max_length_for_sort_data**，它表示 MySQL 用于排序行数据的长度的一个参数，如果单行的长度超过这个值，MySQL 就认为单行太大，就换 rowid 排序。我们可以通过命令看下这个参数取值。
 
 ```plsql
 show variables like 'max_length_for_sort_data';
@@ -2504,9 +2504,9 @@ show variables like 'max_length_for_sort_data';
 
 ![1721111826875-e59c6b4c-a003-4eb4-9b14-8e6f55845b19.png](./assets/1721111826875-e59c6b4c-a003-4eb4-9b14-8e6f55845b19.png)
 
-**<font style="color:rgb(0, 50, 60);">max_length_for_sort_data</font>**<font style="color:rgb(0, 50, 60);"> 值为 1024。</font>
+**max_length_for_sort_data** 值为 1024。
 
-<font style="color:rgb(0, 50, 60);">而我们的示例 SQL 中 name, age, city 长度 = 64+4+64 =132 < 1024, 所以走的是全字段排序。我们来改下这个参数，改小一点，</font>
+而我们的示例 SQL 中 name, age, city 长度 = 64+4+64 =132 < 1024, 所以走的是全字段排序。我们来改下这个参数，改小一点，
 
 ```plsql
 -- 修改排序数据最大单行长度为64
@@ -2516,25 +2516,25 @@ set max_length_for_sort_data = 64;
 select name,age,city from user where city = 'shenzhen' order by age limit 10;
 ```
 
-<font style="color:rgb(0, 50, 60);">使用 rowid 排序的话，整个 SQL 执行流程又是怎样的呢？</font>
+使用 rowid 排序的话，整个 SQL 执行流程又是怎样的呢？
 
-1. <font style="color:rgb(0, 50, 60);">MySQL 为对应的线程初始化 </font>**<font style="color:rgb(0, 50, 60);">sort_buffer</font>**<font style="color:rgb(0, 50, 60);">，放入需要排序的 age 字段，以及主键 id；</font>
-2. <font style="color:rgb(0, 50, 60);">从</font>**<font style="color:rgb(0, 50, 60);">索引树 idx_city</font>**<font style="color:rgb(0, 50, 60);">， 找到第一个满足 city = 'shenzhen' 条件的主键 id，也就是图中的 id=2；</font>
-3. <font style="color:rgb(0, 50, 60);">到</font>**<font style="color:rgb(0, 50, 60);">主键 id 索引树</font>**<font style="color:rgb(0, 50, 60);">拿到 id=2 的这一行数据， 取 age 和主键 id 的值，存到 sort_buffer；</font>
-4. <font style="color:rgb(0, 50, 60);">从</font>**<font style="color:rgb(0, 50, 60);">索引树 idx_city</font>**<font style="color:rgb(0, 50, 60);"> 拿到下一个记录的主键 id，即图中的 id=6；</font>
-5. <font style="color:rgb(0, 50, 60);">重复步骤 3、4 直到 </font>**<font style="color:rgb(0, 50, 60);">city 的值不等于 shenzhen</font>**<font style="color:rgb(0, 50, 60);"> 为止；</font>
-6. <font style="color:rgb(0, 50, 60);">前面 5 步已经查找到了所有 city 为深圳的数据，在 </font>**<font style="color:rgb(0, 50, 60);">sort_buffer </font>**<font style="color:rgb(0, 50, 60);">中，将所有数据根据 age 进行排序；</font>
-7. <font style="color:rgb(0, 50, 60);">遍历排序结果，取前 10 行，并按照 id 的值</font>**<font style="color:rgb(0, 50, 60);">回到原表</font>**<font style="color:rgb(0, 50, 60);">中，取出 city、name 和 age 三个字段返回给客户端。</font>
+1. MySQL 为对应的线程初始化 **sort_buffer**，放入需要排序的 age 字段，以及主键 id；
+2. 从**索引树 idx_city**， 找到第一个满足 city = 'shenzhen' 条件的主键 id，也就是图中的 id=2；
+3. 到**主键 id 索引树**拿到 id=2 的这一行数据， 取 age 和主键 id 的值，存到 sort_buffer；
+4. 从**索引树 idx_city** 拿到下一个记录的主键 id，即图中的 id=6；
+5. 重复步骤 3、4 直到 **city 的值不等于 shenzhen** 为止；
+6. 前面 5 步已经查找到了所有 city 为深圳的数据，在 **sort_buffer **中，将所有数据根据 age 进行排序；
+7. 遍历排序结果，取前 10 行，并按照 id 的值**回到原表**中，取出 city、name 和 age 三个字段返回给客户端。
 
-<font style="color:rgb(0, 50, 60);">执行示意图如下：</font>
+执行示意图如下：
 
 ![1721043588113-e63880ba-bf74-4738-b997-f4046fab5587.png](./assets/1721043588113-e63880ba-bf74-4738-b997-f4046fab5587.png)
 
-<font style="color:rgb(0, 50, 60);">对比一下</font>**<font style="color:rgb(0, 50, 60);">全字段排序</font>**<font style="color:rgb(0, 50, 60);">的流程，rowid 排序多了一次</font>**<font style="color:rgb(0, 50, 60);">回表</font>**<font style="color:rgb(0, 50, 60);">。</font>
+对比一下**全字段排序**的流程，rowid 排序多了一次**回表**。
 
-<font style="color:rgb(0, 50, 60);">★ 什么是回表？拿到主键再回到主键索引查询的过程，就叫做回表</font>
+★ 什么是回表？拿到主键再回到主键索引查询的过程，就叫做回表
 
-<font style="color:rgb(0, 50, 60);">我们通过 </font>**<font style="color:rgb(0, 50, 60);">optimizer_trace</font>**<font style="color:rgb(0, 50, 60);">，可以看到是否使用了 rowid 排序的：</font>
+我们通过 **optimizer_trace**，可以看到是否使用了 rowid 排序的：
 
 ```plsql
 -- 执行SQL语句
@@ -2554,9 +2554,9 @@ select * from information_schema.optimizer_trace;
 }
 ```
 
-## <font style="color:rgb(0, 50, 60);">全字段排序与 rowid 排序对比</font>
-+ <font style="color:rgb(0, 50, 60);">全字段排序：sort_buffer 内存不够的话，就需要用到磁盘临时文件，造成</font>**<font style="color:rgb(0, 50, 60);">磁盘访问</font>**<font style="color:rgb(0, 50, 60);">。</font>
-+ <font style="color:rgb(0, 50, 60);">rowid 排序：sort_buffer 可以放更多数据，但是需要再回到原表去取数据，比全字段排序多一次</font>**<font style="color:rgb(0, 50, 60);">回表</font>**<font style="color:rgb(0, 50, 60);">。</font>
+## 全字段排序与 rowid 排序对比
++ 全字段排序：sort_buffer 内存不够的话，就需要用到磁盘临时文件，造成**磁盘访问**。
++ rowid 排序：sort_buffer 可以放更多数据，但是需要再回到原表去取数据，比全字段排序多一次**回表**。
 
-<font style="color:rgb(0, 50, 60);">一般情况下，对于 InnoDB 存储引擎，会优先使</font>**<font style="color:rgb(0, 50, 60);">用全字段</font>**<font style="color:rgb(0, 50, 60);">排序。可以发现 </font>**<font style="color:rgb(0, 50, 60);">max_length_for_sort_data</font>**<font style="color:rgb(0, 50, 60);"> 参数设置为 1024，这个数比较大的。一般情况下，排序字段不会超过这个值，也就是都会走</font>**<font style="color:rgb(0, 50, 60);">全字段</font>**<font style="color:rgb(0, 50, 60);">排序。</font>
+一般情况下，对于 InnoDB 存储引擎，会优先使**用全字段**排序。可以发现 **max_length_for_sort_data** 参数设置为 1024，这个数比较大的。一般情况下，排序字段不会超过这个值，也就是都会走**全字段**排序。
 

@@ -1,17 +1,17 @@
 # 基础篇
 ## NoSQL及Redis介绍
-在介绍Redis之前首先我们来谈谈NoSQL，这里的No并不是指“不”的意思，而是<font style="color:rgb(51, 51, 51);">“Not Only”指的是非关系型数据库，我们从字面意思就能够看出来“不仅是SQL”，实际上NoSQL是来弥补关系型数据库在某些场景下不足。</font>
+在介绍Redis之前首先我们来谈谈NoSQL，这里的No并不是指“不”的意思，而是“Not Only”指的是非关系型数据库，我们从字面意思就能够看出来“不仅是SQL”，实际上NoSQL是来弥补关系型数据库在某些场景下不足。
 
-<font style="color:rgb(51, 51, 51);">区别于关系型数据库比如我们常见的MySQL、Oracle等，其中最明显的区别就是非关系型数据库不保证ACID特性。</font>
+区别于关系型数据库比如我们常见的MySQL、Oracle等，其中最明显的区别就是非关系型数据库不保证ACID特性。
 
-<font style="color:rgb(51, 51, 51);">那么在NoSQL中也分了几种类型的数据库：</font>
+那么在NoSQL中也分了几种类型的数据库：
 
-| **<font style="color:rgb(51, 51, 51);">分类</font>** | **<font style="color:rgb(51, 51, 51);">Examples举例</font>** | **<font style="color:rgb(51, 51, 51);">典型应用场景</font>** | **<font style="color:rgb(51, 51, 51);">数据模型</font>** | **<font style="color:rgb(51, 51, 51);">优点</font>** | **<font style="color:rgb(51, 51, 51);">缺点</font>** |
+| **分类** | **Examples举例** | **典型应用场景** | **数据模型** | **优点** | **缺点** |
 | --- | --- | --- | --- | --- | --- |
-| **<font style="color:rgb(51, 51, 51);">键值（key-value）</font>** | <font style="color:rgb(51, 51, 51);">Tokyo Cabinet/Tyrant， Redis， Voldemort， Oracle BDB</font> | <font style="color:rgb(51, 51, 51);">内容缓存，主要用于处理大量数据的高访问负载，也用于一些日志系统等等。</font> | <font style="color:rgb(51, 51, 51);">Key 指向 Value 的键值对，通常用hash table来实现</font> | <font style="color:rgb(51, 51, 51);">查找速度快</font> | <font style="color:rgb(51, 51, 51);">数据无结构化，通常只被当作字符串或者二进制数据</font> |
-| **<font style="color:rgb(51, 51, 51);">列存储数据库</font>** | <font style="color:rgb(51, 51, 51);">Cassandra， HBase， Riak</font> | <font style="color:rgb(51, 51, 51);">分布式的文件系统</font> | <font style="color:rgb(51, 51, 51);">以列簇式存储，将同一列数据存在一起</font> | <font style="color:rgb(51, 51, 51);">查找速度快，可扩展性强，更容易进行分布式扩展</font> | <font style="color:rgb(51, 51, 51);">功能相对局限</font> |
-| **<font style="color:rgb(51, 51, 51);">文档型数据库</font>** | <font style="color:rgb(51, 51, 51);">CouchDB， MongoDb</font> | <font style="color:rgb(51, 51, 51);">Web应用（与Key-Value类似，Value是结构化的，不同的是数据库能够了解Value的内容）</font> | <font style="color:rgb(51, 51, 51);">Key-Value对应的键值对，Value为结构化数据</font> | <font style="color:rgb(51, 51, 51);">数据结构要求不严格，表结构可变，不需要像关系型数据库一样需要预先定义表结构</font> | <font style="color:rgb(51, 51, 51);">查询性能不高，而且缺乏统一的查询语法。</font> |
-| **<font style="color:rgb(51, 51, 51);">图形(Graph)数据库</font>** | <font style="color:rgb(51, 51, 51);">Neo4J， InfoGrid， Infinite Graph</font> | <font style="color:rgb(51, 51, 51);">社交网络，推荐系统等。专注于构建关系图谱</font> | <font style="color:rgb(51, 51, 51);">图结构</font> | <font style="color:rgb(51, 51, 51);">利用图结构相关算法。比如最短路径寻址，N度关系查找等</font> | <font style="color:rgb(51, 51, 51);">很多时候需要对整个图做计算才能得出需要的信息，而且这种结构不太好做分布式的集群方案。</font> |
+| **键值（key-value）** | Tokyo Cabinet/Tyrant， Redis， Voldemort， Oracle BDB | 内容缓存，主要用于处理大量数据的高访问负载，也用于一些日志系统等等。 | Key 指向 Value 的键值对，通常用hash table来实现 | 查找速度快 | 数据无结构化，通常只被当作字符串或者二进制数据 |
+| **列存储数据库** | Cassandra， HBase， Riak | 分布式的文件系统 | 以列簇式存储，将同一列数据存在一起 | 查找速度快，可扩展性强，更容易进行分布式扩展 | 功能相对局限 |
+| **文档型数据库** | CouchDB， MongoDb | Web应用（与Key-Value类似，Value是结构化的，不同的是数据库能够了解Value的内容） | Key-Value对应的键值对，Value为结构化数据 | 数据结构要求不严格，表结构可变，不需要像关系型数据库一样需要预先定义表结构 | 查询性能不高，而且缺乏统一的查询语法。 |
+| **图形(Graph)数据库** | Neo4J， InfoGrid， Infinite Graph | 社交网络，推荐系统等。专注于构建关系图谱 | 图结构 | 利用图结构相关算法。比如最短路径寻址，N度关系查找等 | 很多时候需要对整个图做计算才能得出需要的信息，而且这种结构不太好做分布式的集群方案。 |
 
 
 > **Redis是一个开源内存数据结构存储器，经常用作数据库、缓存以及消息代理等。**
@@ -28,9 +28,9 @@
 
 介于大部分同学没有Linux和Mac环境，那么我今天讲带领大家在我们的windows环境进行一个安装。
 
-Redis本身没有官方支持windows，但是官网给我们提供了一直方式，通过WSL2来<font style="color:rgb(37, 37, 37);">让我们在Windows中运行Linux二进制程序。它的前置条件是需要运行Windows 10 version 2004或更高的Windows 11。</font>
+Redis本身没有官方支持windows，但是官网给我们提供了一直方式，通过WSL2来让我们在Windows中运行Linux二进制程序。它的前置条件是需要运行Windows 10 version 2004或更高的Windows 11。
 
-#### <font style="color:rgb(37, 37, 37);">Windows安装WSL参考链接</font>
+#### Windows安装WSL参考链接
 [https://learn.microsoft.com/en-us/windows/wsl/install](https://learn.microsoft.com/en-us/windows/wsl/install)
 
 [https://learn.microsoft.com/zh-cn/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package](https://learn.microsoft.com/zh-cn/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package)
@@ -2341,7 +2341,7 @@ redis.conf是我们在使用redis的路上非常重要的一个参数，那么�
 
 目前Redis客户端的GUI是百花齐放，下面这张图是Redis官网为我们推荐的一些图形化客户端，今天我们要给大家介绍的是**RedisInsight，这款GUI是Redis官方为我们提供的。那为什么要推荐这款呢？**
 
-+ **免费（我们知道RedisGUI里面也有一个很好用的RedisDesktopManager****<font style="color:#000000;">，但是它是收费的</font>****）**
++ **免费（我们知道RedisGUI里面也有一个很好用的RedisDesktopManager****，但是它是收费的****）**
 + **简单易用的可视化监控**
 
 ![1667375198568-77367560-2ebf-4f0f-a940-c804e09a88cf.png](./assets/1667375198568-77367560-2ebf-4f0f-a940-c804e09a88cf.png)
@@ -2465,7 +2465,7 @@ Redis 有序集合和集合一样也是 string 类型元素的集合,且不允�
 
 
 ## Redis的Jedis快速入门 & Jedis连接池介绍
-<font style="color:rgb(77, 77, 77);">Jedis 是Redis官方推荐的java连接开发工具, 如果你要使用java操作redis那么一定要对Jedis十分的熟悉，使用的第一步我们首先通过pom来导入依赖</font>
+Jedis 是Redis官方推荐的java连接开发工具, 如果你要使用java操作redis那么一定要对Jedis十分的熟悉，使用的第一步我们首先通过pom来导入依赖
 
 ```xml
 <dependency>
@@ -2515,7 +2515,7 @@ public static void main(String[] args) {
 
 ## ![1667465498048-8f1e8565-bc74-44ea-94b4-a26a94b55c70.png](./assets/1667465498048-8f1e8565-bc74-44ea-94b4-a26a94b55c70.png)
 ## Redis的Spring-Data-Redis快速入门 & RedisTemplate实战使用
-<font style="color:rgb(0, 0, 0);background-color:rgb(250, 250, 250);">Spring Data Redis (SDR) 框架通过 Spring 出色的基础架构支持消除了与存储交互所需的冗余任务和样板代码，从而使编写使用 Redis 键值存储的 Spring 应用程序变得容易。</font>
+Spring Data Redis (SDR) 框架通过 Spring 出色的基础架构支持消除了与存储交互所需的冗余任务和样板代码，从而使编写使用 Redis 键值存储的 Spring 应用程序变得容易。
 
 我们发现其实在使用纯SDK时是比较难受的，那么Spring也为我们提供了对于Redis封装的组件“spring-data-redis”，那么我们首先来看怎么集成
 
@@ -2528,7 +2528,7 @@ public static void main(String[] args) {
 ```
 
 # 高级篇
-## 基于<font style="color:rgb(51, 51, 51);">HyperLogLog数据结构实现网络UV统计</font>
+## 基于HyperLogLog数据结构实现网络UV统计
 :::warning
 Redis 在 2.8.9 版本添加了 HyperLogLog 结构。Redis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定 的、并且是很小的。在 Redis 里面，每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基 数。这和计算基数时，元素越多耗费内存就越多的集合形成鲜明对比。但是，因为 HyperLogLog 只会根据输入元素来计算基数，而不会储存输入元素本身，所以 HyperLogLog 不能像集合那样，返回输入的各个元素。
 
@@ -2541,7 +2541,7 @@ Redis 在 2.8.9 版本添加了 HyperLogLog 结构。Redis HyperLogLog 是用来
 | pfmerge  | 合并两组 |
 
 
-## <font style="color:rgb(51, 51, 51);">基于Geo数据结构实现附近的人查找</font>
+## 基于Geo数据结构实现附近的人查找
 :::warning
 Redis 3.2 版本新增了geo相关命令，用于存储和操作地理位置信息。提供的命令包括添加、计算位置之间距离、根据中心点坐标和距离范围来查询地理位置集合。
 
@@ -2556,7 +2556,7 @@ Redis 3.2 版本新增了geo相关命令，用于存储和操作地理位置信�
 | georadiusbymenbers | 计算指定成员半径内的成员 |
 
 
-## <font style="color:rgb(51, 51, 51);">基于Bitmap实现千万级海量数据统计</font>
+## 基于Bitmap实现千万级海量数据统计
 :::warning
 位图（bitmap）同样属于 string 数据类型。Redis 中一个字符串类型的值最多能存储 512 MB 的内容，每个字符串由多个字节组成，每个字节又由 8 个 Bit 位组成。位图结构正是使用“位”来实现存储的，它通过将比特位设置为 0 或 1来达到数据存取的目的，这大大增加了 value 存储数量，它存储上限为2^32 ，时间复杂度为O(1)。由于bit是计算机中最小的单位，使用它进行储存将非常节省空间，特别适合一些数据量大且使用二值统计的场景。
 
@@ -2605,10 +2605,10 @@ SAVE 60 1000
 
 Redis也是允许多个SAVE共存的，只要满足其中一个条件就会执行持久化
 
-<font style="color:rgb(38, 38, 38);">tip：</font>
+tip：
 
-+ <font style="color:rgb(38, 38, 38);">为了避免频繁的执行持久化，每次持久化之后就会将时间计数器和修改计数器进行清零</font>
-+ <font style="color:rgb(38, 38, 38);">RDB持久化是Redis默认使用的持久化功能，如果我们没有关闭RDB也没有启动AOF的时候，那么Redis就会按照以下save命令进行持久化</font>
++ 为了避免频繁的执行持久化，每次持久化之后就会将时间计数器和修改计数器进行清零
++ RDB持久化是Redis默认使用的持久化功能，如果我们没有关闭RDB也没有启动AOF的时候，那么Redis就会按照以下save命令进行持久化
 
 ```basic
 SAVE 60 10000
@@ -2639,9 +2639,9 @@ SAVE 3600 1
 
 ## Redis持久化之AOF
 ### 一句话介绍什么是AOF
-<font style="color:rgb(0, 0, 0);">AOF（Append Only File）以日志的形式来记录每个写操作（增量保存），将 Redis 执行过的所有写指令记录下来 (读操作不记录)， 只许追加文件但不可以改写文件，redis 启动之初会读取该文件重新构建数据。</font>
+AOF（Append Only File）以日志的形式来记录每个写操作（增量保存），将 Redis 执行过的所有写指令记录下来 (读操作不记录)， 只许追加文件但不可以改写文件，redis 启动之初会读取该文件重新构建数据。
 
-### <font style="color:rgb(0, 0, 0);">如何使用AOF</font>
+### 如何使用AOF
 我们通过配置redis.conf文件来开启AOF
 
 ```makefile
@@ -2678,13 +2678,13 @@ AOF持久化策略(即缓冲区内容写入和同步sync到AOF中)，可以通�
 
 + always：
     - 将aof_buf缓冲区中的所有内容写入并同步到AOF文件，每次有新命令追加到 AOF 文件时就执行一次 fsync。
-    - <font style="color:rgb(51, 51, 51);">效率最慢的，但安全性是最安全的，即使出现故障宕机，持久化也只会丢失一个事件 循环的命令数据</font>
+    - 效率最慢的，但安全性是最安全的，即使出现故障宕机，持久化也只会丢失一个事件 循环的命令数据
 + everysec（默认）：
     - 如果上次同步AOF的时间距离现在超过一秒，先将aof_buf缓冲区中的所有内容写入到AOF文件，再次对AOF文件进行同步，且同步操作由一个专门线程负责执行。
-    - <font style="color:rgb(51, 51, 51);">兼顾速度和安全性，出现宕机也只是丢失一秒钟的命令数据</font>
+    - 兼顾速度和安全性，出现宕机也只是丢失一秒钟的命令数据
 + no：
     - 将aof_buf缓冲区中的所有内容写入到AOF文件，但并不对AOF文件进行同步，何时同步由操作系统(OS)决定。
-    - <font style="color:rgb(51, 51, 51);">写入最快，但综合起来单次同步是时间是最长的，且出现宕机时会丢失上传同步AOF文件之后的所有命令数据。</font>
+    - 写入最快，但综合起来单次同步是时间是最长的，且出现宕机时会丢失上传同步AOF文件之后的所有命令数据。
 
 ## Redis之混合持久化
 ### 概括
@@ -2699,13 +2699,13 @@ aof‐use‐rdb‐preamble yes
 ```
 
 ### 原理
-<font style="color:rgb(0, 0, 0);">如果开启了混合持久化，AOF在重写时，不再是单纯将内存数据转换为RESP命令写入AOF文件，而是将重写这一刻之前的内存做RDB快照处理</font>
+如果开启了混合持久化，AOF在重写时，不再是单纯将内存数据转换为RESP命令写入AOF文件，而是将重写这一刻之前的内存做RDB快照处理
 
-<font style="color:rgb(0, 0, 0);">并且将RDB快照内容和增量的AOF修改内存数据的命令存在一起，都写入新的AOF文件，新的文件一开始不叫appendonly.aof,等到重写完新的AOF文件</font>
+并且将RDB快照内容和增量的AOF修改内存数据的命令存在一起，都写入新的AOF文件，新的文件一开始不叫appendonly.aof,等到重写完新的AOF文件
 
-<font style="color:rgb(0, 0, 0);">才会进行改名，覆盖原有的AOF文件，完成新旧两个AOF文件的替换。</font>
+才会进行改名，覆盖原有的AOF文件，完成新旧两个AOF文件的替换。
 
-<font style="color:rgb(0, 0, 0);">于是在Redis重启的时候，可以先加载RDB的内容，然后再重放增量AOF日志就可以完全替代之前的AOF全量文件重放，因此重启效率大幅得到提升</font>
+于是在Redis重启的时候，可以先加载RDB的内容，然后再重放增量AOF日志就可以完全替代之前的AOF全量文件重放，因此重启效率大幅得到提升
 
 ## Redis之主从复制
 ### 概括
@@ -2735,7 +2735,7 @@ Redis的复制功能可以从性能、安全性和可用性3个方面提升整�
 
 **确立主从关系**
 
-<font style="color:rgb(44, 62, 80);">例如，现在有实例 1（ip：172.16.19.3）和实例 2（ip：172.16.19.5），我们在实例 2 上执行以下这个命令后，实例 2 就变成了实例 1 的从库，并从实例 1 上复制数据：</font>
+例如，现在有实例 1（ip：172.16.19.3）和实例 2（ip：172.16.19.5），我们在实例 2 上执行以下这个命令后，实例 2 就变成了实例 1 的从库，并从实例 1 上复制数据：
 
 ```makefile
 replicaof 172.16.19.3 6379
@@ -2754,11 +2754,11 @@ replicaof 172.16.19.3 6379
 **第三个阶段，主库会把第二阶段执行过程中新收到的写命令，再发送给从库**。具体的操作是，当主库完成 RDB 文件发送后，就会把此时 replication buffer 中的修改操作发给从库，从库再重新执行这些操作。这样一来，主从库就实现同步了。
 
 ### 增量复制
-**<font style="color:rgb(44, 62, 80);">为什么会设计增量复制</font>**<font style="color:rgb(44, 62, 80);">？</font>
+**为什么会设计增量复制**？
 
-<font style="color:rgb(44, 62, 80);">如果主从库在命令传播时出现了网络闪断，那么，从库就会和主库重新进行一次全量复制，开销非常大。从 Redis 2.8 开始，网络断了之后，主从库会采用增量复制的方式继续同步。</font>
+如果主从库在命令传播时出现了网络闪断，那么，从库就会和主库重新进行一次全量复制，开销非常大。从 Redis 2.8 开始，网络断了之后，主从库会采用增量复制的方式继续同步。
 
-**<font style="color:rgb(44, 62, 80);">增量复制的流程</font>**
+**增量复制的流程**
 
 先看两个概念： replication buffer 和 repl_backlog_buffer
 
@@ -2775,7 +2775,7 @@ replication buffer：Redis和客户端通信也好，和从库通信也好，Red
 
 ## Redis哨兵机制
 :::info
-<font style="color:rgb(44, 62, 80);">在上文主从复制的基础上，如果注节点出现故障该怎么办呢？ 在 Redis 主从集群中，哨兵机制是实现主从库自动切换的关键机制，它有效地解决了主从复制模式下故障转移的问题。</font>
+在上文主从复制的基础上，如果注节点出现故障该怎么办呢？ 在 Redis 主从集群中，哨兵机制是实现主从库自动切换的关键机制，它有效地解决了主从复制模式下故障转移的问题。
 
 :::
 
@@ -2789,19 +2789,19 @@ replication buffer：Redis和客户端通信也好，和从库通信也好，Red
 
 ### 哨兵机制的组件
 :::info
-<font style="color:rgb(44, 62, 80);">上图中哨兵集群是如何组件的呢？哨兵实例之间可以相互发现，要归功于 Redis 提供的 pub/sub 机制，也就是发布 / 订阅机制。</font>
+上图中哨兵集群是如何组件的呢？哨兵实例之间可以相互发现，要归功于 Redis 提供的 pub/sub 机制，也就是发布 / 订阅机制。
 
 :::
 
 在主从集群中，主库上有一个名为__sentinel__:hello的频道，不同哨兵就是通过它来相互发现，实现互相通信的。在下图中，哨兵 1 把自己的 IP（172.16.19.3）和端口（26579）发布到__sentinel__:hello频道上，哨兵 2 和 3 订阅了该频道。那么此时，哨兵 2 和 3 就可以从这个频道直接获取哨兵 1 的 IP 地址和端口号。然后，哨兵 2、3 可以和哨兵 1 建立网络连接。
 
-<font style="color:rgb(44, 62, 80);">通过这个方式，哨兵 2 和 3 也可以建立网络连接，这样一来，哨兵集群就形成了。它们相互间可以通过网络连接进行通信，比如说对主库有没有下线这件事儿进行判断和协商。</font>
+通过这个方式，哨兵 2 和 3 也可以建立网络连接，这样一来，哨兵集群就形成了。它们相互间可以通过网络连接进行通信，比如说对主库有没有下线这件事儿进行判断和协商。
 
 ![1667698925289-3b6ee7e2-b432-4394-94a4-77997358b18c.jpeg](./assets/1667698925289-3b6ee7e2-b432-4394-94a4-77997358b18c.jpeg)
 
 ### 哨兵监控Redis库
 :::info
-<font style="color:rgb(44, 62, 80);">哨兵监控什么呢？怎么监控呢？</font>
+哨兵监控什么呢？怎么监控呢？
 
 :::
 
@@ -2811,7 +2811,7 @@ replication buffer：Redis和客户端通信也好，和从库通信也好，Red
 
 ### 主库下线的判定
 :::info
-<font style="color:rgb(44, 62, 80);">哨兵如何判断主库已经下线了呢？</font>
+哨兵如何判断主库已经下线了呢？
 
 :::
 
@@ -2824,11 +2824,11 @@ replication buffer：Redis和客户端通信也好，和从库通信也好，Red
 
 ![1667699041719-f54b4bda-d3f1-45ac-b36e-3812bc7c21d4.jpeg](./assets/1667699041719-f54b4bda-d3f1-45ac-b36e-3812bc7c21d4.jpeg)
 
-<font style="color:rgb(44, 62, 80);">如果赞成票数（这里是2）是大于等于哨兵配置文件中的 </font><font style="color:rgb(71, 101, 130);">quorum</font><font style="color:rgb(44, 62, 80);"> 配置项（比如这里如果是quorum=2）, 则可以判定</font>**<font style="color:rgb(44, 62, 80);">主库客观下线</font>**<font style="color:rgb(44, 62, 80);">了。</font>
+如果赞成票数（这里是2）是大于等于哨兵配置文件中的 quorum 配置项（比如这里如果是quorum=2）, 则可以判定**主库客观下线**了。
 
 ### 哨兵集群的选举
 :::info
-<font style="color:rgb(44, 62, 80);">判断完主库下线后，由哪个哨兵节点来执行主从切换呢？这里就需要哨兵集群的选举机制了。</font>
+判断完主库下线后，由哪个哨兵节点来执行主从切换呢？这里就需要哨兵集群的选举机制了。
 
 :::
 
@@ -2865,22 +2865,22 @@ Redis 1主4从，5个哨兵，哨兵配置quorum为2，如果3个哨兵故障，
 
 ### 新主库的选出
 :::info
-<font style="color:rgb(44, 62, 80);">主库既然判定客观下线了，那么如何从剩余的从库中选择一个新的主库呢？</font>
+主库既然判定客观下线了，那么如何从剩余的从库中选择一个新的主库呢？
 
 :::
 
-+ <font style="color:rgb(44, 62, 80);">过滤掉不健康的（下线或断线），没有回复过哨兵ping响应的从节点</font>
-+ <font style="color:rgb(44, 62, 80);">选择</font><font style="color:rgb(71, 101, 130);">salve-priority</font><font style="color:rgb(44, 62, 80);">从节点优先级最高（redis.conf）的</font>
-+ <font style="color:rgb(44, 62, 80);">选择复制偏移量最大，只复制最完整的从节点</font>
++ 过滤掉不健康的（下线或断线），没有回复过哨兵ping响应的从节点
++ 选择salve-priority从节点优先级最高（redis.conf）的
++ 选择复制偏移量最大，只复制最完整的从节点
 
 ### ![1667699496776-466e85f9-4a8f-4911-99b9-305df159b57c.jpeg](./assets/1667699496776-466e85f9-4a8f-4911-99b9-305df159b57c.jpeg)  
- <font style="color:rgb(44, 62, 80);">故障的转移</font>
+ 故障的转移
 :::info
-<font style="color:rgb(44, 62, 80);">新的主库选择出来后，就可以开始进行故障的转移了。</font>
+新的主库选择出来后，就可以开始进行故障的转移了。
 
 :::
 
-<font style="color:rgb(44, 62, 80);">假设根据我们一开始的图：（我们假设：判断主库客观下线了，同时选出</font><font style="color:rgb(71, 101, 130);">sentinel 3</font><font style="color:rgb(44, 62, 80);">是哨兵leader）,</font>**<font style="color:rgb(44, 62, 80);">故障转移流程如下</font>**<font style="color:rgb(44, 62, 80);">：</font>
+假设根据我们一开始的图：（我们假设：判断主库客观下线了，同时选出sentinel 3是哨兵leader）,**故障转移流程如下**：
 
 ![1667699839004-2596569f-c801-4239-8260-e8c95ddbeaa7.png](./assets/1667699839004-2596569f-c801-4239-8260-e8c95ddbeaa7.png)
 
@@ -2894,8 +2894,8 @@ Redis 1主4从，5个哨兵，哨兵配置quorum为2，如果3个哨兵故障，
 ![1667699856210-7b1405f2-60f0-4974-bd68-65c3abc6681a.png](./assets/1667699856210-7b1405f2-60f0-4974-bd68-65c3abc6681a.png)
 
 ## Redis集群分片
-1. <font style="color:rgb(77, 77, 77);">分片集群需要的节点数量较多，这里我们搭建一个最小的分片集群，包含3个master节点，每个master包含一个slave节点</font>
-2. <font style="color:rgb(77, 77, 77);">准备新的</font>`<font style="color:rgb(77, 77, 77);">redis.conf</font>`<font style="color:rgb(77, 77, 77);">文件</font>
+1. 分片集群需要的节点数量较多，这里我们搭建一个最小的分片集群，包含3个master节点，每个master包含一个slave节点
+2. 准备新的`redis.conf`文件
 
 ```makefile
 port 6379
@@ -2981,8 +2981,8 @@ cluster nodes
 + 通过MQ进行重试删除
     - 更新完DB之后进行删除，如果删除失败则向MQ发送一条消息，然后消费者不断进行删除尝试。
 + binlog异步删除
-    - <font style="color:rgb(77, 77, 77);">实现思路：低耦合的解决方案是使用canal。canal伪装成mysql的从机，监听主机mysql的二进制文件，当数据发生变化时发送给MQ。最终消费进行删除</font>
+    - 实现思路：低耦合的解决方案是使用canal。canal伪装成mysql的从机，监听主机mysql的二进制文件，当数据发生变化时发送给MQ。最终消费进行删除
 
-## <font style="color:rgb(68, 68, 68);"></font>
+## 
 
 

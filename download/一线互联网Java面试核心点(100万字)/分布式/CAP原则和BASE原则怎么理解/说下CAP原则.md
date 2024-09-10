@@ -1,6 +1,6 @@
-<font style="background-color:#FBDE28;">薪资：8·k-15k</font>
+薪资：8·k-15k
 
-<font style="background-color:#C1E77E;">岗位：初中级开发工程师</font>
+岗位：初中级开发工程师
 
 在设计一个分布式项目的时候会遇到三个特性：一致性（consistency）、可用性（Availability）、分区容错（partition-tolerance）都需要的情景.
 
@@ -46,7 +46,7 @@
 
 
 ## (1) 一致性Consistency
-> <font style="color:rgb(85, 86, 102);">一致性指“</font>`<font style="color:rgb(85, 86, 102);">all nodes see the same data at the same time</font>`<font style="color:rgb(85, 86, 102);">”，即更新操作成功并返回客户端完成后，</font>**<font style="color:rgb(85, 86, 102);">所有节点在同一时间的数据完全一致</font>**<font style="color:rgb(85, 86, 102);">。</font>
+> 一致性指“`all nodes see the same data at the same time`”，即更新操作成功并返回客户端完成后，**所有节点在同一时间的数据完全一致**。
 >
 
 
@@ -104,7 +104,7 @@
 
 
 ## (2) 可用性(Availability)
-> 可用性指“Reads and writes always succeed”，即**服务一直可用，而且是****<font style="color:#DF2A3F;">正常响应时间</font>****。**
+> 可用性指“Reads and writes always succeed”，即**服务一直可用，而且是****正常响应时间****。**
 >
 
 
@@ -114,13 +114,13 @@
 > 对于可用性的衡量标准如下：
 >
 
-| **<font style="color:rgb(79, 79, 79);">可用性分类</font>** | **<font style="color:rgb(79, 79, 79);">可用水平（%）</font>** | **<font style="color:rgb(79, 79, 79);">一年中可容忍停机时间</font>** |
+| **可用性分类** | **可用水平（%）** | **一年中可容忍停机时间** |
 | :---: | :---: | :---: |
-| <font style="color:rgb(79, 79, 79);">容错可用性</font> | <font style="color:rgb(79, 79, 79);">99.9999</font> | <font style="color:rgb(79, 79, 79);"><1 min</font> |
-| <font style="color:rgb(79, 79, 79);">极高可用性</font> | <font style="color:rgb(79, 79, 79);">99.999</font> | <font style="color:rgb(79, 79, 79);"><5 min</font> |
-| <font style="color:rgb(79, 79, 79);">具有故障自动恢复能力的可用性</font> | <font style="color:rgb(79, 79, 79);">99.99</font> | <font style="color:rgb(79, 79, 79);"><53 min</font> |
-| <font style="color:rgb(79, 79, 79);">高可用性</font> | <font style="color:rgb(79, 79, 79);">99.9</font> | <font style="color:rgb(79, 79, 79);"><8.8h</font> |
-| <font style="color:rgb(79, 79, 79);">商品可用性</font> | <font style="color:rgb(79, 79, 79);">99</font> | <font style="color:rgb(79, 79, 79);"><43.8 min</font> |
+| 容错可用性 | 99.9999 | <1 min |
+| 极高可用性 | 99.999 | <5 min |
+| 具有故障自动恢复能力的可用性 | 99.99 | <53 min |
+| 高可用性 | 99.9 | <8.8h |
+| 商品可用性 | 99 | <43.8 min |
 
 
 
@@ -198,8 +198,8 @@
 
  
 
-<font style="color:rgb(79, 79, 79);">分区容错性特点：</font>
+分区容错性特点：
 
-> <font style="color:rgb(85, 86, 102);background-color:rgb(238, 240, 244);">分区容忍性分是布式系统具备的基本能力。</font>
+> 分区容忍性分是布式系统具备的基本能力。
 >
 

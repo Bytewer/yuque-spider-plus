@@ -4,12 +4,12 @@
 Explain是 SQL 分析工具中非常重要的一个功能，它可以模拟优化器执行查询语句，帮助我们理解查询是如何执行的；分析查询执行计划可以帮助我们发现查询瓶颈，优化查询性能。
 
 ## 2.Explain作用
-+ <font style="color:rgb(18, 18, 18);">表的读取顺序</font>
-+ <font style="color:rgb(18, 18, 18);">SQL执行时查询操作类型</font>
-+ <font style="color:rgb(18, 18, 18);">可以使用哪些索引</font>
-+ <font style="color:rgb(18, 18, 18);">实际使用哪些索引</font>
-+ <font style="color:rgb(18, 18, 18);">每张表有多少行记录被扫描</font>
-+ **<font style="color:rgb(18, 18, 18);">SQL语句性能分析</font>**
++ 表的读取顺序
++ SQL执行时查询操作类型
++ 可以使用哪些索引
++ 实际使用哪些索引
++ 每张表有多少行记录被扫描
++ **SQL语句性能分析**
 
 ## 3.Explain用法
 ```sql
@@ -492,7 +492,7 @@ select * from orders where user_id > 3;
 
 ![1681449133838-d210e8ea-6a40-4ccb-8ac3-c4d810032f1c.png](./assets/1681449133838-d210e8ea-6a40-4ccb-8ac3-c4d810032f1c.png)
 
-#### 11.filtered列：表示符合查询条件的数据百分比。可以使用rows * filtered/100计算出与**<font style="color:rgb(17, 17, 17);">explain</font>**前一个表进行连接的行数。
+#### 11.filtered列：表示符合查询条件的数据百分比。可以使用rows * filtered/100计算出与**explain**前一个表进行连接的行数。
 前一个表指 explain 中的id值比当前表id值小的表，id相同的时候指后执行的表。
 
 ```sql

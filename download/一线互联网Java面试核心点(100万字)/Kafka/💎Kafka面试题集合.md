@@ -8,11 +8,11 @@
 
 ![1690613122316-4f3b55e0-af5a-4e39-b508-0f30259ac512.png](./assets/1690613122316-4f3b55e0-af5a-4e39-b508-0f30259ac512.png)
 
-+ <font style="color:rgb(18, 18, 18);">Producer：消息生产者，负责产生和发送消息到 Broker；</font>
-+ <font style="color:rgb(18, 18, 18);">Broker：消息处理中心。负责消息存储、确认、重试等，一般其中会包含多个 queue；</font>
-+ <font style="color:rgb(18, 18, 18);">Consumer：消息消费者，负责从 Broker 中获取消息，并进行相应处理；</font>
++ Producer：消息生产者，负责产生和发送消息到 Broker；
++ Broker：消息处理中心。负责消息存储、确认、重试等，一般其中会包含多个 queue；
++ Consumer：消息消费者，负责从 Broker 中获取消息，并进行相应处理；
 
-#### <font style="color:rgb(18, 18, 18);">为什么需要消息队列？</font>
+#### 为什么需要消息队列？
 1、屏蔽异构平台的细节：发送方、接收方系统之间不需要了解双方，只需认识消息。
 
 2、异步：消息堆积能力；发送方接收方不需同时在线，发送方接收方不需同时扩容（削峰）。
@@ -25,32 +25,32 @@
 
 6、提供路由：发送者无需与接收者建立连接，双方通过消息队列保证消息能够从发送者路由到接收者，甚至对于本来网络不易互通的两个服务，也可以提供消息路由。
 
-#### <font style="color:rgb(18, 18, 18);">消息队列有什么优点和缺点？</font>
-1. <font style="color:rgb(18, 18, 18);">核心优点</font>
-    1. <font style="color:rgb(18, 18, 18);">解耦</font>
-    2. <font style="color:rgb(18, 18, 18);">异步</font>
-    3. <font style="color:rgb(18, 18, 18);">削峰</font>
-2. <font style="color:rgb(18, 18, 18);">缺点</font>
-    1. <font style="color:rgb(18, 18, 18);">系统可用性降低：系统引入的外部依赖越多，越容易挂掉。</font>
-    2. <font style="color:rgb(18, 18, 18);">系统复杂度提高了</font>
-    3. <font style="color:rgb(18, 18, 18);">一致性问题：消息传递给多个系统，部分执行成功，部分执行失败，容易导致数据不一致</font>
+#### 消息队列有什么优点和缺点？
+1. 核心优点
+    1. 解耦
+    2. 异步
+    3. 削峰
+2. 缺点
+    1. 系统可用性降低：系统引入的外部依赖越多，越容易挂掉。
+    2. 系统复杂度提高了
+    3. 一致性问题：消息传递给多个系统，部分执行成功，部分执行失败，容易导致数据不一致
 
 #### Kafka简介
 Kafka是一个分布式流处理系统，流处理系统使它可以像消息队列一样publish或者subscribe消息，分布式提供了容错性，并发处理消息的机制。
 
 ### Kafka的优势和特点
-+ **<font style="color:rgb(51, 51, 51);">高吞吐量</font>**<font style="color:rgb(51, 51, 51);">：单机每秒处理几十上百万的消息量。即使存储了许多TB的消息，它也保持稳定的性能。</font>
-+ **<font style="color:rgb(51, 51, 51);">高性能</font>**<font style="color:rgb(51, 51, 51);">：单节点支持上千个客户端，并保证零停机和零数据丢失，异步化处理机制</font>
-+ **<font style="color:rgb(51, 51, 51);">持久化：</font>**<font style="color:rgb(51, 51, 51);">将消息持久化到磁盘。通过将数据持久化到硬盘以及replica(follower节点)防止数据丢失。</font>
-+ **<font style="color:rgb(51, 51, 51);">零拷贝</font>**<font style="color:rgb(51, 51, 51);">：减少了很多的拷贝技术，以及可以总体减少阻塞事件，提高吞吐量。</font>
-+ **<font style="color:rgb(51, 51, 51);">可靠性 ：</font>**<font style="color:rgb(51, 51, 51);">Kafka是分布式，分区，复制和容错的。</font>
-+ <font style="color:rgb(51, 51, 51);">Kafka的特点 ：</font>
-    - **<font style="color:rgb(102, 102, 102);">顺序读，顺序写</font>**
-    - **<font style="color:rgb(102, 102, 102);">利用Linux的页缓存</font>**
-    - **<font style="color:rgb(102, 102, 102);">分布式系统，易于向外扩展。所有的Producer、Broker和Consumer都会有多个，均为分布式的。无需停机即可扩展机器。多个Producer、Consumer可能是不同的应用。</font>**
-    - **<font style="color:rgb(102, 102, 102);">客户端状态维护:消息被处理的状态是在Consumer端维护，而不是由server端维护。当失败时能自动平衡。</font>**
-    - **<font style="color:rgb(102, 102, 102);">支持online（在线）和offline（离线）的场景。</font>**
-    - **<font style="color:rgb(102, 102, 102);">支持多种客户端语言。Kafka支持Java、.NET、PHP、Python等多种语言。</font>**
++ **高吞吐量**：单机每秒处理几十上百万的消息量。即使存储了许多TB的消息，它也保持稳定的性能。
++ **高性能**：单节点支持上千个客户端，并保证零停机和零数据丢失，异步化处理机制
++ **持久化：**将消息持久化到磁盘。通过将数据持久化到硬盘以及replica(follower节点)防止数据丢失。
++ **零拷贝**：减少了很多的拷贝技术，以及可以总体减少阻塞事件，提高吞吐量。
++ **可靠性 ：**Kafka是分布式，分区，复制和容错的。
++ Kafka的特点 ：
+    - **顺序读，顺序写**
+    - **利用Linux的页缓存**
+    - **分布式系统，易于向外扩展。所有的Producer、Broker和Consumer都会有多个，均为分布式的。无需停机即可扩展机器。多个Producer、Consumer可能是不同的应用。**
+    - **客户端状态维护:消息被处理的状态是在Consumer端维护，而不是由server端维护。当失败时能自动平衡。**
+    - **支持online（在线）和offline（离线）的场景。**
+    - **支持多种客户端语言。Kafka支持Java、.NET、PHP、Python等多种语言。**
 
 ### Kafka与传统消息队列的对比
 ![1690613810956-354f0a8a-b2da-4b00-a722-0f3dc016335b.png](./assets/1690613810956-354f0a8a-b2da-4b00-a722-0f3dc016335b.png)
@@ -65,25 +65,25 @@ Kafka是一个分布式流处理系统，流处理系统使它可以像消息队
 ### Kafka的架构设计
 ![1704627052660-503dc323-5354-415c-8e98-e870b95d63e3.png](./assets/1704627052660-503dc323-5354-415c-8e98-e870b95d63e3.png)
 
-<font style="color:rgb(18, 18, 18);">kafka运行在集群上，集群包含一个或多个服务器。kafka把消息存在topic中，每一条消息包含键值（key），值（value）和时间戳（timestamp）。</font>
+kafka运行在集群上，集群包含一个或多个服务器。kafka把消息存在topic中，每一条消息包含键值（key），值（value）和时间戳（timestamp）。
 
-<font style="color:rgb(18, 18, 18);">kafka有以下一些基本概念：</font>
+kafka有以下一些基本概念：
 
-**<font style="color:rgb(18, 18, 18);">Producer</font>****<font style="color:rgb(18, 18, 18);"> </font>**<font style="color:rgb(18, 18, 18);">- 消息生产者，就是向kafka broker发消息的客户端。</font>
+**Producer**** **- 消息生产者，就是向kafka broker发消息的客户端。
 
-**<font style="color:rgb(18, 18, 18);">Consumer</font>****<font style="color:rgb(18, 18, 18);"> </font>**<font style="color:rgb(18, 18, 18);">- 消息消费者，是消息的使用方，负责消费Kafka服务器上的消息。</font>
+**Consumer**** **- 消息消费者，是消息的使用方，负责消费Kafka服务器上的消息。
 
-**<font style="color:rgb(18, 18, 18);">Topic</font>****<font style="color:rgb(18, 18, 18);"> </font>**<font style="color:rgb(18, 18, 18);">- 主题，由用户定义并配置在Kafka服务器，用于建立Producer和Consumer之间的订阅关系。生产者发送消息到指定的Topic下，消息者从这个Topic下消费消息。</font>
+**Topic**** **- 主题，由用户定义并配置在Kafka服务器，用于建立Producer和Consumer之间的订阅关系。生产者发送消息到指定的Topic下，消息者从这个Topic下消费消息。
 
-**<font style="color:rgb(18, 18, 18);">Partition</font>**<font style="color:rgb(18, 18, 18);"> - 消息分区，一个topic可以分为多个 partition，每个partition是一个有序的队列。partition中的每条消息都会被分配一个有序的id（offset）。</font>
+**Partition** - 消息分区，一个topic可以分为多个 partition，每个partition是一个有序的队列。partition中的每条消息都会被分配一个有序的id（offset）。
 
-**<font style="color:rgb(18, 18, 18);">Broker</font>****<font style="color:rgb(18, 18, 18);"> </font>**<font style="color:rgb(18, 18, 18);">- 一台kafka服务器就是一个broker。一个集群由多个broker组成。一个broker可以容纳多个topic。</font>
+**Broker**** **- 一台kafka服务器就是一个broker。一个集群由多个broker组成。一个broker可以容纳多个topic。
 
-**<font style="color:rgb(18, 18, 18);">Consumer Group</font>**<font style="color:rgb(18, 18, 18);"> </font><font style="color:rgb(18, 18, 18);">- 消费者分组，用于归组同类消费者。每个consumer属于一个特定的consumer group，多个消费者可以共同消息一个Topic下的消息，每个消费者消费其中的部分消息，这些消费者就组成了一个分组，拥有同一个分组名称，通常也被称为消费者集群。</font>
+**Consumer Group** - 消费者分组，用于归组同类消费者。每个consumer属于一个特定的consumer group，多个消费者可以共同消息一个Topic下的消息，每个消费者消费其中的部分消息，这些消费者就组成了一个分组，拥有同一个分组名称，通常也被称为消费者集群。
 
-**<font style="color:rgb(18, 18, 18);">Offset </font>**<font style="color:rgb(18, 18, 18);">- 消息在partition中的偏移量。每一条消息在partition都有唯一的偏移量，消息者可以指定偏移量来指定要消费的消息。</font>
+**Offset **- 消息在partition中的偏移量。每一条消息在partition都有唯一的偏移量，消息者可以指定偏移量来指定要消费的消息。
 
-### <font style="color:rgb(18, 18, 18);">工作流程</font>
+### 工作流程
 ![1704628275351-d101b349-c0b4-45d0-adea-e0d378856c59.png](./assets/1704628275351-d101b349-c0b4-45d0-adea-e0d378856c59.png)
 
 + producer先从zookeeper的 "/brokers/.../state"节点找到该partition的leader
@@ -99,41 +99,41 @@ Kafka是一个分布式流处理系统，流处理系统使它可以像消息队
 
 ### Kafka的数据模型与消息存储机制
 #### 消息存储结构![1704628728989-5c90216e-e2b7-4c79-8bbe-d2895d31342d.png](./assets/1704628728989-5c90216e-e2b7-4c79-8bbe-d2895d31342d.png)
-<font style="color:rgb(64, 64, 64);">Kafka 有 Topic 和 Partition 两个概念，一个 Topic 可以有多个 Partition。在实际存储的时候，Topic + Partition 对应一个文件夹，这个文件夹对应的是这个 Partition 的数据。</font>
+Kafka 有 Topic 和 Partition 两个概念，一个 Topic 可以有多个 Partition。在实际存储的时候，Topic + Partition 对应一个文件夹，这个文件夹对应的是这个 Partition 的数据。
 
-<font style="color:rgb(64, 64, 64);">在 Kafka 的数据文件目录下，一个 Partition 对应一个唯一的文件夹。如果有 4 个 Topic，每个 Topic 有 5 个 Partition，那么一共会有 4 * 5 = 20 个文件夹。而在 文件夹下，Kafka 消息是采用 Segment File 的存储方式进行存储的。 </font>
+在 Kafka 的数据文件目录下，一个 Partition 对应一个唯一的文件夹。如果有 4 个 Topic，每个 Topic 有 5 个 Partition，那么一共会有 4 * 5 = 20 个文件夹。而在 文件夹下，Kafka 消息是采用 Segment File 的存储方式进行存储的。 
 
-<font style="color:rgb(64, 64, 64);">Segment File 的大概意思是：将大文件拆分成小文件来存储，这样一个大文件就变成了一段一段（Segment 段）。这样的好处是 IO 加载速度快，不会有很长的 IO 加载时间。Kafka 的消息存储就采用了这种方式。</font>
+Segment File 的大概意思是：将大文件拆分成小文件来存储，这样一个大文件就变成了一段一段（Segment 段）。这样的好处是 IO 加载速度快，不会有很长的 IO 加载时间。Kafka 的消息存储就采用了这种方式。
 
 ![1690640952523-157ab09a-08b9-4fdd-911c-c6ba25898f78.png](./assets/1690640952523-157ab09a-08b9-4fdd-911c-c6ba25898f78.png)
 
-<font style="color:rgb(64, 64, 64);">如上图所示，在一个文件夹下的数据会根据 Kafka 的配置拆分成多个小文件。拆分规则可以根据文件大小拆分，也可以根据消息条数拆分，这个是 Kafka 的一个配置，这里不细说。</font>
+如上图所示，在一个文件夹下的数据会根据 Kafka 的配置拆分成多个小文件。拆分规则可以根据文件大小拆分，也可以根据消息条数拆分，这个是 Kafka 的一个配置，这里不细说。
 
-<font style="color:rgb(64, 64, 64);">在 Kafka 的数据文件夹下，分为两种类型的文件：索引文件（Index File）和数据文件（Data File）。索引文件存的是消息的索引信息，帮助快速定位到某条消息。数据文件存储的是具体的消息内容。</font>
+在 Kafka 的数据文件夹下，分为两种类型的文件：索引文件（Index File）和数据文件（Data File）。索引文件存的是消息的索引信息，帮助快速定位到某条消息。数据文件存储的是具体的消息内容。
 
-#### <font style="color:rgb(64, 64, 64);">索引文件</font>
-<font style="color:rgb(64, 64, 64);">索引文件的命名统一为数字格式，其名称表示 Kafka 消息的偏移量。我们假设索引文件的数字为 N，那么就代表该索引文件存储的第一条 Kafka 消息的偏移量为 N + 1，而上个文件存储的最后一条 Kafka 消息的偏移量为 N（因为 Kafka 是顺序存储的）。例如下图的 368769.index 索引文件，其表示文件存储的第一条 Kafka 消息的偏移量为 368770。而 368769 表示的是 0000.index 这个索引文件的最后一条消息。所以 368769.index 索引文件，其存储的 Kafka 消息偏移量范围为 368769-737337。</font>
+#### 索引文件
+索引文件的命名统一为数字格式，其名称表示 Kafka 消息的偏移量。我们假设索引文件的数字为 N，那么就代表该索引文件存储的第一条 Kafka 消息的偏移量为 N + 1，而上个文件存储的最后一条 Kafka 消息的偏移量为 N（因为 Kafka 是顺序存储的）。例如下图的 368769.index 索引文件，其表示文件存储的第一条 Kafka 消息的偏移量为 368770。而 368769 表示的是 0000.index 这个索引文件的最后一条消息。所以 368769.index 索引文件，其存储的 Kafka 消息偏移量范围为 368769-737337。
 
 ![1690641015311-7db1e045-e083-4853-922d-4aff101fb21f.png](./assets/1690641015311-7db1e045-e083-4853-922d-4aff101fb21f.png)
 
-<font style="color:rgb(64, 64, 64);">索引文件存储的是简单地索引数据，其格式为：「N,Position」。其中 N 表示索引文件里的第几条消息，而 Position 则表示该条消息在数据文件（Log File）中的物理偏移地址。例如下图中的「3,497」表示：索引文件里的第 3 条消息（即 offset 368772 的消息，368772 = 368769+3），其在数据文件中的物理偏移地址为 497。</font>
+索引文件存储的是简单地索引数据，其格式为：「N,Position」。其中 N 表示索引文件里的第几条消息，而 Position 则表示该条消息在数据文件（Log File）中的物理偏移地址。例如下图中的「3,497」表示：索引文件里的第 3 条消息（即 offset 368772 的消息，368772 = 368769+3），其在数据文件中的物理偏移地址为 497。
 
 ![1704632093829-458bd589-8dfa-414f-ac11-5af2a30c5945.png](./assets/1704632093829-458bd589-8dfa-414f-ac11-5af2a30c5945.png)
 
-<font style="color:rgb(64, 64, 64);">其他的以此类推，例如：「8,1686」表示 offset 为 368777 的 Kafka 消息，其在数据文件中的物理偏移地址为 1686。</font>
+其他的以此类推，例如：「8,1686」表示 offset 为 368777 的 Kafka 消息，其在数据文件中的物理偏移地址为 1686。
 
-#### <font style="color:rgb(64, 64, 64);">数据文件</font>
-<font style="color:rgb(64, 64, 64);">数据文件的命名格式与索引文件的命名格式完全一样，这里就不再赘述了。</font>
+#### 数据文件
+数据文件的命名格式与索引文件的命名格式完全一样，这里就不再赘述了。
 
-<font style="color:rgb(64, 64, 64);">通过上面索引文件的分析，我们已经可以根据 offset 快速定位到某个数据文件了。那接着我们怎么读取到这条消息的内容呢？要读取到这条消息的内容，我们需要搞清楚数据文件的存储格式。</font>
+通过上面索引文件的分析，我们已经可以根据 offset 快速定位到某个数据文件了。那接着我们怎么读取到这条消息的内容呢？要读取到这条消息的内容，我们需要搞清楚数据文件的存储格式。
 
-<font style="color:rgb(64, 64, 64);">数据文件就是所有消息的一个列表，而每条消息都有一个固定的格式，如下图所示。</font>
+数据文件就是所有消息的一个列表，而每条消息都有一个固定的格式，如下图所示。
 
 ![1690648401699-24913c41-1d9e-44e9-a4f0-793280a238ce.png](./assets/1690648401699-24913c41-1d9e-44e9-a4f0-793280a238ce.png)
 
-<font style="color:rgb(64, 64, 64);">从上图可以看到 Kafka 消息的物理结构，其包含了 Kafka 消息的 offset 信息、Kafka 消息的大小信息、版本号等等。有了这些信息之后，我们就可以正确地读取到 Kafka 消息的实际内容。</font>
+从上图可以看到 Kafka 消息的物理结构，其包含了 Kafka 消息的 offset 信息、Kafka 消息的大小信息、版本号等等。有了这些信息之后，我们就可以正确地读取到 Kafka 消息的实际内容。
 
-### <font style="color:rgb(37, 41, 51);">Kafka文件存储优势</font>
+### Kafka文件存储优势
 **Kafka运行时很少有大量读磁盘的操作，主要是定期批量写磁盘操作，因此操作磁盘很高效**。这跟Kafka文件存储中读写message的设计是息息相关的。Kafka中读写message有如下特点:
 
 #### 写message
@@ -155,30 +155,30 @@ Kafka是一个分布式流处理系统，流处理系统使它可以像消息队
 
 ![1704896649152-158f7830-bcef-43c3-a6f8-fc8ee5d2ac46.png](./assets/1704896649152-158f7830-bcef-43c3-a6f8-fc8ee5d2ac46.png)
 
-#### <font style="color:rgb(37, 41, 51);">ACKS 机制</font>
-<font style="color:rgb(55, 65, 81);">在 Kafka 中，消息的 ACK（Acknowledgment，确认）机制与生产者的 </font>**acks**<font style="color:rgb(55, 65, 81);"> 配置有关。</font>**acks**<font style="color:rgb(55, 65, 81);"> 配置表示生产者在接收到消息后等待副本同步确认的方式，具体取值有：</font>
+#### ACKS 机制
+在 Kafka 中，消息的 ACK（Acknowledgment，确认）机制与生产者的 **acks** 配置有关。**acks** 配置表示生产者在接收到消息后等待副本同步确认的方式，具体取值有：
 
 + **acks=0：**
-    - <font style="color:rgb(55, 65, 81);">意义：生产者在成功将消息发送给 Kafka 服务端后不等待任何确认。</font>
-    - <font style="color:rgb(55, 65, 81);">结果：生产者无法知道消息是否成功到达 Kafka 服务器，可能会导致消息的丢失。这种配置下，生产者不会收到任何 ACK。</font>
+    - 意义：生产者在成功将消息发送给 Kafka 服务端后不等待任何确认。
+    - 结果：生产者无法知道消息是否成功到达 Kafka 服务器，可能会导致消息的丢失。这种配置下，生产者不会收到任何 ACK。
 + **acks=1：**
-    - <font style="color:rgb(55, 65, 81);">意义：生产者在成功将消息发送给 Kafka 服务端后，等待该分区的首领节点（leader）确认。</font>
-    - <font style="color:rgb(55, 65, 81);">结果：生产者会收到分区首领节点的 ACK。这意味着只要分区首领节点成功接收到消息，生产者就会得到确认，而不需要等待其他副本。</font>
+    - 意义：生产者在成功将消息发送给 Kafka 服务端后，等待该分区的首领节点（leader）确认。
+    - 结果：生产者会收到分区首领节点的 ACK。这意味着只要分区首领节点成功接收到消息，生产者就会得到确认，而不需要等待其他副本。
 + **acks=all 或 acks=-1：**
-    - <font style="color:rgb(55, 65, 81);">意义：生产者在成功将消息发送给 Kafka 服务端后，等待所有分区副本确认。</font>
-    - <font style="color:rgb(55, 65, 81);">结果：生产者会等待分区的所有副本都成功接收到消息并确认。这是最安全的配置，因为只有当所有副本都确认接收到消息后，才认为消息被成功提交。</font>
+    - 意义：生产者在成功将消息发送给 Kafka 服务端后，等待所有分区副本确认。
+    - 结果：生产者会等待分区的所有副本都成功接收到消息并确认。这是最安全的配置，因为只有当所有副本都确认接收到消息后，才认为消息被成功提交。
 
 #### 生产者重试机制：
-<font style="color:rgb(55, 65, 81);">Kafka 生产者在发送消息后，如果设置了等待服务器的确认（通过 </font>**acks**<font style="color:rgb(55, 65, 81);"> 参数配置），会等待一定时间来收到来自服务器的确认（ack）。这个等待时间由 </font>**timeout.ms**<font style="color:rgb(55, 65, 81);"> 参数控制，默认是 </font>**10000**<font style="color:rgb(55, 65, 81);"> 毫秒（10秒）。</font>
+Kafka 生产者在发送消息后，如果设置了等待服务器的确认（通过 **acks** 参数配置），会等待一定时间来收到来自服务器的确认（ack）。这个等待时间由 **timeout.ms** 参数控制，默认是 **10000** 毫秒（10秒）。
 
-<font style="color:rgb(55, 65, 81);">如果在等待时间内没有收到服务器的确认，生产者可以选择重试发送或者处理发送失败的逻辑。这取决于生产者的配置。通常，生产者会根据配置的重试次数和重试间隔来进行重试，以确保消息最终被成功发送。</font>
+如果在等待时间内没有收到服务器的确认，生产者可以选择重试发送或者处理发送失败的逻辑。这取决于生产者的配置。通常，生产者会根据配置的重试次数和重试间隔来进行重试，以确保消息最终被成功发送。
 
-<font style="color:rgb(55, 65, 81);">在 Kafka 的生产者配置中，你可以找到以下与重试相关的配置项：</font>
+在 Kafka 的生产者配置中，你可以找到以下与重试相关的配置项：
 
-+ **retries**<font style="color:rgb(55, 65, 81);">: 定义了生产者在发送消息时的最大重试次数。</font>
-+ **retry.backoff.ms**<font style="color:rgb(55, 65, 81);">: 定义了两次重试之间的等待时间间隔。</font>
++ **retries**: 定义了生产者在发送消息时的最大重试次数。
++ **retry.backoff.ms**: 定义了两次重试之间的等待时间间隔。
 
-#### <font style="color:rgb(37, 41, 51);">ISR 机制：</font>
+#### ISR 机制：
 Kafka根据**副本同步**的情况，分成了3个**集合**：
 
 + AR（Assigned Replicas）：包括ISR和OSR
@@ -194,7 +194,7 @@ Leader维护了一个动态的in-sync replica set (ISR-同步副本列表)，意
     - ISR是由leader维护，follower从leader同步数据有一些延迟（包括延迟时间replica.lag.time.max.ms和延迟条数replica.lag.max.messages两个维度, 当前最新的版本0.10.x中只支持replica.lag.time.max.ms这个维度），任意一个超过阈值都会把follower剔除出ISR， 存入OSR(Outof-Sync Replicas)列表，新加入的follower也会先存放在OSR中。
     - AR=ISR+OSR。	
 
-### Kafka 副本<font style="color:rgb(37, 41, 51);">数据一致性</font>
+### Kafka 副本数据一致性
 #### 尽管采用 acks = all 但是也会出现 不一致的场景，例如：
 :::tips
 假设 leader 接受了 producer 传来的数据为 8 条，ISR 中三台 follower（broker0,broker1,broker2）开始同步数据，由于网络传输，另外两台 follower 同步数据的速率不同。当 broker1 同步了 4 条数据，broker2 已经同步了 6 条数据，此时，leader-broker0 突然挂掉，从 ISR 中选取了 broker1 作为主节点，此时 leader-broker1 同步了 4 条，broker2 同步 6，就会造成 leader 和 followe r之间数据不一致问题。

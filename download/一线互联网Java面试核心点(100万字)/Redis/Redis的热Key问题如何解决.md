@@ -32,7 +32,7 @@ public class LocalCacheManager {
 
 2. **请求分摊**
 
-<font style="color:rgba(0, 0, 0, 0.82);">把热Key拆分成多个子Key，这样可以将读请求分摊到多个Key上，从而降低单Key的压力。</font>
+把热Key拆分成多个子Key，这样可以将读请求分摊到多个Key上，从而降低单Key的压力。
 
 ```java
 import java.util.List;  

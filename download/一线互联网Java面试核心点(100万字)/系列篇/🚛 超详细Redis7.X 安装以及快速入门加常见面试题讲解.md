@@ -265,25 +265,25 @@ cat sentinel.conf
 ![1716447327154-09be9b8b-2ec4-4ce0-be23-a9fa6037525c.png](./assets/1716447327154-09be9b8b-2ec4-4ce0-be23-a9fa6037525c.png)![1716447327154-09be9b8b-2ec4-4ce0-be23-a9fa6037525c.png](./assets/1716447327154-09be9b8b-2ec4-4ce0-be23-a9fa6037525c.png)
 
 ### 哨兵使用建议
-+ <font style="color:rgba(0, 0, 0, 0.75);">哨兵节点的数量应为多个，哨兵本身应该集群，保证高可用</font>
-+ <font style="color:rgba(0, 0, 0, 0.75);">哨兵节点数应该是奇数</font>
-+ <font style="color:rgba(0, 0, 0, 0.75);">各个哨兵结点的配置应一致</font>
-+ <font style="color:rgba(0, 0, 0, 0.75);">如果哨兵节点部署在Docker等容器里面，尤其要注意端口号的正确映射</font>
++ 哨兵节点的数量应为多个，哨兵本身应该集群，保证高可用
++ 哨兵节点数应该是奇数
++ 各个哨兵结点的配置应一致
++ 如果哨兵节点部署在Docker等容器里面，尤其要注意端口号的正确映射
 
 ### 哨兵模式：并不能保证数据零丢失
-1. **<font style="color:rgb(6, 6, 7);">复制延迟</font>**<font style="color:rgb(6, 6, 7);">：</font>
-    - <font style="color:rgb(6, 6, 7);">在主从复制中，从节点的数据是异步复制自主节点的。这意味着在主节点故障时，从节点可能还没有完全同步最新的数据，从而导致数据丢失。</font>
-2. **<font style="color:rgb(6, 6, 7);">故障检测和转移时间</font>**<font style="color:rgb(6, 6, 7);">：</font>
-    - <font style="color:rgb(6, 6, 7);">Sentinel 检测到主节点故障并执行故障转移需要一定的时间。在这段时间内，主节点可能已经接收了一些写操作，但这些操作尚未被复制到从节点。</font>
-3. **<font style="color:rgb(6, 6, 7);">网络分区</font>**<font style="color:rgb(6, 6, 7);">：</font>
-    - <font style="color:rgb(6, 6, 7);">在发生网络分区（网络分裂）的情况下，一部分节点可能与主节点失去联系。如果此时主节点继续处理写操作，那么在网络恢复之前，这些操作可能不会被复制到从节点。</font>
-4. **<font style="color:rgb(6, 6, 7);">多个从节点同时故障</font>**<font style="color:rgb(6, 6, 7);">：</font>
-    - <font style="color:rgb(6, 6, 7);">如果所有的从节点同时故障或在故障转移之前与主节点失联，那么在主节点故障时，将没有可用的从节点来提升为主节点。</font>
+1. **复制延迟**：
+    - 在主从复制中，从节点的数据是异步复制自主节点的。这意味着在主节点故障时，从节点可能还没有完全同步最新的数据，从而导致数据丢失。
+2. **故障检测和转移时间**：
+    - Sentinel 检测到主节点故障并执行故障转移需要一定的时间。在这段时间内，主节点可能已经接收了一些写操作，但这些操作尚未被复制到从节点。
+3. **网络分区**：
+    - 在发生网络分区（网络分裂）的情况下，一部分节点可能与主节点失去联系。如果此时主节点继续处理写操作，那么在网络恢复之前，这些操作可能不会被复制到从节点。
+4. **多个从节点同时故障**：
+    - 如果所有的从节点同时故障或在故障转移之前与主节点失联，那么在主节点故障时，将没有可用的从节点来提升为主节点。
 
 ## 集群部署（Cluster）
-<font style="color:rgb(6, 6, 7);">Redis 集群是 Redis 的一种分布式运行模式，它通过分片（sharding）来提供数据的自动分区和管理，从而实现数据的高可用性和可扩展性。</font>
+Redis 集群是 Redis 的一种分布式运行模式，它通过分片（sharding）来提供数据的自动分区和管理，从而实现数据的高可用性和可扩展性。
 
-<font style="color:rgb(6, 6, 7);">在集群模式下，数据被分割成多个部分（称为槽或slots），分布在多个 Redis 节点上。</font>
+在集群模式下，数据被分割成多个部分（称为槽或slots），分布在多个 Redis 节点上。
 
 集群中的节点分为主节点和从节点：**主节点**负责读写请求和集群信息的维护；**从节点**只进行主节点数据和状态信息的复制。
 
@@ -297,14 +297,14 @@ cat sentinel.conf
 **高可用：**集群支持主从复制和主节点的自动故障转移（与哨兵类似）；当任一节点发生故障时，集群仍然可以对外提供服务。
 
 ### Redis集群的数据分片
-<font style="color:rgb(0, 0, 0);">Redis集群引入了哈希槽的概念 Redis集群有16384个哈希槽（编号0-16383） 集群的每个节点负责一部分哈希槽 每个Key通过CRC16校验后对16384取余来决定放置哪个哈希槽，</font>
+Redis集群引入了哈希槽的概念 Redis集群有16384个哈希槽（编号0-16383） 集群的每个节点负责一部分哈希槽 每个Key通过CRC16校验后对16384取余来决定放置哪个哈希槽，
 
-<font style="color:rgb(0, 0, 0);">通过这个值，去找到对应的插槽所对应的节点，然后直接自动跳转到这个对应的节点上进行存取操作</font>
+通过这个值，去找到对应的插槽所对应的节点，然后直接自动跳转到这个对应的节点上进行存取操作
 
-+ <font style="color:rgb(0, 0, 0);">以3个节点组成的集群为例： 节点A包含0到5460号哈希槽 节点B包含5461到10922号哈希槽 节点C包含10923到16383号哈希槽</font>
-+ <font style="color:rgb(0, 0, 0);">Redis集群的主从复制模型 集群中具有A、B、C三个节点，如果节点B失败了，整个集群就会因缺少5461-10922这个范围的槽而不可以用。</font>
++ 以3个节点组成的集群为例： 节点A包含0到5460号哈希槽 节点B包含5461到10922号哈希槽 节点C包含10923到16383号哈希槽
++ Redis集群的主从复制模型 集群中具有A、B、C三个节点，如果节点B失败了，整个集群就会因缺少5461-10922这个范围的槽而不可以用。
 
-<font style="color:rgb(0, 0, 0);">为每个节点添加一个从节点A1、B1、C1整个集群便有三个Master节点和三个slave节点组成，在节点B失败后，集群选举B1位为的主节点继续服务。当B和B1都失败后，集群将不可用</font>
+为每个节点添加一个从节点A1、B1、C1整个集群便有三个Master节点和三个slave节点组成，在节点B失败后，集群选举B1位为的主节点继续服务。当B和B1都失败后，集群将不可用
 
 ### Reids 集群部署
 ![1716449134672-13af7e7b-1f67-4a2f-8766-bb4d502a4b0c.png](./assets/1716449134672-13af7e7b-1f67-4a2f-8766-bb4d502a4b0c.png)
@@ -1219,9 +1219,9 @@ public class RedisUtil {
 # 数据结构与操作
 ## 基本数据结构
 ### 字符串（String）
-<font style="color:rgb(33, 37, 41);">String 是 Redis 中最简单同时也是最常用的一个数据结构。它是一种二进制安全的数据结构，可以用来存储任何类型的数据比如字符串、整数、浮点数、图片（图片的 base64 编码或者解码或者图片的路径）、序列化后的对象。</font>
+String 是 Redis 中最简单同时也是最常用的一个数据结构。它是一种二进制安全的数据结构，可以用来存储任何类型的数据比如字符串、整数、浮点数、图片（图片的 base64 编码或者解码或者图片的路径）、序列化后的对象。
 
-#### <font style="color:rgb(33, 37, 41);">应用场景：</font>
+#### 应用场景：
 ```shell
 需要存储常规数据的场景
   ● 举例 ：缓存 session、token、图片地址、序列化后的对象(相比较于 Hash 存储更节省内存)。
@@ -1286,7 +1286,7 @@ TTL key：查看剩余过期时间
 ### 列表（List）
 Redis列表是简单的字符串列表，按照插入顺序排序。可以添加一个元素到列表的头部（左边）或者尾部（右边）。
 
-#### <font style="color:rgb(33, 37, 41);">应用场景：</font>
+#### 应用场景：
 ```shell
 信息流展示
   ● 举例 ：最新文章、最新动态。
@@ -1297,7 +1297,7 @@ Redis列表是简单的字符串列表，按照插入顺序排序。可以添加
   ● 相关命令 ： RPUSH、LPOP。
 ```
 
-#### <font style="color:rgb(33, 37, 41);">基本操作：</font>
+#### 基本操作：
 ```shell
 RPUSH key value1 [ value2 ]：在列表中添加一个或者多个值
 LPOP key：移出并获取列表的第一个元素
@@ -1310,7 +1310,7 @@ LLEN key：获取列表长度
 LRANGE key start stop：获取列表指定范围内的元素
 ```
 
-#### <font style="color:rgb(33, 37, 41);">实现队列 （先进先出）：</font>
+#### 实现队列 （先进先出）：
 ```shell
 RPUSH key value1 [ value2 ]：在列表尾部添加一个或者多个值
 LPOP key：移出并获取列表的第一个元素
@@ -1344,9 +1344,9 @@ LPOP key：移除并获取列表最后一个元素
 ```
 
 ### 哈希（Hash）
-<font style="color:rgb(33, 37, 41);">Redis 中的 Hash 是一个 String 类型的 field-value（键值对） 的映射表，特别适合用于存储对象，我们也可以直接修改对象中的某些字段值。</font>
+Redis 中的 Hash 是一个 String 类型的 field-value（键值对） 的映射表，特别适合用于存储对象，我们也可以直接修改对象中的某些字段值。
 
-#### <font style="color:rgb(33, 37, 41);">应用场景：</font>
+#### 应用场景：
 ```shell
 对象数据存储场景
   ● 举例 ：用户信息、商品信息、文章信息。
@@ -1355,7 +1355,7 @@ LPOP key：移除并获取列表最后一个元素
   ● 相关命令 ：HSET （加购物车）、HINCR（加数量）、HLEN（获取所有商品数量）、HDEL（删除商品）、HGETALL（获取所有商品）。
 ```
 
-#### <font style="color:rgb(33, 37, 41);">基本操作：</font>
+#### 基本操作：
 ```shell
 HSET key field value：将哈希表key中的字段field的值设为value
 HMSET key field1 value1 [ field2 value2 ]：同时将多个field-value（域-值）对设置到哈希表key中
@@ -1440,16 +1440,16 @@ SDIFF key1 [ key2 ]：返回给定所有集合的差集
 ```
 
 ### 有序集合（Sorted Set）
-<font style="color:rgb(33, 37, 41);">Sorted Set 类似于 Set，但和 Set 相比，Sorted Set 增加了一个 double 类型的分数，使得集合中的元素能够按分数进行有序排列。</font>
+Sorted Set 类似于 Set，但和 Set 相比，Sorted Set 增加了一个 double 类型的分数，使得集合中的元素能够按分数进行有序排列。
 
-#### <font style="color:rgb(33, 37, 41);">应用场景：</font>
+#### 应用场景：
 ```shell
 需要随机获取数据源中的元素根据某个权重进行排序的场景
   ● 举例 ：各种排行榜比如直播间送礼物的排行榜、朋友圈的微信步数排行榜、王者荣耀中的段位排行榜、话题热度排行榜等等。
   ● 相关命令 ：ZINCR（每点击一次进行加一）、ZREVRANGE （从大到小排序）、ZUNIONSTORE（多日搜索汇总）。
 ```
 
-#### <font style="color:rgb(33, 37, 41);">基本操作：</font>
+#### 基本操作：
 ```shell
 ZADD key score menber1 [ score2 menber2 ]：向有序集合添加一个或者多个成员，或者更新已存在的成员分数
 ZCARD key：获取有序集合的元素个数
@@ -1459,22 +1459,22 @@ ZRANGE key start stop：通过索引区间返回有序集合成指定区间内�
 ZREVRANGE key start stop：通过索引区间返回有序集合成指定区间内的成员（score 从高到低）
 ```
 
-#### <font style="color:rgb(33, 37, 41);">获取指定元素排名：</font>
+#### 获取指定元素排名：
 ```shell
 ZRANK key menber：返回有序集合中指定成员的索引
 ```
 
-#### <font style="color:rgb(33, 37, 41);">交集：</font>
+#### 交集：
 ```shell
 ZINTERSTORE destination numkeys key [ key… ]：计算给定的一个或者多个有序集的交集并将结果集存储在新的有序集合key中
 ```
 
-#### <font style="color:rgb(33, 37, 41);">并集：</font>
+#### 并集：
 ```shell
 ZUNIONSTORE destination numkeys key [ key… ]：计算给定的一个或者多个有序集的并集并将结果集存储在新的有序集合key中
 ```
 
-#### <font style="color:rgb(33, 37, 41);">差集：</font>
+#### 差集：
 ```shell
 ZDIFF destination numkeys key [ key… ]：计算给定的一个或者多个有序集的差集并将结果集存储在新的有序集合key中
 ```
@@ -1500,16 +1500,16 @@ ZDIFF destination numkeys key [ key… ]：计算给定的一个或者多个有�
 
 ## 高级数据结构
 ### 位图（Bitmaps）
-<font style="color:rgb(33, 37, 41);">Bitmap 存储的是连续的二进制数字（0 和 1），通过 Bitmap, 只需要一个 bit 位来表示某个元素对应的值或者状态，key 就是对应元素本身 。我们知道 8 个 bit 可以组成一个 byte，所以 Bitmap 本身会极大的节省储存空间。</font>
+Bitmap 存储的是连续的二进制数字（0 和 1），通过 Bitmap, 只需要一个 bit 位来表示某个元素对应的值或者状态，key 就是对应元素本身 。我们知道 8 个 bit 可以组成一个 byte，所以 Bitmap 本身会极大的节省储存空间。
 
-#### <font style="color:rgb(33, 37, 41);">应用场景：</font>
+#### 应用场景：
 ```shell
 需要保存状态信息（0/1 即可表示）的场景
   ● 举例：用户签到情况、活跃用户情况、用户行为统计（比如是否点赞过某个视频）。
   ● 相关命令：SETBIT、GETBIT、BITCOUNT、BITOP。
 ```
 
-#### <font style="color:rgb(33, 37, 41);">基本操作：</font>
+#### 基本操作：
 ```shell
 setbit key offset val：给指定key的值的第offset赋值val 时间复杂度：O（1）
 getbit key offset：获取指定key的第offset位 时间复杂度：O（1）
@@ -1525,11 +1525,11 @@ BITPOS key bit start end：查找字符串中第一个设置为1或0的位的位
 ```
 
 ### 超日志（HyperLogLog）
-<font style="color:rgb(33, 37, 41);">HyperLogLog 是一种有名的基数计数概率算法 ，并不是 Redis 特有的，Redis 只是实现了这个算法并提供了一些开箱即用的 API。</font>
+HyperLogLog 是一种有名的基数计数概率算法 ，并不是 Redis 特有的，Redis 只是实现了这个算法并提供了一些开箱即用的 API。
 
-<font style="color:rgb(33, 37, 41);">Redis 提供的 HyperLogLog 占用空间非常非常小，只需要 12k 的空间就能存储接近</font>2^64<font style="color:rgb(33, 37, 41);">个不同元素。</font>
+Redis 提供的 HyperLogLog 占用空间非常非常小，只需要 12k 的空间就能存储接近2^64个不同元素。
 
-#### <font style="color:rgb(33, 37, 41);">应用场景：</font>
+#### 应用场景：
 ```shell
 数量量巨大（百万、千万级别以上）的计数场景
 ● 举例：热门网站每日/每周/每月访问 ip 数统计、热门帖子 uv 统计
@@ -1544,18 +1544,18 @@ PFMERGE destkey sourcekey [ sourcekey… ]：将多个 HyperLogLog 合并到 des
 ```
 
 ### 地理空间（Geospatial）
-<font style="color:rgb(33, 37, 41);">Geospatial index（地理空间索引，简称 GEO） 主要用于存储地理位置信息，基于 Sorted Set 实现。</font>
+Geospatial index（地理空间索引，简称 GEO） 主要用于存储地理位置信息，基于 Sorted Set 实现。
 
-<font style="color:rgb(33, 37, 41);">通过 GEO 我们可以轻松实现两个位置距离的计算、获取指定位置附近的元素等功能。</font>
+通过 GEO 我们可以轻松实现两个位置距离的计算、获取指定位置附近的元素等功能。
 
-#### <font style="color:rgb(33, 37, 41);">应用场景：</font>
+#### 应用场景：
 ```shell
 需要管理使用地理空间数据的场景
   ● 举例：附近的人。
   ● 相关命令: GEOADD、GEORADIUS、GEORADIUSBYMEMBER 。
 ```
 
-#### <font style="color:rgb(33, 37, 41);">基本操作：</font>
+#### 基本操作：
 ```shell
 GEOADD key longitude1 latitude1 member1 [longitude latitude member ...]：添加一个或多个元素对应的经纬度信息到 GEO 中
 GEOPOS key member [member ...]:返回给定元素的经纬度信息
@@ -1567,7 +1567,7 @@ GEODIST key member1 member2 [m|km|ft|mi]：计算两个位置之间的距离。
 GEORADIUS key longitude latitude radius m|km|ft|mi [WITHCOORD] [WITHDIST] [WITHHASH] [COUNT count] [ASC|DESC] [STORE key] [STOREDIST key]：根据用户给定的经纬度坐标来获取指定范围内的地理位置集合。
 ```
 
-#### <font style="color:rgb(33, 37, 41);">使用 Zset 命令的操作（GEO 底层为 Sorted Set）：</font>
+#### 使用 Zset 命令的操作（GEO 底层为 Sorted Set）：
 ```shell
 ZREM key menber [ member ]：移除有序集合中的一个或多个成员
 ZRANGE key start stop [ WITHSCORES ]：通过索引区间返回有序集合成指定区间内的成员
@@ -1583,15 +1583,15 @@ ZRANGE key start stop [ WITHSCORES ]：通过索引区间返回有序集合成�
 ```
 
 ### 发布/订阅（Pub/Sub）
-<font style="color:rgb(51, 51, 51);">Redis 发布/订阅是一种消息传模式，其中发布者发送消息，而订阅者接收消息，传递消息的通道称为</font>**<font style="color:rgb(51, 51, 51);">channel</font>**<font style="color:rgb(51, 51, 51);">。</font>
+Redis 发布/订阅是一种消息传模式，其中发布者发送消息，而订阅者接收消息，传递消息的通道称为**channel**。
 
-#### <font style="color:rgb(51, 51, 51);">应用场景：</font>
+#### 应用场景：
 ```shell
 简易的实时消息传递场景(无法持久化)：
   ● 通知系统：例如在社交媒体平台上，当有新评论或新点赞时，可以通过 Pub/Sub 通知相关用户。
 ```
 
-#### <font style="color:rgb(51, 51, 51);">基本操作：</font>
+#### 基本操作：
 ```shell
 SUBSCRIBE：订阅给定的一个或多个频道的信息。
 PUBLISH：将信息发送到指定的频道。
@@ -1607,9 +1607,9 @@ PUBLISH：将信息发送到指定的频道。
 ```
 
 ### 流（Streams）
-<font style="color:rgb(51, 51, 51);">Redis Stream 主要用于消息队列（MQ，Message Queue），Redis 本身是有一个 Redis 发布订阅 (pub/sub) 来实现消息队列的功能，但它有个缺点就是消息无法持久化，如果出现网络断开、Redis 宕机等，消息就会被丢弃，而 Redis Stream 提供了消息的持久化和主备复制功能，可以让任何客户端访问任何时刻的数据，并且能记住每一个客户端的访问位置，还能保证消息不丢失。</font>
+Redis Stream 主要用于消息队列（MQ，Message Queue），Redis 本身是有一个 Redis 发布订阅 (pub/sub) 来实现消息队列的功能，但它有个缺点就是消息无法持久化，如果出现网络断开、Redis 宕机等，消息就会被丢弃，而 Redis Stream 提供了消息的持久化和主备复制功能，可以让任何客户端访问任何时刻的数据，并且能记住每一个客户端的访问位置，还能保证消息不丢失。
 
-#### <font style="color:rgb(51, 51, 51);">基本操作：</font>
+#### 基本操作：
 ```shell
 XADD key ID field value [field value ...]：添加消息到末尾
 XTRIM key MAXLEN [~] count：对流进行修剪，限制长度
@@ -1618,7 +1618,7 @@ XLEN key：获取流包含的元素数量，即消息长度
 XRANGE key start end [COUNT count]：获取消息列表，会自动过滤已经删除的消息
 ```
 
-#### <font style="color:rgb(51, 51, 51);">应用场景：</font>
+#### 应用场景：
 ```shell
 消息队列
   ● Redis Streams 可以用作消息队列，支持发布/订阅模式和消费者组，确保消息能够可靠地传递给多个消费者。例如：
@@ -1664,7 +1664,7 @@ flushall :清空所有库
 ```
 
 # 常见面试题讲解
-## <font style="color:rgb(38, 38, 38);">Redis缓存击穿、缓存雪崩、缓存穿透</font>
+## Redis缓存击穿、缓存雪崩、缓存穿透
 缓存击穿、缓存雪崩和缓存穿透是我们在日常开发与手撕面试官过程中必须battle的常见问题，下面我会解释它们的含义与解决方案。
 
 ### 缓存击穿（Cache Miss） 

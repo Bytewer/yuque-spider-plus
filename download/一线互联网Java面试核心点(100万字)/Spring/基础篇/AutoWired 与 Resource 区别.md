@@ -2,7 +2,7 @@
 
 首先，先了解一下**AutoWired注解**。
 
-AutoWired是**Spring框架**提供的一个注解，它**默认**<font style="color:#DF2A3F;">根据类型来实现Bean的依赖注入</font>。
+AutoWired是**Spring框架**提供的一个注解，它**默认**根据类型来实现Bean的依赖注入。
 
 在这个注解中，有一个required属性，默认值为true，表示**必须实例化一个注入的Bean**。**如果找不到**对应类型的Bean，**会在应用启动时报错**。
 
@@ -20,7 +20,7 @@ AutoWired是**Spring框架**提供的一个注解，它**默认**<font style="co
 
 Resource是JDK提供的注解，Spring在实现上提供了对这种注解功能的支持，它的使用方式与AutoWired完全相同。
 
-最大的区别在于，Resource**默认**<font style="color:#DF2A3F;">先按照byName查找Bean</font>，然后<font style="color:#DF2A3F;">再按照byType查找Bean</font>，同时也支持指定由哪种方式查找Bean。
+最大的区别在于，Resource**默认**先按照byName查找Bean，然后再按照byType查找Bean，同时也支持指定由哪种方式查找Bean。
 
 当指定为byName时，Spring会根据Bean的名称进行依赖注入；
 

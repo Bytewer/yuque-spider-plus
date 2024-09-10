@@ -34,7 +34,7 @@ Gossip协议主要是通过反熵传播（anti-entropy）、谣言传播（rumor
 #### 反熵传播
 ![1686988506806-d6d65d69-8753-4535-a946-71b34e6a3d79.jpeg](./assets/1686988506806-d6d65d69-8753-4535-a946-71b34e6a3d79.jpeg)
 
-<font style="color:rgb(37, 41, 51);">每个节点都会定期随机选择节点池中的一些节点，通过交换数据内容来解决两者之间的任何差异。如上图T1、T2、T3表示不同时间点各节点通知周边节点数据交互的示例。</font>
+每个节点都会定期随机选择节点池中的一些节点，通过交换数据内容来解决两者之间的任何差异。如上图T1、T2、T3表示不同时间点各节点通知周边节点数据交互的示例。
 
 ![1686988654222-972eb152-9d0b-4403-90f1-cc56794f1d8e.jpeg](./assets/1686988654222-972eb152-9d0b-4403-90f1-cc56794f1d8e.jpeg)
 
@@ -43,7 +43,7 @@ Gossip协议主要是通过反熵传播（anti-entropy）、谣言传播（rumor
 
 | 机制 | 时间复杂度 | 网络流量 | 优点 | 缺点 |
 | --- | --- | --- | --- | --- |
-| <font style="color:rgb(37, 41, 51);">反熵（anti-entropy）</font> | <font style="color:rgb(37, 41, 51);">O(log2n)，n为节点数</font> | <font style="color:rgb(37, 41, 51);">O((m*n)t)，n为节点数，m为更新消息数，t为周期数</font> | <font style="color:rgb(37, 41, 51);">1.可靠    </font><font style="color:rgb(37, 41, 51);">2.定时重复   </font><font style="color:rgb(37, 41, 51);">3.可容错</font> | <font style="color:rgb(37, 41, 51);">1.消息冗余   </font><font style="color:rgb(37, 41, 51);">2.消息延迟 </font><br/><font style="color:rgb(37, 41, 51);">3.网络流量耗费较多</font> |
+| 反熵（anti-entropy） | O(log2n)，n为节点数 | O((m*n)t)，n为节点数，m为更新消息数，t为周期数 | 1.可靠    2.定时重复   3.可容错 | 1.消息冗余   2.消息延迟 <br/>3.网络流量耗费较多 |
 
 
 对于**反熵（anti-entropy）** 这种方式，和**直接邮寄（direct mail）****相比的最大特点就是****解决了消息丢失无法补偿容错导致的数据无法保持一致的致命问题**。它通过单点的定时随机通知周边节点进行数据交互的方式保持各节点之间数据的一致性。这里需要注意的是，一致性的保持是在节点数据变更后一段时间内通过节点间的数据交互逐渐完成的最终一致，并且由于每个节点都定期广播数据到周边随机的一部分节点，因此在数据交互上是存在冗余和延迟的。
@@ -82,52 +82,52 @@ Gossip协议主要是通过反熵传播（anti-entropy）、谣言传播（rumor
 
 | 机制 | 时间复杂度 | 网络流量 | 优点 | 缺点 |
 | --- | --- | --- | --- | --- |
-| <font style="color:rgb(37, 41, 51);">谣言传播（rumor mongering）</font> | <font style="color:rgb(37, 41, 51);">O(log2n)，n为总节点数</font> | <font style="color:rgb(37, 41, 51);">O((m*n)t)，n为节点数(递减)，m为更新消息数，t为周期数</font> | <font style="color:rgb(37, 41, 51);">1.可靠    </font><font style="color:rgb(37, 41, 51);">2.定时重复   </font><font style="color:rgb(37, 41, 51);">3.可容错</font> | <font style="color:rgb(37, 41, 51);">1.消息冗余   </font><font style="color:rgb(37, 41, 51);">2.消息延迟 </font><br/><font style="color:rgb(37, 41, 51);">3.网络流量耗费较多</font> |
+| 谣言传播（rumor mongering） | O(log2n)，n为总节点数 | O((m*n)t)，n为节点数(递减)，m为更新消息数，t为周期数 | 1.可靠    2.定时重复   3.可容错 | 1.消息冗余   2.消息延迟 <br/>3.网络流量耗费较多 |
 
 
 ### 通信模式
 #### 拉 PULL
 ![1686989985364-32295808-3b26-41e2-8c7e-fc93f0a24236.jpeg](./assets/1686989985364-32295808-3b26-41e2-8c7e-fc93f0a24236.jpeg)
 
-+ <font style="color:rgb(37, 41, 51);">① A仅将数据 key, version 推送给 B</font>
-+ <font style="color:rgb(37, 41, 51);">② B 将本地比 A 新的数据（Key, value, version）推送给 A</font>
-+ <font style="color:rgb(37, 41, 51);">③ 回传 B 数据给 A</font>
-+ <font style="color:rgb(37, 41, 51);">④ A 更新本地</font>
++ ① A仅将数据 key, version 推送给 B
++ ② B 将本地比 A 新的数据（Key, value, version）推送给 A
++ ③ 回传 B 数据给 A
++ ④ A 更新本地
 
-#### <font style="color:rgb(37, 41, 51);">推 PUSH</font>
+#### 推 PUSH
 ![1686990063749-2d3f0741-a18c-459a-815c-6c9517804574.jpeg](./assets/1686990063749-2d3f0741-a18c-459a-815c-6c9517804574.jpeg)
 
-+ <font style="color:rgb(37, 41, 51);">① 节点 A 将数据 (key,value,version) 及对应的版本号推送给 B 节点</font>
-+ <font style="color:rgb(37, 41, 51);">② B 节点更新 A 中比自己新的数据</font>
++ ① 节点 A 将数据 (key,value,version) 及对应的版本号推送给 B 节点
++ ② B 节点更新 A 中比自己新的数据
 
 #### 推拉(PUSH/PULL)
 ![1686990215795-e611febf-fbcb-4785-8975-4d77231b45b3.jpeg](./assets/1686990215795-e611febf-fbcb-4785-8975-4d77231b45b3.jpeg)
 
-+ <font style="color:rgb(37, 41, 51);">① A仅将数据 key, version 推送给 B</font>
-+ <font style="color:rgb(37, 41, 51);">② B 将本地比 A 新的数据（Key, value, version）推送给 A</font>
-+ <font style="color:rgb(37, 41, 51);">③ 回传 B 数据给 A</font>
-+ <font style="color:rgb(37, 41, 51);">④ A 更新本地</font>
-+ <font style="color:rgb(37, 41, 51);">⑤ 推送比 B 新的数据</font>
-+ <font style="color:rgb(37, 41, 51);">⑥ 更新 B</font>
++ ① A仅将数据 key, version 推送给 B
++ ② B 将本地比 A 新的数据（Key, value, version）推送给 A
++ ③ 回传 B 数据给 A
++ ④ A 更新本地
++ ⑤ 推送比 B 新的数据
++ ⑥ 更新 B
 
-#### <font style="color:rgb(37, 41, 51);">通信次数对比</font>
-| <font style="color:rgb(0, 0, 0);">模式</font> | <font style="color:rgb(0, 0, 0);">次数</font> |
+#### 通信次数对比
+| 模式 | 次数 |
 | --- | --- |
-| <font style="color:rgb(37, 41, 51);">推（push）</font> | 1 |
-| <font style="color:rgb(37, 41, 51);">拉（pull）</font> | 2 |
-| <font style="color:rgb(37, 41, 51);">推拉（push&pull）</font> | 3 |
+| 推（push） | 1 |
+| 拉（pull） | 2 |
+| 推拉（push&pull） | 3 |
 
 
 #### 复杂度分析
-<font style="color:rgb(37, 41, 51);">对于一个节点数为</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">n</font><font style="color:rgb(37, 41, 51);">的网络来说，假设每个周期</font><font style="color:rgb(255, 80, 44);background-color:rgb(255, 245, 245);">p</font><font style="color:rgb(37, 41, 51);">内，新感染的节点都能再感染至少一个新节点，那么感染节点数与周期规律如下</font>
+对于一个节点数为n的网络来说，假设每个周期p内，新感染的节点都能再感染至少一个新节点，那么感染节点数与周期规律如下
 
-| <font style="color:rgb(37, 41, 51);">周期</font> | <font style="color:rgb(37, 41, 51);">新感染数</font> | <font style="color:rgb(37, 41, 51);">总感染数</font> |
+| 周期 | 新感染数 | 总感染数 |
 | --- | --- | --- |
-| <font style="color:rgb(37, 41, 51);">p1</font> | <font style="color:rgb(37, 41, 51);">1</font> | <font style="color:rgb(37, 41, 51);">2</font> |
-| <font style="color:rgb(37, 41, 51);">p2</font> | <font style="color:rgb(37, 41, 51);">2</font> | <font style="color:rgb(37, 41, 51);">4</font> |
-| <font style="color:rgb(37, 41, 51);">p3</font> | <font style="color:rgb(37, 41, 51);">4</font> | <font style="color:rgb(37, 41, 51);">8</font> |
-| <font style="color:rgb(37, 41, 51);">p4</font> | <font style="color:rgb(37, 41, 51);">8</font> | <font style="color:rgb(37, 41, 51);">16</font> |
-| <font style="color:rgb(37, 41, 51);">pN</font> | <font style="color:rgb(37, 41, 51);">2n-1</font> | <font style="color:rgb(37, 41, 51);">2n</font> |
+| p1 | 1 | 2 |
+| p2 | 2 | 4 |
+| p3 | 4 | 8 |
+| p4 | 8 | 16 |
+| pN | 2n-1 | 2n |
 
 
 **时间复杂度**  
@@ -138,7 +138,7 @@ Gossip协议主要是通过反熵传播（anti-entropy）、谣言传播（rumor
 
 以上Gossip 理论上最优的收敛速度，但是在实际情况中，最优的收敛速度是很难达到的。
 
-#### <font style="color:rgb(37, 41, 51);">实现对比</font>
+#### 实现对比
 由于反熵传播中是以固定的概率传播冗余数据来实现节点间数据最终一致的，因此数据交互方式拉（pull）、推（push）、推拉（push&pull）三种实现对性能有所影响。  
   
 假设每个节点在每个周期被感染的概率都是固定的 $ p (0<p<1) $，每个个节点接收数据更新i周期仍再次接收冗余数据的概率为pi，这里将再次接收更新数据的无效冗余操作称之为复发，之后在i+1周期后复发的概率为pi+1；假设节点总数为n，那么
@@ -158,7 +158,7 @@ $ pi+1 = pi(1- 1 n \frac{1}{n} n1)n(1-pi) $
 📍 从算法实现上来看，无论是基于何种模式进行数据交互，**Gossip**都是基于**平方概率**计算进行最终一致性收敛的  
 📍 从运行效果上来看，**推拉模式（Push/Pull）** 最好，理论上一个周期内可以使两个节点完全一致，收敛速度也是最快的，消息通信损耗也是最多的。
 
-### <font style="color:rgb(37, 41, 51);">总结</font>
+### 总结
 Gossip是一个**去中心化**的分布式协议，数据通过节点像病毒一样逐个传播，整体传播速度非常快，很像现在全球蔓延的新冠病毒（2019-nCoV）。  
 Gossip的信息传播和扩散通常需要由**种子节点**发起。整个传播过程可能需要一定的时间，由于不能保证某个时刻所有节点都收到消息，但是理论上最终所有节点都会收到消息，因此它是**最终一致性协议**。  
 Gossip是一个**多主协议**，所有写操作可以由不同节点发起，并且同步给其他副本。Gossip内组成的网络节点都是**对等节点**，是非结构化网络。
